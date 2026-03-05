@@ -1,0 +1,2840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PK Props Catalog — Vessels</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+
+  /* ── PASSWORD GATE ── */
+  #pw-gate {
+    position: fixed;
+    inset: 0;
+    background: #1A1A18;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #pw-gate.hidden { display: none; }
+  .pw-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 320px;
+  }
+  .pw-logo {
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-size: 26px;
+    color: #fff;
+    letter-spacing: 0;
+    margin-bottom: 4px;
+  }
+  .pw-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #666;
+    font-family: 'DM Mono', monospace;
+  }
+  .pw-input-wrap {
+    width: 100%;
+    position: relative;
+  }
+  #pw-input {
+    width: 100%;
+    box-sizing: border-box;
+    background: #2A2A28;
+    border: 1.5px solid #3A3A38;
+    border-radius: 6px;
+    padding: 11px 44px 11px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.15s;
+    letter-spacing: 0.08em;
+  }
+  #pw-input::placeholder { color: #555; }
+  #pw-input:focus { border-color: #666; }
+  #pw-input.error { border-color: #D94040; animation: pw-shake 0.3s ease; }
+  #pw-submit {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+  }
+  #pw-submit:hover { color: #fff; }
+  .pw-error-msg {
+    font-size: 10px;
+    color: #D94040;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    min-height: 14px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+  }
+  @keyframes pw-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F2EE;
+    --chip-active: var(--ink);
+    --focus-color: var(--ink);
+    --hover-color: var(--ink);
+    --surface: #FFFFFF;
+    --ink: #1A1A18;
+    --ink-soft: #6B6860;
+    --ink-faint: #C4C0B8;
+    --accent: #D94040;
+    --accent-pale: #F9EAEA;
+    --tag-bg: #EFEFEB;
+    --tag-border: #DEDAD4;
+    --radius: 4px;
+    --card-radius: 8px;
+  }
+
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--ink);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-weight: 400;
+    font-size: 23px;
+    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+
+
+  .header-meta {
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── SEARCHBAR ── */
+  .searchbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--tag-border);
+    overflow: hidden;
+  }
+
+  .searchbar .search-wrap {
+    width: 100%;
+  }
+
+  .searchbar #search {
+    border-radius: 0;
+    border: none;
+    border-bottom: none;
+    width: 100%;
+    padding: 14px 15px 14px 37px;
+  }
+
+  /* ── LAYOUT ── */
+  .shell {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 64px);
+    align-items: start;
+  }
+
+  /* ── SIDEBAR COL ── */
+  .sidebar-col {
+    background: var(--surface);
+    border-right: 1px solid var(--tag-border);
+    position: sticky;
+    top: 64px;
+    height: calc(100vh - 64px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  aside {
+    flex: 1;
+    padding: 28px 20px;
+    overflow-y: auto;
+  }
+
+  .sidebar-section {
+    margin-bottom: 28px;
+  }
+
+  .sidebar-label {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+
+  /* Search */
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap svg {
+    position: absolute;
+    left: 10px; top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--ink-faint);
+  }
+
+  #search {
+    width: 100%;
+    padding: 9px 10px 9px 32px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    background: var(--bg);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  #search:focus { border-color: var(--ink); }
+  #search::placeholder { color: var(--ink-faint); }
+
+  /* Filter chips */
+  .chip-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1.5px solid var(--tag-border);
+    background: transparent;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .chip:hover { border-color: var(--hover-color); color: var(--hover-color); }
+  .chip-nodims {
+    background: #f5e4ae !important;
+    color: #8B6F00 !important;
+    border-color: #D4A800 !important;
+  }
+  .chip-nodims.active {
+    background: #D4A800 !important;
+    color: #fff !important;
+    border-color: #D4A800 !important;
+  }
+  .chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .color-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .color-swatch {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+  }
+
+  /* Size range */
+  .size-inputs {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 6px;
+  }
+
+  .size-input-wrap label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 4px;
+  }
+
+  .size-input-wrap input {
+    width: 52px;
+    padding: 6px 5px;
+    box-sizing: border-box;
+    height: 32px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: var(--bg);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  .size-input-wrap input:focus { border-color: var(--ink); }
+
+  .reset-btn {
+    width: 100%;
+    padding: 8px;
+    background: transparent;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    font-family: 'DM Mono', monospace;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.15s;
+    margin-top: 6px;
+  }
+
+  .reset-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+  /* ── MAIN ── */
+  main {
+    padding: 28px 32px;
+  }
+
+  .results-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .results-count {
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+
+  .results-count span {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .sort-select {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 6px 24px 6px 9px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E") no-repeat right 7px center;
+    background-size: 8px;
+    color: var(--ink);
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    height: 32px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  /* ── GRID ── */
+  #grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border-radius: var(--card-radius);
+    border: 1px solid var(--tag-border);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
+    animation: fadeIn 0.25s ease both;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:hover {
+    box-shadow: 0 6px 24px rgba(0,0,0,0.09);
+    transform: translateY(-2px);
+  }
+
+  .card-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: #F0EDE8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .btn-replace-photo {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: none;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    color: var(--ink-soft);
+  }
+  .card-img:hover .btn-replace-photo {
+    opacity: 1;
+  }
+
+  .card-img-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--ink-faint);
+  }
+
+  .card-img-placeholder svg { opacity: 0.4; }
+  .card-img-placeholder span {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .color-stripe {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+  }
+
+  .card-body {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+  .card-body.no-dims {
+    background: #fff8dc;
+  }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .card-title-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+  .btn-edit-name, .btn-edit-dims-inline {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1px 2px;
+    color: var(--ink-soft);
+    opacity: 0;
+    transition: opacity 0.15s;
+    line-height: 1;
+    margin-top: 1px;
+  }
+  .card-body:hover .btn-edit-name,
+  .card-body:hover .btn-edit-dims-inline {
+    opacity: 1;
+  }
+  .btn-edit-name:hover, .btn-edit-dims-inline:hover {
+    color: var(--ink);
+  }
+  /* Inline name edit - textarea that fills title area naturally */
+  .name-edit-input {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.3;
+    color: var(--ink);
+    border: none;
+    border-bottom: 1.5px solid var(--ink);
+    background: transparent;
+    outline: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    display: block;
+    resize: none;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  /* Inline dims edit */
+  .dims-edit-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .dims-fields-inline {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .dim-field-group {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  .dim-field-group label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    font-family: 'DM Mono', monospace;
+  }
+  .dim-input {
+    width: 36px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink);
+    border: none;
+    border-bottom: 1.5px solid var(--ink);
+    background: transparent;
+    outline: none;
+    padding: 0 1px;
+    text-align: center;
+  }
+  .dim-save-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: none;
+    background: var(--ink);
+    color: var(--surface);
+    cursor: pointer;
+  }
+  /* Inline dims edit row */
+  .dims-edit-wrap {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .btn-edit-dims-inline {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1px 2px;
+    color: var(--ink-soft);
+    opacity: 0;
+    transition: opacity 0.15s;
+    line-height: 1;
+  }
+  .card-body:hover .btn-edit-dims-inline {
+    opacity: 1;
+  }
+  .btn-edit-dims-inline:hover { color: var(--ink); }
+  .dims-inline-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+  }
+  .dims-inline-fields label {
+    font-size: 9px;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .dims-inline-fields input {
+    width: 44px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--ink);
+    border: none;
+    border-bottom: 1.5px solid var(--ink);
+    background: transparent;
+    outline: none;
+    padding: 0 2px;
+  }
+  .dims-save-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    background: var(--ink);
+    color: var(--surface);
+    border: none;
+    border-radius: 3px;
+    padding: 2px 7px;
+    cursor: pointer;
+    margin-left: 2px;
+  }
+
+  .size-badge {
+    font-size: 9px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .size-badge.small  { background: #E8F5E9; color: #2E7D32; }
+  .size-badge.medium { background: #FFF3E0; color: #E65100; }
+  .size-badge.large  { background: #E3F2FD; color: #1565C0; }
+  .size-badge.xlarge { background: #F3E5F5; color: #6A1B9A; }
+  .size-badge.nodims { background: #D4A800; color: #fff; }
+
+  .card-dims {
+    font-size: 10px;
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  .card-note {
+    display: block;
+    width: 100%;
+    font-size: 10px;
+    color: var(--ink-soft);
+    font-style: italic;
+    line-height: 1.4;
+    margin-top: -4px;
+  }
+  #add-notes::placeholder, #edit-notes::placeholder,
+  #add-name::placeholder, #edit-name::placeholder {
+    color: #c8c4bc;
+    font-style: italic;
+  }
+  @keyframes blink-fade {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.35; }
+  }
+  .describing #add-name,
+  .describing #edit-name {
+    animation: blink-fade 1.1s ease-in-out infinite;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .tag {
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .tag.color-tag {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .tag-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* ── EMPTY STATE ── */
+  #empty {
+    display: none;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--ink-soft);
+  }
+
+  #empty.show { display: block; }
+  #empty h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  #empty p { font-size: 13px; }
+
+  /* ── SCROLLBAR ── */
+  aside::-webkit-scrollbar { width: 4px; }
+  aside::-webkit-scrollbar-thumb { background: var(--ink-faint); border-radius: 2px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 720px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar-col { position: static; height: auto; flex-direction: column; }
+    aside { position: static; height: auto; }
+  }
+
+  .qty-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+  .qty-badge.qty-multi {
+    background: #fff;
+    color: var(--ink);
+  }
+
+  /* color dropdown */
+  .color-select-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .color-dot {
+    position: absolute;
+    left: 15px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.15);
+    flex-shrink: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: background 0.2s, opacity 0.2s;
+    z-index: 1;
+  }
+  #color-select {
+    width: 100%;
+    font-family: 'Syne', sans-serif;
+    font-size: 21px;
+    background: var(--bg);
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    padding: 9px 28px 9px 37px;
+    color: var(--ink);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: border-color 0.15s;
+  }
+  #color-select:focus {
+    outline: none;
+    border-color: var(--ink);
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+  }
+  .id-tag {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255,255,255,0.3);
+    color: var(--ink-soft);
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: opacity 0.15s;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .card:hover .id-tag {
+    opacity: 1;
+  }
+
+  /* ── EDIT MODAL ── */
+  .edit-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .edit-modal-overlay.open { display: flex; }
+  .edit-modal {
+    background: var(--surface);
+    border-radius: 10px;
+    padding: 22px 22px 18px;
+    width: 420px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    font-family: 'DM Mono', monospace;
+  }
+  .edit-modal-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .edit-modal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .edit-modal .edit-id {
+    font-size: 10px;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .edit-photo-area {
+    border: 2px dashed var(--tag-border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+    margin-bottom: 14px;
+  }
+  .edit-photo-area:hover { border-color: var(--ink); background: var(--bg); }
+  .edit-photo-area.has-photo { border-style: solid; border-color: var(--ink-faint); padding: 0; overflow: hidden; }
+  .edit-photo-area input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .edit-photo-preview {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: cover;
+    display: block;
+    border-radius: 6px;
+  }
+  .edit-photo-placeholder {
+    color: var(--ink-soft);
+    font-size: 11px;
+    pointer-events: none;
+  }
+  .edit-photo-placeholder svg { display: block; margin: 0 auto 6px; opacity: 0.4; }
+  .edit-modal-section {
+    margin-bottom: 12px;
+  }
+  .edit-modal-section label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .edit-modal-section input[type="text"],
+  .edit-modal-section input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 7px 9px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .edit-modal-section input:focus { border-color: var(--ink); }
+  .edit-dims-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .edit-dims-grid .edit-modal-section { margin-bottom: 0; }
+  .edit-modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  .edit-btn-cancel {
+    padding: 7px 16px;
+    border-radius: 6px;
+    border: 1.5px solid #ddd;
+    background: transparent;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    color: var(--ink-soft);
+  }
+  .edit-btn-save {
+    padding: 7px 16px;
+    border-radius: 6px;
+    border: none;
+    background: var(--ink);
+    color: var(--surface);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .edit-btn-cancel:hover { border-color: var(--ink); color: var(--ink); }
+  .edit-btn-save:hover { opacity: 0.85; }
+  .btn-edit-dims {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: none;
+    background: rgba(255,255,255,0.85);
+    color: #8B6F00;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s;
+    z-index: 2;
+  }
+  .btn-edit-dims:hover { background: #fff0c2; }
+
+  /* ── INFO TOOLTIP ── */
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1.5px solid var(--ink-soft);
+    color: var(--ink-soft);
+    font-size: 8px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 700;
+    cursor: default;
+    position: relative;
+    flex-shrink: 0;
+    margin-left: 5px;
+    vertical-align: middle;
+  }
+  .info-icon .tooltip {
+    display: none;
+  }
+  #floating-tooltip {
+    text-transform: uppercase;
+    position: fixed;
+    background: var(--ink);
+    color: var(--surface);
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 400;
+    line-height: 1.6;
+    padding: 8px 10px;
+    border-radius: 6px;
+    width: 190px;
+    z-index: 9999;
+    white-space: normal;
+    letter-spacing: 0.01em;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s, visibility 0.15s;
+  }
+  #floating-tooltip.visible { opacity: 1; visibility: visible; }
+
+  .dim-select {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 6px 24px 6px 9px;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--tag-border);
+    background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E") no-repeat right 7px center;
+    background-size: 8px;
+    color: var(--ink);
+    cursor: pointer;
+    box-sizing: border-box;
+    height: 32px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .dim-select:focus { outline: none; border-color: var(--ink); }
+
+  /* ── ADD VESSEL BUTTON ── */
+  .save-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    color: var(--ink);
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 7px 12px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .save-btn:hover {
+    border-color: var(--ink);
+  }
+
+  /* ── MODAL SHARED FIELD LAYOUTS ── */
+  .modal-dims-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 0;
+  }
+  .modal-dims-row .add-modal-section { margin-bottom: 0; }
+  .modal-qty-notes-row {
+    display: grid;
+    grid-template-columns: calc(25% - 7.5px) auto;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 14px;
+  }
+  .modal-qty-field,
+  .modal-notes-field { margin-bottom: 0 !important; }
+
+  /* Photo area — natural aspect ratio once image loaded */
+  .add-photo-area.has-photo,
+  .edit-photo-area.has-photo {
+    aspect-ratio: unset;
+    padding: 0;
+    border-style: solid;
+    border-color: var(--ink-faint);
+    overflow: hidden;
+  }
+  .add-photo-preview,
+  .edit-photo-preview {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: cover;
+    display: block;
+    border-radius: 6px;
+  }
+
+    .add-vessel-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 7px 12px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: opacity 0.15s;
+    white-space: nowrap;
+  }
+  .add-vessel-btn:hover { opacity: 0.82; }
+  .add-vessel-btn svg { flex-shrink: 0; }
+
+  /* ── ADD VESSEL MODAL ── */
+  .add-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .add-modal-overlay.open { display: flex; }
+  .add-modal {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 28px 28px 24px;
+    width: 480px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    font-family: 'DM Mono', monospace;
+  }
+  .add-modal h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .add-modal-section {
+    margin-bottom: 18px;
+  }
+  .add-modal-section label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  .add-modal-section input[type="text"],
+  .add-modal-section input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 8px 10px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .add-modal-section textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 8px 10px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+    resize: none;
+    overflow: hidden;
+    min-height: 36px;
+    line-height: 1.5;
+    display: block;
+  }
+  .add-modal-section textarea:focus { border-color: var(--ink); }
+  .add-modal-section select {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    padding: 8px 28px 8px 10px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E") no-repeat right 9px center;
+    background-size: 8px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  .add-modal-section input:focus,
+  .add-modal-section select:focus {
+    border-color: var(--ink);
+  }
+  .add-dims-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .add-dims-grid .add-modal-section { margin-bottom: 0; }
+  .add-photo-area {
+    border: 2px dashed var(--tag-border);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+  .add-photo-area:hover { border-color: var(--ink); background: var(--bg); }
+  .add-photo-area.has-photo { border-style: solid; border-color: var(--ink-faint); padding: 0; overflow: hidden; border-radius: 8px; }
+  .add-photo-area input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  /* add-photo-preview styling handled by shared rule above */
+  .add-photo-placeholder {
+    color: var(--ink-soft);
+    font-size: 11px;
+    pointer-events: none;
+  }
+  .add-photo-placeholder svg { display: block; margin: 0 auto 8px; opacity: 0.4; }
+  .add-modal-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 22px;
+    justify-content: flex-end;
+  }
+  .add-cancel-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 8px 16px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: none;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .add-cancel-btn:hover { border-color: var(--ink); color: var(--ink); }
+  .add-confirm-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--ink);
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .add-confirm-btn:hover { opacity: 0.82; }
+  .add-generated-id {
+    font-size: 10px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    min-height: 14px;
+  }
+  .add-generated-id span { color: var(--ink); font-weight: 600; }
+
+  /* Auto-describe loading state */
+  .add-modal-section.describing input {
+    border-color: var(--ink-faint);
+    color: transparent;
+  }
+  .add-modal-section.describing input::placeholder {
+    color: #c8c4bc;
+    font-style: italic;
+    animation: pulse-label 1.2s ease-in-out infinite;
+  }
+  .add-modal-section.describing label::after {
+    content: ' — generating…';
+    color: var(--ink-faint);
+    font-style: italic;
+    animation: pulse-label 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse-label {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  </style>
+</head>
+<body>
+
+<div id="pw-gate">
+  <div class="pw-box">
+    <div class="pw-logo">PhotoKitchen</div>
+    <div class="pw-label">Props Catalog — Team Access</div>
+    <div class="pw-input-wrap">
+      <input id="pw-input" type="password" placeholder="Enter password" autocomplete="off" />
+      <button id="pw-submit" type="button" aria-label="Unlock">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+    <div class="pw-error-msg" id="pw-error"></div>
+  </div>
+</div>
+
+<div id="floating-tooltip"></div>
+
+<header>
+  <div class="logo">PhotoKitchen
+  </div>
+  <span class="header-meta">Props Catalog 2.0 — Vessels</span>
+</header>
+
+<div class="shell">
+  <!-- SIDEBAR COL -->
+  <div class="sidebar-col">
+    <div class="searchbar">
+      <div class="search-wrap">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input id="search" type="text" placeholder="Search…">
+      </div>
+    </div>
+    <aside>
+
+        <div class="sidebar-section">
+      <div class="sidebar-label">Color</div>
+      <div class="color-select-wrap">
+        <span class="color-dot" id="color-dot"></span>
+        <select id="color-select">
+          <option value="">Select a Color</option>
+          <option value="Red">Red</option>
+          <option value="White">White</option>
+          <option value="Blue">Blue</option>
+          <option value="Green">Green</option>
+          <option value="Yellow/Orange">Yellow / Orange</option>
+          <option value="Pink/Purple">Pink / Purple</option>
+          <option value="Beige/Brown">Beige / Brown</option>
+          <option value="Gray">Gray</option>
+          <option value="Black">Black</option>
+          <option value="Silver">Silver</option>
+          <option value="Gold">Gold</option>
+          <option value="Wood">Wood</option>
+          <option value="Clear">Clear</option>
+        </select>
+      </div>
+    </div>
+
+
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Category</div>
+      <div class="chip-group" id="cat-filters">
+        <button class="chip active" data-cat="all">All</button>
+        <button class="chip" data-cat="Plates">Plates</button>
+        <button class="chip" data-cat="Serving Plates">Serving Plates</button>
+        <button class="chip" data-cat="Bowls">Bowls</button>
+        <button class="chip" data-cat="Ramekins">Ramekins</button>
+        <button class="chip" data-cat="Jars & Bottles">Jars & Bottles</button>
+        <button class="chip" data-cat="Cups & Glasses">Cups & Glasses</button>
+        <button class="chip" data-cat="Baskets & Trays">Baskets & Trays</button>
+        <button class="chip" data-cat="Boards & Stands">Boards & Stands</button>
+        <button class="chip" data-cat="Pots & Pans">Pots & Pans</button>
+        <button class="chip" data-cat="Pitchers & Vases">Pitchers & Vases</button>
+        <button class="chip" data-cat="Lunchbox">Lunchbox</button>
+        <button class="chip" data-cat="Others">Others</button>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label" style="display:flex;align-items:center;">
+        Size
+        <span class="info-icon">i
+          <span class="tooltip">Filter priority: Diameter &gt; Length &gt; Width. Height is not used.</span>
+        </span>
+      </div>
+      <div class="chip-group" id="size-filters">
+        <button class="chip active" data-size="all">All</button>
+        <button class="chip" data-size="small">Small (&lt;15cm)</button>
+        <button class="chip" data-size="medium">Medium (15–25cm)</button>
+        <button class="chip" data-size="large">Large (25–35cm)</button>
+        <button class="chip" data-size="xlarge">X-Large (&gt;35cm)</button>
+        <button class="chip chip-nodims" data-size="nodims">No Size</button>
+      </div>
+
+    </div>
+      <div class="sidebar-section">
+      <div class="sidebar-label" style="display:flex;align-items:center;">
+        Dimension range (cm)
+        <span class="info-icon">i
+          <span class="tooltip">Use the range filter below to target a specific dimension.</span>
+        </span>
+      </div>
+      <div class="size-inputs">
+        <div class="size-input-wrap" style="flex:none;">
+          <label>Field</label>
+          <select class="dim-select" id="dim-field">
+            <option value="diameter">Diameter</option>
+            <option value="length">Length</option>
+            <option value="width">Width</option>
+            <option value="height">Height</option>
+          </select>
+        </div>
+        <div class="size-input-wrap">
+          <label>Min</label>
+          <input type="number" id="min-size" placeholder="0" min="0" max="200">
+        </div>
+        <div class="size-input-wrap">
+          <label>Max</label>
+          <input type="number" id="max-size" placeholder="any" min="0" max="200">
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+        <div class="sidebar-label">Quantity</div>
+        <div class="chip-group" id="qty-filters">
+          <button class="chip active" data-qty="all">All</button>
+          <button class="chip" data-qty="1">× 1</button>
+          <button class="chip" data-qty="2">× 2</button>
+          <button class="chip" data-qty="3+">× 3+</button>
+        </div>
+      </div>
+
+    <button class="reset-btn" id="reset">↺ Reset all filters</button>
+    </aside>
+  </div><!-- /sidebar-col -->
+
+  <!-- MAIN -->
+  <main>
+    <div class="results-bar">
+      <div class="results-count" id="results-count"><span>—</span> vessels</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <select class="sort-select" id="sort">
+          <option value="default">Sort: Default</option>
+          <option value="size-asc">Size: Small → Large</option>
+          <option value="size-desc">Size: Large → Small</option>
+          <option value="cat">Category A–Z</option>
+        </select>
+        <button class="add-vessel-btn" id="add-vessel-btn">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Add
+        </button>
+        <button class="save-btn" id="save-btn" onclick="saveFile()" style="display:none">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Save
+        </button>
+      </div>
+    </div>
+
+    <div id="grid"></div>
+    <div id="empty">
+      <h3>No vessels found</h3>
+      <p>Try adjusting your filters or search terms.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+const _originalSource = document.documentElement.outerHTML;
+
+// ─────────────────────────────────────────────
+//  COLOR SWATCHES FOR TAGS
+// ─────────────────────────────────────────────
+const COLOR_SWATCHES = {
+  'Red': '#D94040', 'Green': '#4CAF50', 'Yellow/Orange': '#FFA726',
+  'Pink/Purple': '#CE93D8', 'Beige/Brown': '#BCAAA4', 'Blue': '#42A5F5',
+  'Gray': '#90A4AE', 'Black': '#212121', 'White': '#E0E0E0',
+  'Silver': '#B0BEC5', 'Gold': '#FFD54F', 'Wood': '#A1887F', 'Clear': '#E3F2FD'
+};
+
+// ─────────────────────────────────────────────
+//  SIZE CLASSIFICATION
+// ─────────────────────────────────────────────
+function getPrimaryDim(item) {
+  return item.diameter || item.length || item.width || 0;
+}
+
+function getSizeLabel(item) {
+  const d = getPrimaryDim(item);
+  if (d === 0) return 'nodims';
+  if (d < 15)  return 'small';
+  if (d < 25)  return 'medium';
+  if (d < 35)  return 'large';
+  return 'xlarge';
+}
+
+function getSizeLabelText(s) {
+  return { small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'X-Large', nodims: 'No Size' }[s] || s;
+}
+
+function formatDims(item) {
+  const parts = [];
+  if (item.diameter) parts.push(`D: ${item.diameter}cm`);
+  if (item.length)   parts.push(`L: ${item.length}cm`);
+  if (item.width)    parts.push(`W: ${item.width}cm`);
+  if (item.height)   parts.push(`H: ${item.height}cm`);
+  return parts.join('  ');
+}
+
+// ─────────────────────────────────────────────
+//  DATA LOADER
+// ─────────────────────────────────────────────
+const COLOR_FILE_MAP = {
+  'Red':          'data/red.js',
+  'White':        'data/white.js',
+  'Blue':         'data/blue.js',
+  'Green':        'data/green.js',
+  'Yellow/Orange':'data/yellow-orange.js',
+  'Pink/Purple':  'data/pink-purple.js',
+  'Beige/Brown':  'data/beige-brown.js',
+  'Gray':         'data/gray.js',
+  'Black':        'data/black.js',
+  'Silver':       'data/silver.js',
+  'Gold':         'data/gold.js',
+  'Wood':         'data/wood.js',
+  'Clear':        'data/clear.js'
+};
+
+// Globals that color data files will populate
+let PDF_PAGES = {};
+let VESSEL_PAGE = {};
+let IMAGES = {};
+let vessels = [];
+let _loadedColor = null;
+
+function loadColorData(color, callback) {
+  if (_loadedColor === color) {
+    callback();
+    return;
+  }
+  const file = COLOR_FILE_MAP[color];
+  if (!file) { callback(); return; }
+
+  // Remove any previously loaded color script
+  const existing = document.getElementById('color-data-script');
+  if (existing) existing.remove();
+
+  // Reset globals before loading new data
+  PDF_PAGES = {};
+  VESSEL_PAGE = {};
+  IMAGES = {};
+  vessels = [];
+
+  const script = document.createElement('script');
+  script.id = 'color-data-script';
+  script.src = file + '?v=' + Date.now(); // cache bust during development
+  script.onload = () => {
+    _loadedColor = color;
+    callback();
+  };
+  script.onerror = () => {
+    console.warn('Color data file not found:', file);
+    _loadedColor = color;
+    callback();
+  };
+  document.head.appendChild(script);
+}
+
+function getImage(vessel_id) {
+  if (IMAGES[vessel_id]) return IMAGES[vessel_id];
+  const page = VESSEL_PAGE[vessel_id];
+  if (page) return PDF_PAGES[page];
+  return null;
+}
+
+
+
+let state = {
+  search: '',
+  category: 'all',
+  color: '',
+  size: 'all',
+  minSize: null,
+  maxSize: null,
+  sort: 'default',
+  dimField: 'diameter'
+};
+
+// ─────────────────────────────────────────────
+//  FILTERING
+// ─────────────────────────────────────────────
+function matches(v) {
+  const dim = getPrimaryDim(v);
+  const sizeLabel = getSizeLabel(v);
+
+  if (state.category !== 'all' && v.category !== state.category) return false;
+  if (state.color && v.color !== state.color) return false;
+  if (state.size === 'nodims') {
+    if (getPrimaryDim(v) !== 0) return false;
+  } else if (state.size !== 'all' && sizeLabel !== state.size) return false;
+
+  // Dimension range filter (uses dim-field dropdown + min/max inputs)
+  if (state.minSize !== null || state.maxSize !== null) {
+    const val = state.dimField ? (v[state.dimField] ?? null) : getPrimaryDim(v) || null;
+    if (val === null) return false;
+    if (state.minSize !== null && val < state.minSize) return false;
+    if (state.maxSize !== null && val > state.maxSize) return false;
+  }
+  const vqty = v.qty || 1;
+  if (state.qty === '1'  && vqty !== 1)  return false;
+  if (state.qty === '2'  && vqty !== 2)  return false;
+  if (state.qty === '3+' && vqty < 3)    return false;
+
+  if (state.search) {
+    const q = state.search.toLowerCase();
+    const haystack = [v.name, v.category, v.color, sizeLabel,
+      getSizeLabelText(sizeLabel), formatDims(v)].join(' ').toLowerCase();
+    if (!haystack.includes(q)) return false;
+  }
+
+  return true;
+}
+
+function sorted(list) {
+  const copy = [...list];
+  if (state.sort === 'size-asc')  return copy.sort((a,b) => getPrimaryDim(a) - getPrimaryDim(b));
+  if (state.sort === 'size-desc') return copy.sort((a,b) => getPrimaryDim(b) - getPrimaryDim(a));
+  if (state.sort === 'cat')       return copy.sort((a,b) => a.category.localeCompare(b.category));
+  return copy;
+}
+
+// ─────────────────────────────────────────────
+//  RENDER
+// ─────────────────────────────────────────────
+function render() {
+  const grid   = document.getElementById('grid');
+  const empty  = document.getElementById('empty');
+  const count  = document.getElementById('results-count');
+
+  // No color selected — show prompt instead of cards
+  if (!state.color) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;">
+      <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:8px;">Select a color to browse the catalog</h3>
+    </div>`;
+    count.innerHTML = '<span>—</span>';
+    empty.classList.remove('show');
+    return;
+  }
+
+  const filtered = sorted(vessels.filter(matches));
+  count.innerHTML = `<span>${filtered.length}</span> vessel${filtered.length !== 1 ? 's' : ''}`;
+
+  if (!filtered.length) {
+    grid.innerHTML = '';
+    empty.classList.add('show');
+    return;
+  }
+  empty.classList.remove('show');
+
+  grid.innerHTML = filtered.map((v, i) => {
+    const sl    = getSizeLabel(v);
+    const dims  = formatDims(v);
+    const swatch = COLOR_SWATCHES[v.color] || '#ccc';
+    const imgPath = getImage(v.id) || null;
+
+    return `
+    <div class="card" data-id="${v.id}" style="animation-delay:${Math.min(i*0.03, 0.4)}s">
+      <div class="card-img">
+        ${imgPath ? `<img class="lazy-img" data-src="${imgPath}" alt="${v.name}" style="width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.2s">` : ""}
+        ${(v.qty||1) > 1 ? `<div class="qty-badge qty-multi">× ${v.qty||1}</div>` : ""}
+        <button class="btn-replace-photo" title="Replace photo" onclick="replacePhoto('${v.id}', event)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <div class="card-img-placeholder" style="display:${imgPath ? 'none' : 'flex'}">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <path d="m21 15-5-5L5 21"/>
+          </svg>
+          <span>${imgPath ? '' : 'Image coming'}</span>
+        </div>
+        <div class="color-stripe" style="background:${swatch}"></div>
+        <div class="id-tag">${v.id.toUpperCase()}</div>
+        
+      </div>
+      <div class="card-body${!dims ? ' no-dims' : ''}">
+        <div class="card-top">
+          <div class="card-title-wrap">
+            <div class="card-title" id="name-${v.id}">${v.name}</div>
+          </div>
+          <span class="size-badge ${sl}">${getSizeLabelText(sl)}</span>
+        </div>
+        ${v.notes ? `<div class="card-note" id="note-${v.id}">${v.notes}</div>` : ""}
+        ${dims
+          ? `<div class="dims-edit-wrap"><div class="card-dims" id="dims-${v.id}">${dims}</div></div>`
+          : `<div class="dims-edit-wrap">
+               <div class="card-dims" id="dims-${v.id}" style="color:#c09000;font-style:italic;font-size:10px">No dimensions</div>
+               
+             </div>`
+        }
+        <div class="card-footer">
+          <div class="card-tags">
+            <span class="tag color-tag" style="border-color:${swatch};color:${v.color==='White'?'#999':swatch};background:${v.color==='White'?'#fff':swatch+'1A'}">
+              <span class="tag-dot" style="background:${swatch}"></span>
+              ${v.color}
+            </span>
+            <span class="tag">${v.category}</span>
+            ${v.notes ? `<span class="tag">${v.notes}</span>` : ''}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Lazy load: observe each card image and swap data-src → src on entry
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const img = entry.target.querySelector('.lazy-img');
+        if (img && img.dataset.src) {
+          img.src = img.dataset.src;
+          img.onload = () => {
+            img.style.opacity = '1';
+            const ph = entry.target.querySelector('.card-img-placeholder');
+            if (ph) ph.style.display = 'none';
+          };
+          delete img.dataset.src;
+        }
+        obs.unobserve(entry.target);
+      });
+    }, { rootMargin: '200px' });
+
+    document.querySelectorAll('.card').forEach(card => observer.observe(card));
+  } else {
+    // Fallback: load all images immediately
+    document.querySelectorAll('.lazy-img').forEach(img => {
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+        img.style.opacity = '1';
+        const ph = img.closest('.card-img').querySelector('.card-img-placeholder');
+        if (ph) ph.style.display = 'none';
+      }
+    });
+  }
+}
+
+
+function bindChips(groupId, stateKey, dataAttr) {
+  document.getElementById(groupId).addEventListener('click', e => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    document.querySelectorAll(`#${groupId} .chip`).forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    state[stateKey] = chip.dataset[dataAttr];
+    render();
+  });
+}
+
+bindChips('cat-filters',   'category', 'cat');
+const COLOR_BORDER = {
+    'Red': '#D94040', 'Green': '#4CAF50', 'Yellow/Orange': '#FFA726',
+    'Pink/Purple': '#CE93D8', 'Beige/Brown': '#BCAAA4', 'Blue': '#42A5F5',
+    'Gray': '#90A4AE', 'Black': '#212121', 'White': '#AAAAAA',
+    'Silver': '#B0BEC5', 'Gold': '#FFD54F', 'Wood': '#A1887F', 'Clear': '#B0BEC5'
+  };
+  document.getElementById('color-select').addEventListener('change', e => {
+  const val = e.target.value;
+  state.color = val;
+
+  // Update color dot indicator
+  const dot = document.getElementById('color-dot');
+  const sel = document.getElementById('color-select');
+  if (val && COLOR_SWATCHES[val]) {
+    const sw = COLOR_SWATCHES[val];
+    const isWhite = val === 'White';
+    dot.style.background = sw;
+    dot.style.opacity = '1';
+    // Match card chip style: tinted bg, swatch border + text color
+    sel.style.backgroundColor = isWhite ? '#fff' : sw + '1A';
+    sel.style.borderColor = sw;
+    sel.style.color = isWhite ? '#999' : sw;
+    const arrowColor = encodeURIComponent(isWhite ? '#999' : sw);
+    sel.style.backgroundImage = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='${arrowColor}'/%3E%3C/svg%3E")`;
+  } else {
+    dot.style.background = 'transparent';
+    dot.style.opacity = '0';
+    sel.style.backgroundColor = '';
+    sel.style.borderColor = '';
+    sel.style.color = '';
+    sel.style.backgroundImage = '';
+  }
+
+  // Update CSS accent to match selected color
+  if (val && COLOR_SWATCHES[val]) {
+    document.documentElement.style.setProperty('--accent', COLOR_SWATCHES[val]);
+    document.documentElement.style.setProperty('--accent-pale', COLOR_SWATCHES[val] + '22');
+  } else {
+    document.documentElement.style.removeProperty('--accent');
+    document.documentElement.style.removeProperty('--accent-pale');
+  }
+
+  if (val) {
+    // Show loading state
+    document.getElementById('grid').innerHTML = '';
+    document.getElementById('results-count').innerHTML = '<span>Loading…</span>';
+    loadColorData(val, () => { render(); });
+  } else {
+    render();
+  }
+});
+
+bindChips('size-filters',  'size',     'size');
+bindChips('qty-filters',   'qty',      'qty');
+
+// ── Missing input event listeners ──
+document.getElementById('search').addEventListener('input', e => {
+  state.search = e.target.value.trim();
+  render();
+});
+
+document.getElementById('sort').addEventListener('change', e => {
+  state.sort = e.target.value;
+  render();
+});
+
+document.getElementById('dim-field').addEventListener('change', e => {
+  state.dimField = e.target.value;
+  render();
+});
+
+document.getElementById('min-size').addEventListener('input', e => {
+  const v = parseFloat(e.target.value);
+  state.minSize = isNaN(v) ? null : v;
+  render();
+});
+
+document.getElementById('max-size').addEventListener('input', e => {
+  const v = parseFloat(e.target.value);
+  state.maxSize = isNaN(v) ? null : v;
+  render();
+});
+
+document.getElementById('reset').addEventListener('click', () => {
+  state = { search:'', category:'all', color:'', size:'all', qty:'all', minSize:null, maxSize:null, sort:'default', dimField:'diameter' };
+  document.getElementById('search').value = '';
+  document.getElementById('min-size').value = '';
+  document.getElementById('max-size').value = '';
+  document.getElementById('sort').value = 'default';
+  document.getElementById('color-select').value = '';
+  const dot = document.getElementById('color-dot');
+  const sel = document.getElementById('color-select');
+  dot.style.background = 'transparent';
+  dot.style.opacity = '0';
+  sel.style.backgroundColor = '';
+  sel.style.borderColor = '';
+  sel.style.color = '';
+  sel.style.backgroundImage = '';
+  document.documentElement.style.removeProperty('--accent');
+  document.documentElement.style.removeProperty('--accent-pale');
+  document.querySelectorAll('.chip').forEach(c => {
+    c.classList.toggle('active', c.dataset.cat === 'all' || c.dataset.size === 'all' || c.dataset.qty === 'all');
+    c.style.background = '';
+    c.style.borderColor = '';
+    c.style.color = '';
+  });
+  render();
+});
+
+// ─────────────────────────────────────────────
+//  INIT
+// ─────────────────────────────────────────────
+
+
+
+render();
+</script>
+
+<!-- EDIT VESSEL MODAL -->
+<div class="edit-modal-overlay" id="edit-modal-overlay">
+  <div class="add-modal" style="position:relative;">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;">
+      <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--ink);">Edit Vessel</span>
+      <span class="edit-id" id="edit-modal-id" style="font-size:10px;color:var(--ink-soft);letter-spacing:0.08em;text-transform:uppercase;"></span>
+    </div>
+
+    <div class="add-modal-section">
+      <label>Photo</label>
+      <div class="edit-photo-area" id="edit-photo-area">
+        <input type="file" id="edit-photo-input" accept="image/*">
+        <div class="edit-photo-placeholder" id="edit-photo-placeholder">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 9l4-4 3 3 4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          Click or drag to replace photo
+        </div>
+        <img id="edit-photo-preview" class="edit-photo-preview" style="display:none">
+      </div>
+    </div>
+
+    <div class="add-modal-section" id="edit-name-section">
+      <label>Name / Visual Description</label>
+      <textarea id="edit-name" rows="1" placeholder="e.g. Round Ramekin, Glossy White, Straight Walls, Deep Well"></textarea>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;">
+      <div class="add-modal-section" style="margin-bottom:0">
+        <label>Color</label>
+        <select id="edit-color">
+          <option value="Red">Red</option>
+          <option value="Green">Green</option>
+          <option value="Yellow/Orange">Yellow / Orange</option>
+          <option value="Pink/Purple">Pink / Purple</option>
+          <option value="Beige/Brown">Beige / Brown</option>
+          <option value="Blue">Blue</option>
+          <option value="Gray">Gray</option>
+          <option value="Black">Black</option>
+          <option value="White">White</option>
+          <option value="Silver">Silver</option>
+          <option value="Gold">Gold</option>
+          <option value="Wood">Wood</option>
+          <option value="Clear">Clear</option>
+        </select>
+      </div>
+      <div class="add-modal-section" style="margin-bottom:0">
+        <label>Category</label>
+        <select id="edit-category">
+          <option value="Serving Plates">Serving Plates</option>
+          <option value="Plates">Plates</option>
+          <option value="Bowls">Bowls</option>
+          <option value="Ramekins">Ramekins</option>
+          <option value="Jars &amp; Bottles">Jars &amp; Bottles</option>
+          <option value="Cups &amp; Glasses">Cups &amp; Glasses</option>
+          <option value="Baskets &amp; Trays">Baskets &amp; Trays</option>
+          <option value="Boards &amp; Stands">Boards &amp; Stands</option>
+          <option value="Pots &amp; Pans">Pots &amp; Pans</option>
+          <option value="Pitchers &amp; Vases">Pitchers &amp; Vases</option>
+          <option value="Lunchbox">Lunchbox</option>
+          <option value="Others">Others</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="modal-dims-row">
+      <div class="add-modal-section">
+        <label>Diameter (cm)</label>
+        <input type="number" id="edit-diameter" placeholder="--" step="0.5">
+      </div>
+      <div class="add-modal-section">
+        <label>Length (cm)</label>
+        <input type="number" id="edit-length" placeholder="--" step="0.5">
+      </div>
+      <div class="add-modal-section">
+        <label>Width (cm)</label>
+        <input type="number" id="edit-width" placeholder="--" step="0.5">
+      </div>
+      <div class="add-modal-section">
+        <label>Height (cm)</label>
+        <input type="number" id="edit-height" placeholder="--" step="0.5">
+      </div>
+    </div>
+
+    <div class="modal-qty-notes-row">
+      <div class="add-modal-section modal-qty-field">
+        <label>Qty</label>
+        <input type="number" id="edit-qty" placeholder="1" step="1" min="1" value="1">
+      </div>
+      <div class="add-modal-section modal-notes-field">
+        <label>Notes</label>
+        <input type="text" id="edit-notes" placeholder="e.g. Fragile, handle with care">
+      </div>
+    </div>
+
+    <div class="add-modal-footer">
+      <button class="add-cancel-btn" onclick="closeEditModal()">Cancel</button>
+      <button class="add-confirm-btn" onclick="saveAndExport()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- ADD VESSEL MODAL -->
+  <div class="add-modal-overlay" id="add-modal-overlay">
+    <div class="add-modal">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;">
+        <h3 style="margin:0;padding:0;">Add New Vessel</h3>
+        <span id="add-generated-id" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-soft);letter-spacing:0.08em;text-transform:uppercase;"></span>
+      </div>
+
+      <div class="add-modal-section">
+        <label>Photo</label>
+        <div class="add-photo-area" id="add-photo-area">
+          <input type="file" id="add-photo-input" accept="image/*">
+          <div class="add-photo-placeholder" id="add-photo-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M3 9l4-4 3 3 4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            Click or drag to upload photo
+          </div>
+          <img id="add-photo-preview" class="add-photo-preview" style="display:none">
+        </div>
+      </div>
+
+      <div class="add-modal-section">
+        <label>Name / Visual Description</label>
+        <textarea id="add-name" rows="1" placeholder="e.g. Round Ramekin, Glossy White, Straight Walls, Deep Well"></textarea>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;">
+        <div class="add-modal-section" style="margin-bottom:0">
+          <label>Color</label>
+          <select id="add-color">
+            <option value="Red">Red</option>
+            <option value="Green">Green</option>
+            <option value="Yellow/Orange">Yellow / Orange</option>
+            <option value="Pink/Purple">Pink / Purple</option>
+            <option value="Beige/Brown">Beige / Brown</option>
+            <option value="Blue">Blue</option>
+            <option value="Gray">Gray</option>
+            <option value="Black">Black</option>
+            <option value="White" selected>White</option>
+            <option value="Silver">Silver</option>
+            <option value="Gold">Gold</option>
+            <option value="Wood">Wood</option>
+            <option value="Clear">Clear</option>
+          </select>
+        </div>
+        <div class="add-modal-section" style="margin-bottom:0">
+          <label>Category</label>
+          <select id="add-category">
+            <option value="Serving Plates">Serving Plates</option>
+            <option value="Plates">Plates</option>
+            <option value="Bowls">Bowls</option>
+            <option value="Ramekins" selected>Ramekins</option>
+            <option value="Jars & Bottles">Jars &amp; Bottles</option>
+            <option value="Cups & Glasses">Cups &amp; Glasses</option>
+            <option value="Baskets & Trays">Baskets &amp; Trays</option>
+            <option value="Boards & Stands">Boards &amp; Stands</option>
+            <option value="Pots & Pans">Pots &amp; Pans</option>
+            <option value="Pitchers & Vases">Pitchers &amp; Vases</option>
+            <option value="Lunchbox">Lunchbox</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="modal-dims-row" style="margin-top:14px;">
+        <div class="add-modal-section">
+          <label>Diameter (cm)</label>
+          <input type="number" id="add-diameter" placeholder="—" step="0.5" min="0">
+        </div>
+        <div class="add-modal-section">
+          <label>Length (cm)</label>
+          <input type="number" id="add-length" placeholder="—" step="0.5" min="0">
+        </div>
+        <div class="add-modal-section">
+          <label>Width (cm)</label>
+          <input type="number" id="add-width" placeholder="—" step="0.5" min="0">
+        </div>
+        <div class="add-modal-section">
+          <label>Height (cm)</label>
+          <input type="number" id="add-height" placeholder="—" step="0.5" min="0">
+        </div>
+      </div>
+
+      <div class="modal-qty-notes-row">
+        <div class="add-modal-section modal-qty-field">
+          <label>Qty</label>
+          <input type="number" id="add-qty" placeholder="1" step="1" min="1" value="1">
+        </div>
+        <div class="add-modal-section modal-notes-field">
+          <label>Notes</label>
+          <input type="text" id="add-notes" placeholder="e.g. Fragile, handle with care">
+        </div>
+      </div>
+
+      <div class="add-modal-footer">
+        <button class="add-cancel-btn" id="add-cancel-btn">Cancel</button>
+        <button class="add-confirm-btn" id="add-confirm-btn">Add to Catalog</button>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+// ─────────────────────────────────────────────
+//  EDIT DIMS MODAL
+// ─────────────────────────────────────────────
+let editTargetId = null;
+
+  // ── UNSAVED CHANGES TRACKING ──
+  let isDirty = false;
+  function markDirty() {
+    if (!isDirty) {
+      isDirty = true;
+      document.getElementById('save-btn').style.display = 'flex';
+    }
+  }
+
+  function saveFile() {
+    const now = new Date();
+    const yy = String(now.getFullYear()).slice(2);
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const filename = `${yy}${mm}${dd}-pk-vessels-catalog.html`;
+    const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }
+
+function replacePhoto(vesselId, event) {
+    event.stopPropagation();
+    openEditModal(vesselId);
+  }
+
+  function startNameEdit(vesselId, event) {
+    event.stopPropagation();
+    const v = vessels.find(x => x.id === vesselId);
+    if (!v) return;
+    const titleEl = document.getElementById('name-' + vesselId);
+    if (!titleEl || titleEl.querySelector('textarea')) return;
+
+    const currentName = v.name;
+
+    // Use a textarea so text wraps naturally like the div
+    const ta = document.createElement('textarea');
+    ta.className = 'name-edit-input';
+    ta.value = currentName;
+    ta.rows = 1;
+
+    titleEl.innerHTML = '';
+    titleEl.appendChild(ta);
+
+    // Auto-height to match content
+    function autoSize() {
+      ta.style.height = 'auto';
+      ta.style.height = ta.scrollHeight + 'px';
+    }
+    autoSize();
+    ta.addEventListener('input', autoSize);
+
+    ta.focus();
+    ta.selectionStart = ta.selectionEnd = ta.value.length;
+
+    function save() {
+      const newName = ta.value.trim() || currentName;
+      v.name = newName;
+      titleEl.textContent = newName;
+      markDirty();
+    }
+
+    ta.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); ta.blur(); }
+      if (e.key === 'Escape') { v.name = currentName; titleEl.textContent = currentName; }
+    });
+    ta.addEventListener('blur', save);
+  }
+
+  function startDimsEdit(vesselId, event) {
+    event.stopPropagation();
+    const v = vessels.find(x => x.id === vesselId);
+    if (!v) return;
+    const dimsEl = document.getElementById('dims-' + vesselId);
+    if (!dimsEl || dimsEl.querySelector('input')) return;
+
+    const fields = [
+      { key: 'diameter', label: 'D' },
+      { key: 'length',   label: 'L' },
+      { key: 'width',    label: 'W' },
+      { key: 'height',   label: 'H' },
+    ];
+
+    const wrap = document.createElement('div');
+    wrap.className = 'dims-fields-inline';
+
+    fields.forEach(f => {
+      const group = document.createElement('div');
+      group.className = 'dim-field-group';
+      const lbl = document.createElement('label');
+      lbl.textContent = f.label + ':';
+      const inp = document.createElement('input');
+      inp.type = 'text';
+      inp.className = 'dim-input';
+      inp.value = v[f.key] || '';
+      inp.placeholder = '—';
+      inp.dataset.key = f.key;
+      group.appendChild(lbl);
+      group.appendChild(inp);
+      wrap.appendChild(group);
+    });
+
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'dim-save-btn';
+    saveBtn.textContent = 'Save';
+
+    function saveDims() {
+      wrap.querySelectorAll('.dim-input').forEach(inp => {
+        const val = inp.value.trim();
+        if (val) { v[inp.dataset.key] = parseFloat(val) || val; }
+        else { delete v[inp.dataset.key]; }
+      });
+      const newDims = formatDims(v);
+      dimsEl.innerHTML = '';
+      if (newDims) {
+        dimsEl.textContent = newDims;
+        dimsEl.style.color = '';
+        dimsEl.style.fontStyle = '';
+      } else {
+        dimsEl.textContent = 'No dimensions';
+        dimsEl.style.color = '#c09000';
+        dimsEl.style.fontStyle = 'italic';
+      }
+      const sl = getSizeLabel(v);
+      const badge = dimsEl.closest('.card')?.querySelector('.size-badge');
+      if (badge) { badge.className = 'size-badge ' + sl; badge.textContent = getSizeLabelText(sl); }
+    }
+
+    saveBtn.addEventListener('click', e => { e.stopPropagation(); saveDims(); });
+    wrap.querySelectorAll('.dim-input').forEach(inp => {
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Enter') { e.preventDefault(); saveDims(); }
+        if (e.key === 'Escape') {
+          dimsEl.innerHTML = '';
+          const fd = formatDims(v);
+          if (fd) { dimsEl.textContent = fd; dimsEl.style.color = ''; dimsEl.style.fontStyle = ''; }
+          else { dimsEl.textContent = 'No dimensions'; dimsEl.style.color = '#c09000'; dimsEl.style.fontStyle = 'italic'; }
+        }
+      });
+    });
+
+    dimsEl.innerHTML = '';
+    dimsEl.appendChild(wrap);
+    dimsEl.appendChild(saveBtn);
+    wrap.querySelector('.dim-input').focus();
+  }
+
+  function openEditModal(vesselId) {
+  const v = vessels.find(x => x.id === vesselId);
+  if (!v) return;
+  editTargetId = vesselId;
+  editPendingImageB64 = null;
+
+  // Header
+  document.getElementById('edit-modal-id').textContent = v.id.toUpperCase();
+
+  // Pre-populate name
+  const nameInput = document.getElementById('edit-name');
+  nameInput.value = v.name;
+  nameInput.disabled = false;
+  nameInput.placeholder = 'e.g. Round Ramekin, Glossy White, Straight Walls, Deep Well';
+  setTimeout(() => autoGrow(nameInput), 0);
+
+  // Pre-populate dims
+  document.getElementById('edit-diameter').value = v.diameter != null ? v.diameter : '';
+  document.getElementById('edit-length').value   = v.length   != null ? v.length   : '';
+  document.getElementById('edit-width').value    = v.width    != null ? v.width    : '';
+  document.getElementById('edit-height').value   = v.height   != null ? v.height   : '';
+
+  // Reset photo area — show existing image if available
+  const preview = document.getElementById('edit-photo-preview');
+  const placeholder = document.getElementById('edit-photo-placeholder');
+  const area = document.getElementById('edit-photo-area');
+  const existingImg = IMAGES[vesselId];
+  if (existingImg) {
+    preview.src = existingImg;
+    preview.style.display = 'block';
+    placeholder.style.display = 'none';
+    area.classList.add('has-photo');
+  } else {
+    preview.src = '';
+    preview.style.display = 'none';
+    placeholder.style.display = 'block';
+    area.classList.remove('has-photo');
+  }
+
+  // Color & category
+  const colorSel = document.getElementById('edit-color');
+  const catSel = document.getElementById('edit-category');
+  if (colorSel) colorSel.value = v.color || 'White';
+  if (catSel) catSel.value = v.category || 'Ramekins';
+
+  // Qty & notes
+  document.getElementById('edit-qty').value = v.qty != null ? v.qty : 1;
+  document.getElementById('edit-notes').value = v.notes || '';
+
+  document.getElementById('edit-modal-overlay').classList.add('open');
+}
+
+function closeEditModal() {
+  editTargetId = null;
+  document.getElementById('edit-modal-overlay').classList.remove('open');
+}
+
+function saveAndExport() {
+  if (!editTargetId) return;
+  const v = vessels.find(x => x.id === editTargetId);
+  if (!v) return;
+
+  // Save name
+  const newName = document.getElementById('edit-name').value.trim();
+  if (newName) v.name = newName;
+
+  // Save color & category
+  const newColor = document.getElementById('edit-color') ? document.getElementById('edit-color').value : null;
+  const newCat = document.getElementById('edit-category') ? document.getElementById('edit-category').value : null;
+  if (newColor) v.color = newColor;
+  if (newCat) v.category = newCat;
+
+  // Save qty & notes
+  const newQty = parseInt(document.getElementById('edit-qty').value);
+  if (!isNaN(newQty) && newQty > 0) v.qty = newQty; else delete v.qty;
+  const newNotes = document.getElementById('edit-notes').value.trim();
+  if (newNotes) v.notes = newNotes; else delete v.notes;
+
+  // Save dims
+  const d = parseFloat(document.getElementById('edit-diameter').value);
+  const l = parseFloat(document.getElementById('edit-length').value);
+  const w = parseFloat(document.getElementById('edit-width').value);
+  const h = parseFloat(document.getElementById('edit-height').value);
+
+  if (!isNaN(d) && d > 0) v.diameter = d; else delete v.diameter;
+  if (!isNaN(l) && l > 0) v.length   = l; else delete v.length;
+  if (!isNaN(w) && w > 0) v.width    = w; else delete v.width;
+  if (!isNaN(h) && h > 0) v.height   = h; else delete v.height;
+
+  // Save new photo if one was dropped
+  if (editPendingImageB64) {
+    IMAGES[editTargetId] = editPendingImageB64;
+    const card = document.querySelector('[data-id="' + editTargetId + '"]');
+    if (card) {
+      let imgEl = card.querySelector('.lazy-img');
+      const placeholder = card.querySelector('.card-img-placeholder');
+      if (imgEl) {
+        imgEl.src = editPendingImageB64;
+        imgEl.style.opacity = '1';
+      } else {
+        imgEl = document.createElement('img');
+        imgEl.className = 'lazy-img';
+        imgEl.src = editPendingImageB64;
+        imgEl.alt = v.name;
+        imgEl.style.cssText = 'width:100%;height:100%;object-fit:cover;opacity:1;transition:opacity 0.2s';
+        card.querySelector('.card-img').prepend(imgEl);
+      }
+      if (placeholder) placeholder.style.display = 'none';
+    }
+  }
+
+  // Update card name in DOM
+  const titleEl = document.getElementById('name-' + editTargetId);
+  if (titleEl && newName) titleEl.textContent = newName;
+
+  // Update notes on card
+  const noteEl = document.getElementById('note-' + editTargetId);
+  if (newNotes) {
+    if (noteEl) {
+      noteEl.textContent = newNotes;
+      noteEl.style.display = '';
+    } else {
+      const nameDiv = document.getElementById('name-' + editTargetId);
+      if (nameDiv && nameDiv.parentNode) {
+        const n = document.createElement('div');
+        n.className = 'card-note';
+        n.id = 'note-' + editTargetId;
+        n.textContent = newNotes;
+        nameDiv.parentNode.insertBefore(n, nameDiv.nextSibling);
+      }
+    }
+  } else if (noteEl) {
+    noteEl.style.display = 'none';
+  }
+
+  // Update qty badge
+  const qtyBadge = document.querySelector('[data-id="' + editTargetId + '"] .qty-badge');
+  if (qtyBadge) {
+    if (v.qty && v.qty > 1) { qtyBadge.textContent = '\u00d7 ' + v.qty; qtyBadge.style.display = ''; }
+    else qtyBadge.style.display = 'none';
+  }
+
+  markDirty();
+
+  // Update dims display
+  const newDims = formatDims(v);
+  const dimsEl = document.getElementById('dims-' + editTargetId);
+  if (dimsEl) {
+    if (newDims) {
+      dimsEl.textContent = newDims;
+      dimsEl.style.color = '';
+      dimsEl.style.fontStyle = '';
+    } else {
+      dimsEl.textContent = 'No dimensions';
+      dimsEl.style.color = '#c09000';
+      dimsEl.style.fontStyle = 'italic';
+    }
+  }
+  // Update size badge
+  const sl = getSizeLabel(v);
+  const badge = document.querySelector('[data-id="' + editTargetId + '"] .size-badge');
+  if (badge) { badge.className = 'size-badge ' + sl; badge.textContent = getSizeLabelText(sl); }
+
+  closeEditModal();
+}
+
+function exportUpdatedFile() {
+  // Serialize vessels back into the HTML source
+  const vesselLines = vessels.map(v => {
+    const parts = [
+      `id:'${v.id}'`,
+      `color:'${v.color}'`,
+      `category:'${v.category}'`,
+      `name:'${v.name}'`
+    ];
+    if (v.diameter  != null) parts.push(`diameter:${v.diameter}`);
+    if (v.diameter1 != null) parts.push(`diameter1:${v.diameter1}`);
+    if (v.diameter2 != null) parts.push(`diameter2:${v.diameter2}`);
+    if (v.length    != null) parts.push(`length:${v.length}`);
+    if (v.width     != null) parts.push(`width:${v.width}`);
+    if (v.height    != null) parts.push(`height:${v.height}`);
+    if (v.qty != null && v.qty !== 1) parts.push(`qty:${v.qty}`);
+    if (v.notes != null) parts.push(`notes:'${v.notes}'`);
+    return '  { ' + parts.join(', ') + ' },';
+  }).join('\n');
+
+  // Get the raw HTML source from the actual script tag (not outerHTML)
+  const scripts = document.querySelectorAll('script');
+  let src = null;
+  for (const s of scripts) {
+    if (s.textContent.includes('const vessels = [')) { src = s.textContent; break; }
+  }
+  if (!src) { alert('Could not find vessels source. Please try again.'); return; }
+
+  const startToken = 'const vessels = [';
+  const endToken   = '\n// ── ADD MORE COLOR SECTIONS BELOW ──';
+  const si = src.indexOf(startToken) + startToken.length;
+  const ei = src.indexOf(endToken, si);
+  if (si < 0 || ei < 0) { alert('Source markers not found.'); return; }
+
+  const updatedScript = src.slice(0, si) + '\n' + vesselLines + '\n\n  ' + src.slice(ei);
+
+  // Rebuild full HTML by replacing the script content
+  const fullHTML = document.documentElement.outerHTML.replace(src, updatedScript);
+
+  const blob = new Blob([fullHTML], { type: 'text/html;charset=utf-8' });
+  const a    = document.createElement('a');
+  a.href     = URL.createObjectURL(blob);
+  a.download = 'pk-catalog.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// Close on overlay background click
+document.getElementById('edit-modal-overlay').addEventListener('click', function(e) {
+  if (e.target === this) closeEditModal();
+});
+
+// color filter: dropdown handles its own init
+
+// ── FLOATING TOOLTIP ─────────────────────────────────────────────
+const floatingTip = document.getElementById('floating-tooltip');
+document.querySelectorAll('.info-icon').forEach(icon => {
+  const text = icon.querySelector('.tooltip');
+  if (!text) return;
+  icon.addEventListener('mouseenter', e => {
+    floatingTip.textContent = text.textContent.trim();
+    const rect = icon.getBoundingClientRect();
+    floatingTip.style.left = (rect.right + 10) + 'px';
+    floatingTip.style.top = (rect.top + rect.height / 2) + 'px';
+    floatingTip.style.transform = 'translateY(-50%)';
+    floatingTip.classList.add('visible');
+  });
+  icon.addEventListener('mouseleave', () => {
+    floatingTip.classList.remove('visible');
+  });
+});
+
+// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────
+//  ADD NEW VESSEL
+// ─────────────────────────────────────────────
+// Auto-grow textarea height — global so openEditModal can call it
+function autoGrow(el) {
+  el.style.height = '0';
+  el.style.height = el.scrollHeight + 'px';
+}
+(function() {
+  const COLOR_PREFIX = {
+    'Red':'r','Green':'g','Yellow/Orange':'yo','Pink/Purple':'pp',
+    'Beige/Brown':'bb','Blue':'bl','Gray':'gr','Black':'bk',
+    'White':'w','Silver':'sl','Gold':'gd','Wood':'wd','Clear':'cl'
+  };
+  const CAT_PREFIX = {
+    'Serving Plates':'sp','Plates':'p','Bowls':'b','Ramekins':'r',
+    'Jars & Bottles':'jb',
+    'Cups & Glasses':'c','Baskets & Trays':'bt','Boards & Stands':'bs',
+    'Pots & Pans':'pp','Pitchers & Vases':'pv','Lunchbox':'lb','Others':'o'
+  };
+
+  let pendingImageB64 = null;
+  let editPendingImageB64 = null;
+
+  function getNextId(color, category) {
+    const cp = COLOR_PREFIX[color] || 'x';
+    const cat = CAT_PREFIX[category] || 'x';
+    const prefix = cp + '-' + cat + '-';
+    const existing = vessels
+      .filter(v => v.id.startsWith(prefix))
+      .map(v => parseInt(v.id.replace(prefix, ''), 10))
+      .filter(n => !isNaN(n));
+    const max = existing.length ? Math.max(...existing) : 0;
+    return prefix + (max + 1);
+  }
+
+  function updateIdPreview() {
+    const color = document.getElementById('add-color').value;
+    const cat = document.getElementById('add-category').value;
+    const id = getNextId(color, cat);
+    document.getElementById('add-generated-id').innerHTML =
+      'Auto ID: <span>' + id + '</span>';
+  }
+
+  document.getElementById('add-name').addEventListener('input', function() { autoGrow(this); });
+  document.getElementById('edit-name').addEventListener('input', function() { autoGrow(this); });
+
+  // Open modal — pre-select current active color
+  document.getElementById('add-vessel-btn').addEventListener('click', function() {
+    const activeColor = document.getElementById('color-select').value;
+    if (activeColor) {
+      document.getElementById('add-color').value = activeColor;
+      updateIdPreview();
+    }
+    document.getElementById('add-modal-overlay').classList.add('open');
+    updateIdPreview();
+  });
+
+  // Close modal
+  document.getElementById('add-cancel-btn').addEventListener('click', function() {
+    closeAddModal();
+  });
+  document.getElementById('add-modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeAddModal();
+  });
+
+  function closeAddModal() {
+    document.getElementById('add-modal-overlay').classList.remove('open');
+    resetForm();
+  }
+
+  function resetForm() {
+    document.getElementById('add-name').value = '';
+    document.getElementById('add-name').style.height = 'auto';
+    document.getElementById('add-diameter').value = '';
+    document.getElementById('add-length').value = '';
+    document.getElementById('add-width').value = '';
+    document.getElementById('add-height').value = '';
+    document.getElementById('add-qty').value = '1';
+    document.getElementById('add-notes').value = '';
+    document.getElementById('add-photo-input').value = '';
+    document.getElementById('add-photo-preview').style.display = 'none';
+    document.getElementById('add-photo-placeholder').style.display = '';
+    document.getElementById('add-photo-area').classList.remove('has-photo');
+    pendingImageB64 = null;
+    updateIdPreview();
+  }
+
+  // Update ID preview when color/category changes
+  document.getElementById('add-color').addEventListener('change', updateIdPreview);
+  document.getElementById('add-category').addEventListener('change', updateIdPreview);
+
+  // Photo upload, compress & auto-describe
+  document.getElementById('add-photo-input').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if (w > 800) { h = Math.round(h * 800 / w); w = 800; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        pendingImageB64 = canvas.toDataURL('image/jpeg', 0.9);
+        // Show preview
+        const preview = document.getElementById('add-photo-preview');
+        preview.src = pendingImageB64;
+        preview.style.display = 'block';
+        document.getElementById('add-photo-placeholder').style.display = 'none';
+        document.getElementById('add-photo-area').classList.add('has-photo');
+        // Auto-generate description
+        autoDescribe(pendingImageB64);
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Edit modal photo handler
+  document.getElementById('edit-photo-input').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement('canvas');
+        let w = img.width, h = img.height;
+        if (w > 800) { h = Math.round(h * 800 / w); w = 800; }
+        canvas.width = w; canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        editPendingImageB64 = canvas.toDataURL('image/jpeg', 0.9);
+        const preview = document.getElementById('edit-photo-preview');
+        preview.src = editPendingImageB64;
+        preview.style.display = 'block';
+        document.getElementById('edit-photo-placeholder').style.display = 'none';
+        document.getElementById('edit-photo-area').classList.add('has-photo');
+        autoDescribeEdit(editPendingImageB64);
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Auto-describe via Claude API
+  async function autoDescribe(b64DataUrl) {
+    const nameInput = document.getElementById('add-name');
+    const nameSection = nameInput.closest('.add-modal-section');
+
+    // Show loading state
+    nameInput.value = 'Generating description…';
+    nameInput.placeholder = '';
+    nameInput.style.fontStyle = 'italic';
+    nameInput.style.color = '#c8c4bc';
+    nameInput.disabled = true;
+    nameSection.classList.add('describing');
+
+    try {
+      const base64 = b64DataUrl.split(',')[1];
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'anthropic-dangerous-direct-browser-calls': 'true' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 120,
+          messages: [{
+            role: 'user',
+            content: [
+              {
+                type: 'image',
+                source: { type: 'base64', media_type: 'image/jpeg', data: base64 }
+              },
+              {
+                type: 'text',
+                text: 'This is a prop vessel for a photo production prop rental catalog. Write a short, searchable visual description in this exact format: "[Shape] [Vessel Type], [Finish] [Color], [Key Feature], [Secondary Feature]". Examples: "Round Ramekin, Glossy White, Straight Thick Walls, Deep Well" or "Oval Dish, Matte Cream, Fluted Scalloped Rim, Shallow". Be specific about shape, finish, and distinguishing features. Reply with only the description, nothing else.'
+              }
+            ]
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const description = data.content && data.content[0] && data.content[0].text
+        ? data.content[0].text.trim().replace(/^["']|["']$/g, '')
+        : '';
+
+      nameInput.value = description;
+      nameInput.placeholder = 'e.g. Round Ramekin, Glossy White, Straight Walls, Deep Well';
+      nameInput.style.fontStyle = '';
+      nameInput.style.color = '';
+      nameInput.disabled = false;
+      nameInput.focus();
+      // Select all so user can easily replace if needed
+      nameInput.select();
+    } catch (err) {
+      nameInput.placeholder = 'e.g. Round Ramekin, Glossy White, Straight Walls, Deep Well';
+      nameInput.style.fontStyle = '';
+      nameInput.style.color = '';
+      nameInput.disabled = false;
+    }
+    nameSection.classList.remove('describing');
+  }
+
+  async function autoDescribeEdit(b64DataUrl) {
+    const nameInput = document.getElementById('edit-name');
+    const nameSection = nameInput.closest('.add-modal-section') || nameInput.closest('.edit-modal-section');
+
+    // Show loading state
+    nameInput.value = '';
+    nameInput.placeholder = 'Generating description…';
+    nameInput.value = 'Generating description…';
+    nameInput.placeholder = '';
+    nameInput.style.fontStyle = 'italic';
+    nameInput.style.color = '#c8c4bc';
+
+    try {
+      const base64 = b64DataUrl.split(',')[1];
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'anthropic-dangerous-direct-browser-calls': 'true' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 120,
+          messages: [{
+            role: 'user',
+            content: [
+              {
+                type: 'image',
+                source: { type: 'base64', media_type: 'image/jpeg', data: base64 }
+              },
+              {
+                type: 'text',
+                text: 'This is a prop vessel for a photo production prop rental catalog. Write a short, searchable visual description in this exact format: "[Shape] [Vessel Type], [Finish] [Color], [Key Feature], [Secondary Feature]". Examples: "Round Ramekin, Glossy White, Straight Thick Walls, Deep Well" or "Oval Dish, Matte Cream, Fluted Scalloped Rim, Shallow". Be specific about shape, finish, and distinguishing features. Reply with only the description, nothing else.'
+              }
+            ]
+          }]
+        })
+      });
+
+      const data = await response.json();
+      const description = data.content && data.content[0] && data.content[0].text
+        ? data.content[0].text.trim().replace(/^["']|["']$/g, '')
+        : '';
+
+      nameInput.value = description;
+      nameInput.placeholder = 'e.g. Round Ramekin, Glossy White, Straight Walls, Deep Well';
+      nameInput.style.fontStyle = '';
+      nameInput.style.color = '';
+      nameInput.disabled = false;
+      nameInput.focus();
+      // Select all so user can easily replace if needed
+      nameInput.select();
+    } catch (err) {
+      nameInput.placeholder = 'e.g. Round Ramekin, Glossy White, Straight Walls, Deep Well';
+      nameInput.style.fontStyle = '';
+      nameInput.style.color = '';
+      nameInput.disabled = false;
+    }
+    nameSection.classList.remove('describing');
+  }
+
+  // Confirm add
+  document.getElementById('add-confirm-btn').addEventListener('click', function() {
+    const name = document.getElementById('add-name').value.trim();
+    if (!name) {
+      document.getElementById('add-name').focus();
+      document.getElementById('add-name').style.borderColor = '#D94040';
+      setTimeout(() => document.getElementById('add-name').style.borderColor = '', 1500);
+      return;
+    }
+
+    const color    = document.getElementById('add-color').value;
+    const category = document.getElementById('add-category').value;
+    const id       = getNextId(color, category);
+    const diameter = parseFloat(document.getElementById('add-diameter').value) || null;
+    const length   = parseFloat(document.getElementById('add-length').value)   || null;
+    const width    = parseFloat(document.getElementById('add-width').value)     || null;
+    const height   = parseFloat(document.getElementById('add-height').value)    || null;
+    const qty      = parseInt(document.getElementById('add-qty').value, 10) || 1;
+    const notes    = document.getElementById('add-notes').value.trim() || null;
+
+    // Build vessel object
+    const vessel = { id, color, category, name };
+    if (diameter) vessel.diameter = diameter;
+    if (length)   vessel.length   = length;
+    if (width)    vessel.width    = width;
+    if (height)   vessel.height   = height;
+    if (qty > 1)  vessel.qty      = qty;
+    if (notes)    vessel.notes    = notes;
+
+    // Add to vessels array
+    vessels.push(vessel);
+    markDirty();
+
+    // Add image if uploaded
+    if (pendingImageB64) {
+      IMAGES[id] = pendingImageB64;
+    }
+
+    // Re-render
+    render();
+    closeAddModal();
+
+    // Briefly highlight the new card
+    setTimeout(function() {
+      const card = document.querySelector('[data-id="' + id + '"]');
+      if (card) {
+        card.style.outline = '2px solid var(--ink)';
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => card.style.outline = '', 2000);
+      }
+    }, 100);
+  });
+})();
+
+
+  // ── PASSWORD GATE ──
+  (function() {
+    const CORRECT = 'pkprops2026';
+    const SESSION_KEY = 'pk_catalog_auth';
+
+    const gate = document.getElementById('pw-gate');
+    const input = document.getElementById('pw-input');
+    const submit = document.getElementById('pw-submit');
+    const errorMsg = document.getElementById('pw-error');
+
+    // Already authenticated this session?
+    if (sessionStorage.getItem(SESSION_KEY) === '1') {
+      gate.classList.add('hidden');
+    } else {
+      // Focus input on load
+      setTimeout(() => input.focus(), 100);
+    }
+
+    function attempt() {
+      if (input.value === CORRECT) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        gate.classList.add('hidden');
+      } else {
+        errorMsg.textContent = 'Incorrect password';
+        input.classList.add('error');
+        input.value = '';
+        setTimeout(() => {
+          input.classList.remove('error');
+          errorMsg.textContent = '';
+          input.focus();
+        }, 800);
+      }
+    }
+
+    submit.addEventListener('click', attempt);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+  })();
+
+</script>
+</body>
+</html>
