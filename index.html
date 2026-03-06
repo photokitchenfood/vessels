@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PK Props Catalog — Vessels</title>
+<title>[VESSELS] PhotoKitchen Props Catalog</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 
@@ -1810,7 +1811,7 @@ const COLOR_BORDER = {
     // Show loading state
     document.getElementById('grid').innerHTML = '';
     document.getElementById('results-count').innerHTML = '<span>Loading…</span>';
-    loadColorData(val, () => { render(); });
+    loadColorDataWithSnapshot(val, () => { render(); });
   } else {
     render();
   }
@@ -2091,13 +2092,35 @@ render();
 // ─────────────────────────────────────────────
 let editTargetId = null;
 
-  // ── UNSAVED CHANGES TRACKING ──
-  let isDirty = false;
+  // ── UNSAVED CHANGES TRACKING (per-color) ──
+  const dirtyColors = new Set();
+
   function markDirty() {
-    if (!isDirty) {
-      isDirty = true;
-      document.getElementById('save-btn').style.display = 'flex';
-    }
+    if (_loadedColor) dirtyColors.add(_loadedColor);
+    document.getElementById('save-btn').style.display = 'flex';
+  }
+
+  function serializeColorJs(color) {
+    // Rebuild the color JS file content from current globals
+    let out = '';
+    out += `// ${color} vessels data\n`;
+    out += `vessels = ${JSON.stringify(vessels, null, 2)};\n\n`;
+    out += `IMAGES = {\n`;
+    const imgEntries = Object.entries(IMAGES);
+    imgEntries.forEach(([k, v], i) => {
+      const comma = i < imgEntries.length - 1 ? ',' : '';
+      out += `  '${k}': '${v}'${comma}\n`;
+    });
+    out += `};\n\n`;
+    out += `PDF_PAGES = {\n`;
+    const pageEntries = Object.entries(PDF_PAGES);
+    pageEntries.forEach(([k, v], i) => {
+      const comma = i < pageEntries.length - 1 ? ',' : '';
+      out += `  '${k}': '${v}'${comma}\n`;
+    });
+    out += `};\n\n`;
+    out += `VESSEL_PAGE = ${JSON.stringify(VESSEL_PAGE, null, 2)};\n`;
+    return out;
   }
 
   function saveFile() {
@@ -2105,13 +2128,53 @@ let editTargetId = null;
     const yy = String(now.getFullYear()).slice(2);
     const mm = String(now.getMonth() + 1).padStart(2, '0');
     const dd = String(now.getDate()).padStart(2, '0');
-    const filename = `${yy}${mm}${dd}-pk-vessels-catalog.html`;
-    const blob = new Blob([document.documentElement.outerHTML], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(a.href);
+    const datePrefix = `${yy}${mm}${dd}`;
+
+    // Save each dirty color as its own JS file
+    // Current color's data is live in globals; for others we can only save if they were edited this session
+    // We track by saving a snapshot when markDirty is called
+    dirtyColors.forEach(color => {
+      const colorKey = COLOR_FILE_MAP[color]
+        .replace('data/', '')
+        .replace('.js', '');
+      const filename = `${datePrefix}-${colorKey}.js`;
+
+      // If this is the currently loaded color, serialize from live globals
+      // (For other dirty colors, we'd need snapshots — covered below)
+      if (color === _loadedColor) {
+        const content = serializeColorJs(color);
+        const blob = new Blob([content], { type: 'application/javascript' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      } else if (_colorSnapshots[color]) {
+        // Saved snapshot from when it was the active color
+        const snap = _colorSnapshots[color];
+        const blob = new Blob([snap], { type: 'application/javascript' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+    });
+
+    dirtyColors.clear();
+    document.getElementById('save-btn').style.display = 'none';
+  }
+
+  // Snapshots of dirty color data (captured before switching away)
+  const _colorSnapshots = {};
+
+  // Hook into loadColorData to snapshot dirty color before switching
+  const _origLoadColorData = loadColorData;
+  function loadColorDataWithSnapshot(color, callback) {
+    if (_loadedColor && dirtyColors.has(_loadedColor) && color !== _loadedColor) {
+      _colorSnapshots[_loadedColor] = serializeColorJs(_loadedColor);
+    }
+    _origLoadColorData(color, callback);
   }
 
 function replacePhoto(vesselId, event) {
