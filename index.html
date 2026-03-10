@@ -1098,67 +1098,66 @@
   .modal-dims-row .add-modal-section { margin-bottom: 0; }
   .modal-qty-notes-row {
     display: grid;
-    grid-template-columns: calc(25% - 7.5px) auto auto;
+    grid-template-columns: repeat(8, 1fr);
     gap: 10px;
     margin-top: 10px;
     margin-bottom: 14px;
     align-items: end;
   }
-  .modal-qty-notes-row .modal-notes-field {
-    grid-column: 3;
-  }
-  .modal-qty-field,
-  .modal-notes-field { margin-bottom: 0 !important; }
-  .modal-broken-field { margin-bottom: 0 !important; }
+  .modal-qty-field { grid-column: span 1; margin-bottom: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; }
+  .modal-broken-field { grid-column: span 1; margin-bottom: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; }
+  .modal-notes-field { grid-column: span 6; margin-bottom: 0 !important; display: flex; flex-direction: column; justify-content: flex-end; }
   .broken-check-wrap {
     display: flex;
-    align-items: center;
-    gap: 7px;
-    height: 32px;
-    padding: 0 2px;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
     cursor: pointer;
     user-select: none;
+    margin-bottom: 0 !important;
   }
-  .broken-check-wrap input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
-    border: 1.5px solid var(--tag-border);
-    border-radius: 3px;
-    background: var(--bg);
-    cursor: pointer;
-    flex-shrink: 0;
-    position: relative;
-    transition: background 0.15s, border-color 0.15s;
-  }
-  .broken-check-wrap input[type="checkbox"]:checked {
-    background: #1A1A18;
-    border-color: #1A1A18;
-  }
-  .broken-check-wrap input[type="checkbox"]:checked::after {
-    content: '';
-    position: absolute;
-    left: 3px;
-    top: 0px;
-    width: 5px;
-    height: 9px;
-    border: 2px solid #fff;
-    border-top: none;
-    border-left: none;
-    transform: rotate(45deg);
-  }
-  .broken-check-label {
+  .broken-field-label {
+    display: block;
     font-size: 10px;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink-soft);
+    margin-bottom: 6px;
     font-family: 'DM Mono', monospace;
-    line-height: 1;
+    pointer-events: none;
+  }
+  .broken-check-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 33px;
+    width: 100%;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .broken-check-wrap:hover .broken-check-box {
+    border-color: var(--ink-faint);
+  }
+  .broken-check-wrap:has(input:checked) .broken-check-box {
+    border-color: var(--ink);
+    background: var(--ink);
+  }
+  /* hover/checked handled by .broken-check-box rules above */
+  .broken-check-wrap input[type="checkbox"] {
+    display: none;
+  }
+  .broken-check-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: var(--ink-faint);
+    transition: color 0.15s;
   }
   .broken-check-wrap:has(input:checked) .broken-check-label {
-    color: var(--ink);
-    font-weight: 600;
+    color: #fff;
   }
   input[type="number"].qty-disabled {
     opacity: 0.35;
@@ -1250,6 +1249,7 @@
     box-sizing: border-box;
     font-family: 'DM Mono', monospace;
     font-size: 12px;
+    line-height: 14px;
     padding: 8px 10px;
     border: 1.5px solid var(--tag-border);
     border-radius: var(--radius);
@@ -1298,6 +1298,13 @@
   .add-modal-section select:focus {
     border-color: var(--ink);
   }
+  /* Remove number input spinners in modals */
+  .add-modal-section input[type="number"]::-webkit-inner-spin-button,
+  .add-modal-section input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .add-modal-section input[type="number"] { -moz-appearance: textfield; }
   .add-dims-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -2068,10 +2075,10 @@ render();
         <input type="number" id="edit-qty" placeholder="1" step="1" min="1" value="1">
       </div>
       <div class="add-modal-section modal-broken-field">
-        <label>&nbsp;</label>
         <label class="broken-check-wrap">
           <input type="checkbox" id="edit-broken">
-          <span class="broken-check-label">Broken</span>
+          <span class="broken-field-label">Broken</span>
+          <div class="broken-check-box"><span class="broken-check-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></span></div>
         </label>
       </div>
       <div class="add-modal-section modal-notes-field">
@@ -2177,10 +2184,10 @@ render();
           <input type="number" id="add-qty" placeholder="1" step="1" min="1" value="1">
         </div>
         <div class="add-modal-section modal-broken-field">
-          <label>&nbsp;</label>
           <label class="broken-check-wrap">
+            <span class="broken-field-label">Broken</span>
             <input type="checkbox" id="add-broken">
-            <span class="broken-check-label">Broken</span>
+            <div class="broken-check-box"><span class="broken-check-label"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg></span></div>
           </label>
         </div>
         <div class="add-modal-section modal-notes-field">
@@ -2468,7 +2475,6 @@ function replacePhoto(vesselId, event) {
   editQtyInput.classList.toggle('qty-disabled', !!v.broken);
   editBrokenCb.onchange = function() {
     editQtyInput.classList.toggle('qty-disabled', this.checked);
-    if (this.checked) { editQtyInput.value = 1; }
   };
 
   document.getElementById('edit-modal-overlay').classList.add('open');
@@ -2724,7 +2730,6 @@ function autoGrow(el) {
     const addQtyInput = document.getElementById('add-qty');
     addBrokenCb.onchange = function() {
       addQtyInput.classList.toggle('qty-disabled', this.checked);
-      if (this.checked) addQtyInput.value = 1;
     };
   });
 
