@@ -748,8 +748,8 @@
     position: absolute;
     top: 8px;
     left: 8px;
-    background: #fff;
-    color: var(--ink);
+    background: #1A1A18;
+    color: #fff;
     font-size: 10px;
     font-family: 'DM Mono', monospace;
     font-weight: 500;
@@ -759,8 +759,8 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   }
   .qty-badge.qty-multi {
-    background: #fff;
-    color: var(--ink);
+    background: #1A1A18;
+    color: #fff;
   }
 
   /* color dropdown */
@@ -1676,7 +1676,7 @@ function render() {
     <div class="card" data-id="${v.id}" style="animation-delay:${Math.min(i*0.03, 0.4)}s">
       <div class="card-img">
         ${imgPath ? `<img class="lazy-img" data-src="${imgPath}" alt="${v.name}" style="width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.2s">` : ""}
-        ${(v.qty||1) > 1 ? `<div class="qty-badge qty-multi">× ${v.qty||1}</div>` : ""}
+        ${(v.qty||1) > 1 ? `<div class="qty-badge qty-multi">X ${v.qty||1}</div>` : ""}
         <button class="btn-replace-photo" title="Replace photo" onclick="replacePhoto('${v.id}', event)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
         <div class="card-img-placeholder" style="display:${imgPath ? 'none' : 'flex'}">
           <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
