@@ -1098,13 +1098,72 @@
   .modal-dims-row .add-modal-section { margin-bottom: 0; }
   .modal-qty-notes-row {
     display: grid;
-    grid-template-columns: calc(25% - 7.5px) auto;
+    grid-template-columns: calc(25% - 7.5px) auto auto;
     gap: 10px;
     margin-top: 10px;
     margin-bottom: 14px;
+    align-items: end;
+  }
+  .modal-qty-notes-row .modal-notes-field {
+    grid-column: 3;
   }
   .modal-qty-field,
   .modal-notes-field { margin-bottom: 0 !important; }
+  .modal-broken-field { margin-bottom: 0 !important; }
+  .broken-check-wrap {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 32px;
+    padding: 0 2px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .broken-check-wrap input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: 3px;
+    background: var(--bg);
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .broken-check-wrap input[type="checkbox"]:checked {
+    background: #1A1A18;
+    border-color: #1A1A18;
+  }
+  .broken-check-wrap input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 0px;
+    width: 5px;
+    height: 9px;
+    border: 2px solid #fff;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+  .broken-check-label {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-family: 'DM Mono', monospace;
+    line-height: 1;
+  }
+  .broken-check-wrap:has(input:checked) .broken-check-label {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  input[type="number"].qty-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+  }
 
   /* Photo area — natural aspect ratio once image loaded */
   .add-photo-area.has-photo,
@@ -2008,6 +2067,13 @@ render();
         <label>Qty</label>
         <input type="number" id="edit-qty" placeholder="1" step="1" min="1" value="1">
       </div>
+      <div class="add-modal-section modal-broken-field">
+        <label>&nbsp;</label>
+        <label class="broken-check-wrap">
+          <input type="checkbox" id="edit-broken">
+          <span class="broken-check-label">Broken</span>
+        </label>
+      </div>
       <div class="add-modal-section modal-notes-field">
         <label>Notes</label>
         <input type="text" id="edit-notes" placeholder="e.g. Fragile, handle with care">
@@ -2109,6 +2175,13 @@ render();
         <div class="add-modal-section modal-qty-field">
           <label>Qty</label>
           <input type="number" id="add-qty" placeholder="1" step="1" min="1" value="1">
+        </div>
+        <div class="add-modal-section modal-broken-field">
+          <label>&nbsp;</label>
+          <label class="broken-check-wrap">
+            <input type="checkbox" id="add-broken">
+            <span class="broken-check-label">Broken</span>
+          </label>
         </div>
         <div class="add-modal-section modal-notes-field">
           <label>Notes</label>
@@ -2389,6 +2462,14 @@ function replacePhoto(vesselId, event) {
   // Qty & notes
   document.getElementById('edit-qty').value = v.qty != null ? v.qty : 1;
   document.getElementById('edit-notes').value = v.notes || '';
+  const editBrokenCb = document.getElementById('edit-broken');
+  editBrokenCb.checked = !!v.broken;
+  const editQtyInput = document.getElementById('edit-qty');
+  editQtyInput.classList.toggle('qty-disabled', !!v.broken);
+  editBrokenCb.onchange = function() {
+    editQtyInput.classList.toggle('qty-disabled', this.checked);
+    if (this.checked) { editQtyInput.value = 1; }
+  };
 
   document.getElementById('edit-modal-overlay').classList.add('open');
 }
@@ -2416,6 +2497,8 @@ function saveAndExport() {
   // Save qty & notes
   const newQty = parseInt(document.getElementById('edit-qty').value);
   if (!isNaN(newQty) && newQty > 0) v.qty = newQty; else delete v.qty;
+  const newBroken = document.getElementById('edit-broken').checked;
+  if (newBroken) { v.broken = true; delete v.qty; } else { delete v.broken; }
   const newNotes = document.getElementById('edit-notes').value.trim();
   if (newNotes) v.notes = newNotes; else delete v.notes;
 
@@ -2636,6 +2719,13 @@ function autoGrow(el) {
     }
     document.getElementById('add-modal-overlay').classList.add('open');
     updateIdPreview();
+    // Wire broken toggle for add modal
+    const addBrokenCb = document.getElementById('add-broken');
+    const addQtyInput = document.getElementById('add-qty');
+    addBrokenCb.onchange = function() {
+      addQtyInput.classList.toggle('qty-disabled', this.checked);
+      if (this.checked) addQtyInput.value = 1;
+    };
   });
 
   // Close modal
@@ -2659,6 +2749,8 @@ function autoGrow(el) {
     document.getElementById('add-width').value = '';
     document.getElementById('add-height').value = '';
     document.getElementById('add-qty').value = '1';
+    document.getElementById('add-qty').classList.remove('qty-disabled');
+    document.getElementById('add-broken').checked = false;
     document.getElementById('add-notes').value = '';
     document.getElementById('add-photo-input').value = '';
     document.getElementById('add-photo-preview').style.display = 'none';
@@ -2862,6 +2954,7 @@ function autoGrow(el) {
     const height   = parseFloat(document.getElementById('add-height').value)    || null;
     const qty      = parseInt(document.getElementById('add-qty').value, 10) || 1;
     const notes    = document.getElementById('add-notes').value.trim() || null;
+    const broken   = document.getElementById('add-broken').checked;
 
     // Build vessel object
     const vessel = { id, color, category, name };
@@ -2869,7 +2962,8 @@ function autoGrow(el) {
     if (length)   vessel.length   = length;
     if (width)    vessel.width    = width;
     if (height)   vessel.height   = height;
-    if (qty > 1)  vessel.qty      = qty;
+    if (!broken && qty > 1) vessel.qty = qty;
+    if (broken)   vessel.broken   = true;
     if (notes)    vessel.notes    = notes;
 
     // Add to vessels array
