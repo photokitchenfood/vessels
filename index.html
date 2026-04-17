@@ -664,6 +664,45 @@
     line-height: 1.5;
   }
 
+  .btn-copy-dims {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1px 3px;
+    color: var(--ink-faint);
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  .card-body:hover .btn-copy-dims {
+    opacity: 1;
+  }
+  .btn-copy-dims:hover { color: var(--ink-soft); }
+  .btn-copy-dims.copied { color: #2E7D32; opacity: 1; }
+  .copy-confirm {
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: #fff;
+    font-size: 9px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .btn-copy-dims.copied .copy-confirm { opacity: 1; }
+
   .card-note {
     display: block;
     width: 100%;
@@ -1699,7 +1738,7 @@ function render() {
         </div>
         ${v.notes ? `<div class="card-note" id="note-${v.id}">${v.notes}</div>` : ""}
         ${dims
-          ? `<div class="dims-edit-wrap"><div class="card-dims" id="dims-${v.id}">${dims}</div></div>`
+          ? `<div class="dims-edit-wrap"><div class="card-dims" id="dims-${v.id}">${dims}</div><button class="btn-copy-dims" title="Copy dimensions" onclick="copyDims('${v.id}', this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-confirm">Copied!</span></button></div>`
           : `<div class="dims-edit-wrap">
                <div class="card-dims" id="dims-${v.id}" style="color:#c09000;font-style:italic;font-size:10px">No dimensions</div>
                
@@ -2180,6 +2219,22 @@ let editTargetId = null;
 function replacePhoto(vesselId, event) {
     event.stopPropagation();
     openEditModal(vesselId);
+  }
+
+  function copyDims(vesselId, btn) {
+    const v = vessels.find(x => x.id === vesselId);
+    if (!v) return;
+    const parts = [];
+    if (v.diameter) parts.push(`D: ${v.diameter}cm`);
+    if (v.length)   parts.push(`L: ${v.length}cm`);
+    if (v.width)    parts.push(`W: ${v.width}cm`);
+    if (v.height)   parts.push(`H: ${v.height}cm`);
+    const text = parts.join('  ');
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 1500);
+    });
   }
 
   function startNameEdit(vesselId, event) {
