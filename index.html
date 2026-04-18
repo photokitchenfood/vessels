@@ -271,14 +271,14 @@
     border-color: #D4A800 !important;
   }
   .chip-broken {
-    background: #fde8e8 !important;
-    color: #9B2222 !important;
-    border-color: #D94040 !important;
+    background: #EFEFEB !important;
+    color: var(--ink) !important;
+    border-color: var(--ink) !important;
   }
   .chip-broken.active {
-    background: #D94040 !important;
+    background: var(--ink) !important;
     color: #fff !important;
-    border-color: #D94040 !important;
+    border-color: var(--ink) !important;
   }
   .broken-badge {
     position: absolute;
@@ -286,17 +286,13 @@
     left: 8px;
     background: #1A1A18;
     color: #fff;
-    font-size: 11px;
+    font-size: 10px;
     font-family: 'DM Mono', monospace;
-    font-weight: 700;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    letter-spacing: 0;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    font-weight: 500;
+    padding: 2px 6px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   }
   .chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
 
@@ -1744,7 +1740,7 @@ function render() {
   }
   if (state.size && state.size !== 'all') {
     const sizeText = { small: 'Small (<15cm)', medium: 'Medium (15–25cm)', large: 'Large (25–35cm)', xlarge: 'X-Large (>35cm)', nodims: 'No Size' }[state.size] || state.size;
-    breadcrumb += ` <span style="font-size:12px;font-weight:400;color:var(--ink-soft);"> / ${sizeText}</span>`;
+    breadcrumb += ` <span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:400;color:#A8A49C;"> / ${sizeText}</span>`;
   }
   colorHeaderText.innerHTML = breadcrumb;
 
@@ -1768,7 +1764,7 @@ function render() {
     <div class="card" data-id="${v.id}" style="animation-delay:${Math.min(i*0.03, 0.4)}s">
       <div class="card-img">
         ${imgPath ? `<img class="lazy-img" data-src="${imgPath}" alt="${v.name}" style="width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.2s">` : ""}
-        ${v.broken ? `<div class="broken-badge">✕</div>` : (v.qty||1) > 1 ? `<div class="qty-badge qty-multi">× ${v.qty||1}</div>` : ""}
+        ${v.broken ? `<div class="broken-badge">X Broken</div>` : (v.qty||1) > 1 ? `<div class="qty-badge qty-multi">× ${v.qty||1}</div>` : ""}
         <button class="btn-replace-photo" title="Replace photo" onclick="replacePhoto('${v.id}', event)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
         <div class="card-img-placeholder" style="display:${imgPath ? 'none' : 'flex'}">
           <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -1802,7 +1798,6 @@ function render() {
               ${v.color}
             </span>
             <span class="tag">${v.category}</span>
-            ${v.broken ? `<span class="tag" style="background:#fde8e8;border-color:#D94040;color:#9B2222;">Broken</span>` : ''}
             ${v.notes ? `<span class="tag">${v.notes}</span>` : ''}
           </div>
         </div>
@@ -2061,10 +2056,16 @@ render();
       </div>
     </div>
 
-    <div class="modal-qty-notes-row">
+    <div class="modal-qty-notes-row" style="grid-template-columns:calc(25% - 7.5px) auto 1fr;">
       <div class="add-modal-section modal-qty-field">
         <label>Qty</label>
         <input type="number" id="edit-qty" placeholder="1" step="1" min="1" value="1">
+      </div>
+      <div class="add-modal-section" style="margin-bottom:0;display:flex;flex-direction:column;justify-content:flex-end;">
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:11px;color:var(--ink);text-transform:none;letter-spacing:0;padding-bottom:6px;">
+          <input type="checkbox" id="edit-broken" style="width:13px;height:13px;cursor:pointer;accent-color:var(--ink);">
+          Broken
+        </label>
       </div>
       <div class="add-modal-section modal-notes-field">
         <label>Notes</label>
@@ -2072,12 +2073,9 @@ render();
       </div>
     </div>
 
-    <div class="add-modal-footer" style="justify-content:space-between;">
-      <button id="edit-broken-btn" onclick="toggleBroken()" style="font-family:'DM Mono',monospace;font-size:11px;padding:7px 14px;border-radius:6px;border:1.5px solid #D94040;background:transparent;color:#D94040;cursor:pointer;transition:all 0.15s;">Mark as Broken</button>
-      <div style="display:flex;gap:8px;">
-        <button class="add-cancel-btn" onclick="closeEditModal()">Cancel</button>
-        <button class="add-confirm-btn" onclick="saveAndExport()">Save Changes</button>
-      </div>
+    <div class="add-modal-footer">
+      <button class="add-cancel-btn" onclick="closeEditModal()">Cancel</button>
+      <button class="add-confirm-btn" onclick="saveAndExport()">Save Changes</button>
     </div>
   </div>
 </div>
@@ -2467,17 +2465,9 @@ function replacePhoto(vesselId, event) {
   document.getElementById('edit-qty').value = v.qty != null ? v.qty : 1;
   document.getElementById('edit-notes').value = v.notes || '';
 
-  // Broken toggle state
-  const brokenBtn = document.getElementById('edit-broken-btn');
-  if (v.broken) {
-    brokenBtn.textContent = 'Mark as Not Broken';
-    brokenBtn.style.background = '#D94040';
-    brokenBtn.style.color = '#fff';
-  } else {
-    brokenBtn.textContent = 'Mark as Broken';
-    brokenBtn.style.background = 'transparent';
-    brokenBtn.style.color = '#D94040';
-  }
+  // Broken checkbox state
+  const brokenCb = document.getElementById('edit-broken');
+  brokenCb.checked = !!v.broken;
 
   document.getElementById('edit-modal-overlay').classList.add('open');
 }
@@ -2485,25 +2475,6 @@ function replacePhoto(vesselId, event) {
 function closeEditModal() {
   editTargetId = null;
   document.getElementById('edit-modal-overlay').classList.remove('open');
-}
-
-function toggleBroken() {
-  if (!editTargetId) return;
-  const v = vessels.find(x => x.id === editTargetId);
-  if (!v) return;
-  const btn = document.getElementById('edit-broken-btn');
-  if (v.broken) {
-    delete v.broken;
-    btn.textContent = 'Mark as Broken';
-    btn.style.background = 'transparent';
-    btn.style.color = '#D94040';
-  } else {
-    v.broken = true;
-    btn.textContent = 'Mark as Not Broken';
-    btn.style.background = '#D94040';
-    btn.style.color = '#fff';
-  }
-  markDirty();
 }
 
 function saveAndExport() {
@@ -2527,8 +2498,11 @@ function saveAndExport() {
   const newNotes = document.getElementById('edit-notes').value.trim();
   if (newNotes) v.notes = newNotes; else delete v.notes;
 
-  // broken flag is toggled live via toggleBroken(), no extra save needed here
-  // but re-render the broken badge on the card
+  // Save broken from checkbox
+  const newBroken = document.getElementById('edit-broken').checked;
+  if (newBroken) { v.broken = true; } else { delete v.broken; }
+
+  // Update broken/qty badge on card
   const cardEl = document.querySelector('[data-id="' + editTargetId + '"]');
   if (cardEl) {
     const existingBrokenBadge = cardEl.querySelector('.broken-badge');
@@ -2537,7 +2511,7 @@ function saveAndExport() {
       if (!existingBrokenBadge) {
         const badge = document.createElement('div');
         badge.className = 'broken-badge';
-        badge.textContent = '✕';
+        badge.textContent = 'X Broken';
         cardEl.querySelector('.card-img').appendChild(badge);
       }
       if (existingQtyBadge) existingQtyBadge.style.display = 'none';
