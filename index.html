@@ -270,6 +270,34 @@
     color: #fff !important;
     border-color: #D4A800 !important;
   }
+  .chip-broken {
+    background: #fde8e8 !important;
+    color: #9B2222 !important;
+    border-color: #D94040 !important;
+  }
+  .chip-broken.active {
+    background: #D94040 !important;
+    color: #fff !important;
+    border-color: #D94040 !important;
+  }
+  .broken-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #1A1A18;
+    color: #fff;
+    font-size: 11px;
+    font-family: 'DM Mono', monospace;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
   .chip.active { background: var(--ink); border-color: var(--ink); color: #fff; }
 
   .color-chip {
@@ -1420,6 +1448,7 @@
         <button class="chip" data-cat="Pitchers & Vases">Pitchers & Vases</button>
         <button class="chip" data-cat="Lunchbox">Lunchbox</button>
         <button class="chip" data-cat="Others">Others</button>
+        <button class="chip chip-broken" data-cat="broken">Broken</button>
       </div>
     </div>
 
@@ -1485,8 +1514,8 @@
   <!-- MAIN -->
   <main>
     <div class="results-bar">
-      <div id="color-header" style="display:none;">
-        <div id="color-header-text" style="font-family:'Syne',sans-serif;font-size:25px;font-weight:700;line-height:1.1;"></div>
+      <div id="color-header">
+        <div id="color-header-text" style="font-family:'Syne',sans-serif;font-size:25px;font-weight:700;line-height:1.1;color:var(--ink-faint);">No Color Selected</div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <div class="results-count" id="results-count" style="margin-right:4px;"><span>—</span> vessels</div>
@@ -1639,7 +1668,14 @@ function matches(v) {
   const dim = getPrimaryDim(v);
   const sizeLabel = getSizeLabel(v);
 
-  if (state.category !== 'all' && v.category !== state.category) return false;
+  // Broken filter
+  if (state.category === 'broken') {
+    if (!v.broken) return false;
+  } else {
+    if (v.broken) return false; // hide broken from all other views
+    if (state.category !== 'all' && v.category !== state.category) return false;
+  }
+
   if (state.color && v.color !== state.color) return false;
   if (state.size === 'nodims') {
     if (getPrimaryDim(v) !== 0) return false;
@@ -1682,7 +1718,6 @@ function render() {
   const grid   = document.getElementById('grid');
   const empty  = document.getElementById('empty');
   const count  = document.getElementById('results-count');
-  const colorHeader = document.getElementById('color-header');
   const colorHeaderText = document.getElementById('color-header-text');
 
   // No color selected — show prompt instead of cards
@@ -1691,17 +1726,27 @@ function render() {
       <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:8px;">Select a color to browse the catalog</h3>
     </div>`;
     count.innerHTML = '<span>—</span> vessels';
-    colorHeader.style.display = 'none';
+    colorHeaderText.style.color = 'var(--ink-faint)';
+    colorHeaderText.innerHTML = 'No Color Selected';
     empty.classList.remove('show');
     return;
   }
 
   // Update color header
   const swatch = COLOR_SWATCHES[state.color] || '#1A1A18';
-  const headerColor = state.color === 'White' ? '#999' : swatch;
-  const catLabel = (state.category && state.category !== 'all') ? ` <span style="font-size:18px;font-weight:500;color:var(--ink);"> / ${state.category}</span>` : '';
-  colorHeaderText.innerHTML = `<span style="color:${headerColor}">${state.color}</span>${catLabel}`;
-  colorHeader.style.display = 'block';
+  const headerColor = state.color === 'White' ? '#999' : state.color === 'Clear' ? '#5B8FA8' : swatch;
+  colorHeaderText.style.color = '';
+
+  // Build breadcrumb parts
+  let breadcrumb = `<span style="color:${headerColor}">${state.color}</span>`;
+  if (state.category && state.category !== 'all') {
+    breadcrumb += ` <span style="font-size:18px;font-weight:500;color:var(--ink);"> / ${state.category === 'broken' ? 'Broken' : state.category}</span>`;
+  }
+  if (state.size && state.size !== 'all') {
+    const sizeText = { small: 'Small (<15cm)', medium: 'Medium (15–25cm)', large: 'Large (25–35cm)', xlarge: 'X-Large (>35cm)', nodims: 'No Size' }[state.size] || state.size;
+    breadcrumb += ` <span style="font-size:12px;font-weight:400;color:var(--ink-soft);"> / ${sizeText}</span>`;
+  }
+  colorHeaderText.innerHTML = breadcrumb;
 
   const filtered = sorted(vessels.filter(matches));
   count.innerHTML = `<span>${filtered.length}</span> vessel${filtered.length !== 1 ? 's' : ''}`;
@@ -1723,7 +1768,7 @@ function render() {
     <div class="card" data-id="${v.id}" style="animation-delay:${Math.min(i*0.03, 0.4)}s">
       <div class="card-img">
         ${imgPath ? `<img class="lazy-img" data-src="${imgPath}" alt="${v.name}" style="width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.2s">` : ""}
-        ${(v.qty||1) > 1 ? `<div class="qty-badge qty-multi">× ${v.qty||1}</div>` : ""}
+        ${v.broken ? `<div class="broken-badge">✕</div>` : (v.qty||1) > 1 ? `<div class="qty-badge qty-multi">× ${v.qty||1}</div>` : ""}
         <button class="btn-replace-photo" title="Replace photo" onclick="replacePhoto('${v.id}', event)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
         <div class="card-img-placeholder" style="display:${imgPath ? 'none' : 'flex'}">
           <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
@@ -1735,7 +1780,6 @@ function render() {
         </div>
         <div class="color-stripe" style="background:${swatch}"></div>
         <div class="id-tag">${v.id.toUpperCase()}</div>
-        
       </div>
       <div class="card-body${!dims ? ' no-dims' : ''}">
         <div class="card-top">
@@ -1749,7 +1793,6 @@ function render() {
           ? `<div class="dims-edit-wrap"><div class="card-dims" id="dims-${v.id}">${dims}</div><button class="btn-copy-dims" title="Copy dimensions" onclick="copyDims('${v.id}', this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg><span class="copy-confirm">Copied!</span></button></div>`
           : `<div class="dims-edit-wrap">
                <div class="card-dims" id="dims-${v.id}" style="color:#c09000;font-style:italic;font-size:10px">No dimensions</div>
-               
              </div>`
         }
         <div class="card-footer">
@@ -1759,6 +1802,7 @@ function render() {
               ${v.color}
             </span>
             <span class="tag">${v.category}</span>
+            ${v.broken ? `<span class="tag" style="background:#fde8e8;border-color:#D94040;color:#9B2222;">Broken</span>` : ''}
             ${v.notes ? `<span class="tag">${v.notes}</span>` : ''}
           </div>
         </div>
@@ -1914,7 +1958,9 @@ document.getElementById('reset').addEventListener('click', () => {
   sel.style.backgroundImage = '';
   document.documentElement.style.removeProperty('--accent');
   document.documentElement.style.removeProperty('--accent-pale');
-  document.getElementById('color-header').style.display = 'none';
+  const cht = document.getElementById('color-header-text');
+  cht.style.color = 'var(--ink-faint)';
+  cht.innerHTML = 'No Color Selected';
   document.querySelectorAll('.chip').forEach(c => {
     c.classList.toggle('active', c.dataset.cat === 'all' || c.dataset.size === 'all' || c.dataset.qty === 'all');
     c.style.background = '';
@@ -2026,9 +2072,12 @@ render();
       </div>
     </div>
 
-    <div class="add-modal-footer">
-      <button class="add-cancel-btn" onclick="closeEditModal()">Cancel</button>
-      <button class="add-confirm-btn" onclick="saveAndExport()">Save Changes</button>
+    <div class="add-modal-footer" style="justify-content:space-between;">
+      <button id="edit-broken-btn" onclick="toggleBroken()" style="font-family:'DM Mono',monospace;font-size:11px;padding:7px 14px;border-radius:6px;border:1.5px solid #D94040;background:transparent;color:#D94040;cursor:pointer;transition:all 0.15s;">Mark as Broken</button>
+      <div style="display:flex;gap:8px;">
+        <button class="add-cancel-btn" onclick="closeEditModal()">Cancel</button>
+        <button class="add-confirm-btn" onclick="saveAndExport()">Save Changes</button>
+      </div>
     </div>
   </div>
 </div>
@@ -2418,12 +2467,43 @@ function replacePhoto(vesselId, event) {
   document.getElementById('edit-qty').value = v.qty != null ? v.qty : 1;
   document.getElementById('edit-notes').value = v.notes || '';
 
+  // Broken toggle state
+  const brokenBtn = document.getElementById('edit-broken-btn');
+  if (v.broken) {
+    brokenBtn.textContent = 'Mark as Not Broken';
+    brokenBtn.style.background = '#D94040';
+    brokenBtn.style.color = '#fff';
+  } else {
+    brokenBtn.textContent = 'Mark as Broken';
+    brokenBtn.style.background = 'transparent';
+    brokenBtn.style.color = '#D94040';
+  }
+
   document.getElementById('edit-modal-overlay').classList.add('open');
 }
 
 function closeEditModal() {
   editTargetId = null;
   document.getElementById('edit-modal-overlay').classList.remove('open');
+}
+
+function toggleBroken() {
+  if (!editTargetId) return;
+  const v = vessels.find(x => x.id === editTargetId);
+  if (!v) return;
+  const btn = document.getElementById('edit-broken-btn');
+  if (v.broken) {
+    delete v.broken;
+    btn.textContent = 'Mark as Broken';
+    btn.style.background = 'transparent';
+    btn.style.color = '#D94040';
+  } else {
+    v.broken = true;
+    btn.textContent = 'Mark as Not Broken';
+    btn.style.background = '#D94040';
+    btn.style.color = '#fff';
+  }
+  markDirty();
 }
 
 function saveAndExport() {
@@ -2446,6 +2526,26 @@ function saveAndExport() {
   if (!isNaN(newQty) && newQty > 0) v.qty = newQty; else delete v.qty;
   const newNotes = document.getElementById('edit-notes').value.trim();
   if (newNotes) v.notes = newNotes; else delete v.notes;
+
+  // broken flag is toggled live via toggleBroken(), no extra save needed here
+  // but re-render the broken badge on the card
+  const cardEl = document.querySelector('[data-id="' + editTargetId + '"]');
+  if (cardEl) {
+    const existingBrokenBadge = cardEl.querySelector('.broken-badge');
+    const existingQtyBadge = cardEl.querySelector('.qty-badge');
+    if (v.broken) {
+      if (!existingBrokenBadge) {
+        const badge = document.createElement('div');
+        badge.className = 'broken-badge';
+        badge.textContent = '✕';
+        cardEl.querySelector('.card-img').appendChild(badge);
+      }
+      if (existingQtyBadge) existingQtyBadge.style.display = 'none';
+    } else {
+      if (existingBrokenBadge) existingBrokenBadge.remove();
+      if (existingQtyBadge && (v.qty||1) > 1) existingQtyBadge.style.display = '';
+    }
+  }
 
   // Save dims
   const d = parseFloat(document.getElementById('edit-diameter').value);
@@ -2533,9 +2633,9 @@ function saveAndExport() {
   if (badge) { badge.className = 'size-badge ' + sl; badge.textContent = getSizeLabelText(sl); }
 
   // Update category tag on card
-  const cardEl = document.querySelector('[data-id="' + editTargetId + '"]');
-  if (cardEl && newCat) {
-    const tags = cardEl.querySelectorAll('.card-tags .tag:not(.color-tag)');
+  const cardEl2 = document.querySelector('[data-id="' + editTargetId + '"]');
+  if (cardEl2 && newCat) {
+    const tags = cardEl2.querySelectorAll('.card-tags .tag:not(.color-tag)');
     if (tags.length > 0) tags[0].textContent = newCat;
   }
 
