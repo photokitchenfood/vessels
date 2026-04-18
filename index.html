@@ -1410,7 +1410,6 @@
       <div class="chip-group" id="cat-filters">
         <button class="chip active" data-cat="all">All</button>
         <button class="chip" data-cat="Plates">Plates</button>
-        <button class="chip" data-cat="Serving Plates">Serving Plates</button>
         <button class="chip" data-cat="Bowls">Bowls</button>
         <button class="chip" data-cat="Ramekins">Ramekins</button>
         <button class="chip" data-cat="Jars & Bottles">Jars & Bottles</button>
@@ -1486,8 +1485,11 @@
   <!-- MAIN -->
   <main>
     <div class="results-bar">
-      <div class="results-count" id="results-count"><span>—</span> vessels</div>
+      <div id="color-header" style="display:none;">
+        <div id="color-header-text" style="font-family:'Syne',sans-serif;font-size:25px;font-weight:700;line-height:1.1;"></div>
+      </div>
       <div style="display:flex;align-items:center;gap:8px;">
+        <div class="results-count" id="results-count" style="margin-right:4px;"><span>—</span> vessels</div>
         <select class="sort-select" id="sort">
           <option value="default">Sort: Default</option>
           <option value="size-asc">Size: Small → Large</option>
@@ -1680,16 +1682,26 @@ function render() {
   const grid   = document.getElementById('grid');
   const empty  = document.getElementById('empty');
   const count  = document.getElementById('results-count');
+  const colorHeader = document.getElementById('color-header');
+  const colorHeaderText = document.getElementById('color-header-text');
 
   // No color selected — show prompt instead of cards
   if (!state.color) {
     grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;">
       <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:8px;">Select a color to browse the catalog</h3>
     </div>`;
-    count.innerHTML = '<span>—</span>';
+    count.innerHTML = '<span>—</span> vessels';
+    colorHeader.style.display = 'none';
     empty.classList.remove('show');
     return;
   }
+
+  // Update color header
+  const swatch = COLOR_SWATCHES[state.color] || '#1A1A18';
+  const headerColor = state.color === 'White' ? '#999' : swatch;
+  const catLabel = (state.category && state.category !== 'all') ? ` <span style="font-size:18px;font-weight:500;color:var(--ink);"> / ${state.category}</span>` : '';
+  colorHeaderText.innerHTML = `<span style="color:${headerColor}">${state.color}</span>${catLabel}`;
+  colorHeader.style.display = 'block';
 
   const filtered = sorted(vessels.filter(matches));
   count.innerHTML = `<span>${filtered.length}</span> vessel${filtered.length !== 1 ? 's' : ''}`;
@@ -1844,8 +1856,10 @@ const COLOR_BORDER = {
 
   if (val) {
     // Show loading state
-    document.getElementById('grid').innerHTML = '';
-    document.getElementById('results-count').innerHTML = '<span>Loading…</span>';
+    document.getElementById('grid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:80px 20px;">
+      <h3 style="font-family:'Syne',sans-serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:8px;">Loading…</h3>
+    </div>`;
+    document.getElementById('results-count').innerHTML = '<span>—</span> vessels';
     loadColorDataWithSnapshot(val, () => { render(); });
   } else {
     render();
@@ -1900,6 +1914,7 @@ document.getElementById('reset').addEventListener('click', () => {
   sel.style.backgroundImage = '';
   document.documentElement.style.removeProperty('--accent');
   document.documentElement.style.removeProperty('--accent-pale');
+  document.getElementById('color-header').style.display = 'none';
   document.querySelectorAll('.chip').forEach(c => {
     c.classList.toggle('active', c.dataset.cat === 'all' || c.dataset.size === 'all' || c.dataset.qty === 'all');
     c.style.background = '';
