@@ -1725,9 +1725,8 @@ function matches(v) {
   if (state.category === 'broken') {
     if (!v.broken) return false;
   } else {
-    // Normal views: apply category filter to non-broken; broken vessels pass through to show at end
-    if (!v.broken && state.category !== 'all' && v.category !== state.category) return false;
-    if (v.broken && state.category !== 'all') return false; // archived only show under 'All'
+    // Normal views: apply category filter to both active and archived vessels
+    if (state.category !== 'all' && v.category !== state.category) return false;
   }
 
   if (state.color && v.color !== state.color) return false;
