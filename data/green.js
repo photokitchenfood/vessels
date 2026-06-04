@@ -1473,14 +1473,14 @@ vessels = [
     "id": "g-p-51",
     "color": "Green",
     "category": "Plates",
-    "name": "Round Plate, Matte Dark Brown, Partial Green-Amber Glaze Accent, Shallow Well",
+    "name": "Round Plate, Matte Brown, Partial Green-Amber Glaze Accent, Shallow Well",
     "diameter": 12
   },
   {
     "id": "g-p-52",
     "color": "Green",
     "category": "Plates",
-    "name": "Scalloped Plate, Matte Olive Green, Lobed Edge, Shallow Well",
+    "name": "Fluted Round Plate, Matte Celadon Green, Scalloped Edge, Shallow Well",
     "diameter": 11
   },
   {
