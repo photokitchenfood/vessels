@@ -191,9 +191,9 @@ vessels = [
     "diameter": 38
   },
   {
-    "id": "gd-cg-1",
+    "id": "gd-cm-1",
     "color": "Gold",
-    "category": "Cups & Glasses",
+    "category": "Cups & Mugs",
     "name": "Tapered Cup, Brushed Gold Metal, Straight Flared Walls, No Handle",
     "diameter": 8.2,
     "height": 9.8,
@@ -301,16 +301,16 @@ vessels = [
     "height": 7
   },
   {
-    "id": "gd-ot-1",
+    "id": "gd-ta-1",
     "color": "Gold",
-    "category": "Others",
+    "category": "Tools & Accessories",
     "name": "Candlestick Holder, Antique Pewter-Tone Metal, Ribbed Column, Ornate Engraved Base",
     "height": 22
   },
   {
-    "id": "gd-ot-2",
+    "id": "gd-ta-2",
     "color": "Gold",
-    "category": "Others",
+    "category": "Tools & Accessories",
     "name": "Candlestick Holder, Aged Brass, Wide Dish Top, Rope-Edged Pedestal Base",
     "diameter": 10,
     "height": 12.5
@@ -397,7 +397,7 @@ VESSEL_PAGE = {
   "gd-bt-2": "page06",
   "gd-bt-3": "page06",
   "gd-bt-4": "page06",
-  "gd-cg-1": "page07",
+  "gd-cm-1": "page07",
   "gd-bs-1": "page08",
   "gd-bs-2": "page08",
   "gd-bs-3": "page08",
@@ -411,7 +411,7 @@ VESSEL_PAGE = {
   "gd-pv-2": "page10",
   "gd-pv-3": "page10",
   "gd-pv-4": "page10",
-  "gd-ot-1": "page11",
-  "gd-ot-2": "page11",
+  "gd-ta-1": "page11",
+  "gd-ta-2": "page11",
   "gd-bt-5": "page02"
 };
