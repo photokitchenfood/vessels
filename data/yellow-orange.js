@@ -965,6 +965,38 @@ vessels = [
     "color": "Yellow/Orange",
     "category": "Tools & Accessories",
     "name": "Finger Food Picks, Yellow Plastic, Elongated Paddle Shape, Set of Several"
+  },
+  {
+    "id": "yo-p-29",
+    "color": "Yellow/Orange",
+    "category": "Plates",
+    "name": "Round Plate, Glossy Amber, Flat Wide Rim, Shallow Well",
+    "diameter": 26.5
+  },
+  {
+    "id": "yo-b-22",
+    "color": "Yellow/Orange",
+    "category": "Bowls",
+    "name": "Round Shallow Bowl, Matte Amber Glaze, Wide Rim, Ceramic Stoneware",
+    "diameter": 26,
+    "height": 5
+  },
+  {
+    "id": "yo-r-24",
+    "color": "Yellow/Orange",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Glossy Yellow-Orange Gradient, Ribbed Exterior, Cream Interior",
+    "diameter": 9,
+    "height": 5.5
+  },
+  {
+    "id": "yo-cn-4",
+    "color": "Yellow/Orange",
+    "category": "Containers",
+    "name": "Oval Bento Box, Matte Yellow, Two-Tier Stacked Lid, Rounded Edges",
+    "length": 15.5,
+    "width": 10,
+    "height": 7
   }
 ];
 
