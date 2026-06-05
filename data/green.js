@@ -1473,28 +1473,28 @@ vessels = [
     "id": "g-p-51",
     "color": "Green",
     "category": "Plates",
-    "name": "Round Plate, Matte Dark Brown, Partial Green-Amber Glaze Accent, Shallow Well",
-    "diameter": 12
+    "name": "Round Plate, Matte Brown, Asymmetric Green-Amber Glaze Accent, Shallow Well",
+    "diameter": 10
   },
   {
     "id": "g-p-52",
     "color": "Green",
     "category": "Plates",
-    "name": "Petal-Edged Plate, Matte Celadon Green, Scalloped Rim, Shallow Well",
+    "name": "Scalloped Plate, Matte Sage Green, Fluted Edge, Shallow Well",
     "diameter": 11
   },
   {
     "id": "g-p-53",
     "color": "Green",
     "category": "Plates",
-    "name": "Round Plate, Matte Olive Green, Raised Rim Edge, Ribbed Side Wall",
+    "name": "Round Plate, Matte Speckled Olive Green, Raised Rim, Ribbed Edge Detail",
     "diameter": 27
   },
   {
     "id": "g-cn-5",
     "color": "Green",
     "category": "Containers",
-    "name": "Oval Container, Matte Olive Yellow, Two-Tier Stacked Lid, Rounded Edges",
+    "name": "Oval Container, Matte Olive/Yellow-Green, Two-Tier Stacked Lid, Smooth Rounded Edges",
     "length": 15.5,
     "width": 10,
     "height": 7
