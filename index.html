@@ -832,18 +832,18 @@
     margin: 16px 0 24px;
   }
   .landing-updated {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-faint);
-    letter-spacing: 0.02em;
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--ink);
   }
-  .landing-updated span { color: var(--ink-soft); }
+  .landing-updated span { color: var(--ink); }
   .landing-section-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--ink-faint);
+    color: var(--ink-soft);
     margin-bottom: 10px;
     margin-top: 6px;
   }
@@ -1995,7 +1995,7 @@ function render() {
       </div>`).join('');
 
     const howtoSteps = [
-      { n:1, title:'Pick a color',              desc:'Use the Color dropdown in the left sidebar to load a color group. All vessel cards for that color will appear in the main area. You can also click any color card below to jump straight to it.' },
+      { n:1, title:'Pick a color',              desc:'Use the Color dropdown in the left sidebar to load a color group. All vessel cards for that color will appear in the main area. You can also click any color card above to jump straight to it.' },
       { n:2, title:'Filter by category or size', desc:'Use the Category and Size chips to narrow down results. The dimension range filter lets you target exact measurements, and the search bar works on names, categories, and sizes.' },
       { n:3, title:'Read the vessel cards',      desc:'Each card shows the vessel photo, name, dimensions, size badge (Small / Medium / Large / X-Large), and category. Hover a card to reveal its ID in the top right corner. Cards highlighted in yellow are missing dimensions.' },
       { n:4, title:'Copy dimensions',            desc:'Hover over a vessel\'s dimensions to reveal a copy button — paste directly into your pre-production deck.' },
@@ -2012,9 +2012,9 @@ function render() {
 
     document.getElementById('landing-content').innerHTML = `<div class="landing-wrap">
       <div class="landing-meta-row">
-        <div class="landing-updated">Last updated: <span>${updatedStr}</span></div>
+        <div class="landing-updated">LAST UPDATED: <span>${updatedStr}</span></div>
       </div>
-      <div class="landing-section-label">Colors — ${COLOR_ORDER.length} categories</div>
+      <div class="landing-section-label">Colors</div>
       <div class="landing-colors-grid">${colorCardsHtml}</div>
       <div class="landing-two-col">
         <div>
