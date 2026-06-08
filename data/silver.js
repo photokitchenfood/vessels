@@ -1,239 +1,1924 @@
 // Silver vessels data
 vessels = [
-  { id:'sl-p-1', color:'Silver', category:'Plates', name:'Round Plate, Matte Aluminum, Shallow Concave Well, Wide Flat Rim', diameter:15.5, height:2.5 },
-  { id:'sl-p-2', color:'Silver', category:'Plates', name:'Round Plate, Matte Aluminum, Shallow Concave Well, Smooth Wide Rim, Medium', diameter:18, height:2.5 },
-  { id:'sl-p-3', color:'Silver', category:'Plates', name:'Round Plate, Brushed Aluminum, Shallow Well, Flared Rim, Medium', diameter:19, height:2.5 },
-  { id:'sl-p-4', color:'Silver', category:'Plates', name:'Round Plate, Polished Stainless Steel, Shallow Concave Well, Raised Center Ring, Embossed Pattern', diameter:21.5, height:3.5 },
-  { id:'sl-p-5', color:'Silver', category:'Plates', name:'Round Plate, Matte Aluminum, Crimped Fluted Rim, Shallow Well, Aged Patina', diameter:22.5, height:3 },
-  { id:'sl-p-6', color:'Silver', category:'Plates', name:'Round Plate, Matte Aluminum, Scalloped Crimped Rim, Shallow Well, Aged Patina', diameter:24.5, height:4 },
-  { id:'sl-p-7', color:'Silver', category:'Plates', name:'Round Plate, Brushed Aluminum, Low Straight Rim Ring, Flat Base', diameter:19, height:2.5 },
-  { id:'sl-p-8', color:'Silver', category:'Plates', name:'Round Plate, Brushed Aluminum, Low Straight Rim Ring, Flat Base, Medium', diameter:22, height:2.5 },
-  { id:'sl-p-9', color:'Silver', category:'Plates', name:'Round Plate, Brushed Aluminum, Shallow Well, Curved Rim, Aged Surface', diameter:24, height:3 },
-  { id:'sl-p-10', color:'Silver', category:'Plates', name:'Round Plate, Brushed Aluminum, Very Shallow Profile, Flat Wide Base', diameter:23.5, height:1.5 },
-  { id:'sl-p-11', color:'Silver', category:'Plates', name:'Octagonal Plate, Polished Stainless Steel, Recessed Center, Geometric Rim', diameter:26.5 },
-  { id:'sl-p-12', color:'Silver', category:'Plates', name:'Round Plate, Brushed Aluminum, Shallow Well, Worn Patina, Large', length:22, width:14.5 },
-  { id:'sl-p-13', color:'Silver', category:'Plates', name:'Oval Plate, Polished Stainless Steel, Shallow Recessed Well, Smooth Flat Rim', length:28, width:19 },
-  { id:'sl-p-14', color:'Silver', category:'Plates', name:'Oval Plate, Polished Stainless Steel, Shallow Recessed Well, Smooth Rim, Large', diameter:9.5 },
-  { id:'sl-p-15', color:'Silver', category:'Plates', name:'Round Plate, Brushed Aluminum, Raised Dot-Grid Surface, Flat Profile, Manhole-Style', length:9.5, width:9.5 },
-  { id:'sl-p-16', color:'Silver', category:'Plates', name:'Square Plate, Brushed Aluminum, Raised Grid Surface, Flat Profile, Water-Meter Style', diameter:15.5 },
-  { id:'sl-p-17', color:'Silver', category:'Plates', name:'Round Plate, Brushed Stainless Steel, Wide Shallow Bowl Form, Spinning-Disc Finish', diameter:18, height:3 },
-  { id:'sl-p-18', color:'Silver', category:'Plates', name:'Round Plate, Brushed Stainless Steel, Wide Flat Rim, Shallow Recessed Well, Spinning-Disc Finish', diameter:15 },
-  { id:'sl-p-19', color:'Silver', category:'Plates', name:'Round Plate, Brushed Stainless Steel, Stamped Bakers Square Logo, Pie-Dish Form', diameter:22.5, height:3 },
-  { id:'sl-p-20', color:'Silver', category:'Plates', name:'Round Plate, Brushed Stainless Steel, Shallow Well, Spinning-Disc Finish, Large', diameter:26 },
-  { id:'sl-p-21', color:'Silver', category:'Plates', name:'Round Plate, Brushed Stainless Steel, Shallow Well, Spinning-Disc Finish, Small', diameter:14 },
-  { id:'sl-b-1', color:'Silver', category:'Bowls', name:'Round Bowl, Polished Stainless Steel, Two Loop Handles, Shallow Curved', diameter:15, height:4 },
-  { id:'sl-b-2', color:'Silver', category:'Bowls', name:'Round Bowl, Stainless Steel, Domed Lid with Tab Handle, Deep', diameter:20.5, height:5.5 },
-  { id:'sl-b-3', color:'Silver', category:'Bowls', name:'Round Cup-Bowl, Brushed Stainless Steel, Straight Tall Walls, No Handles', diameter:11, height:7.5 },
-  { id:'sl-b-4', color:'Silver', category:'Bowls', name:'Round Bowl, Polished Stainless Steel, Wide Curved Walls, Low Profile', diameter:11.3, height:5 },
-  { id:'sl-b-5', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Aluminum, Low Straight Walls, Wide Opening', diameter:11.5, height:3 },
-  { id:'sl-b-6', color:'Silver', category:'Bowls', name:'Round Tray-Bowl, Brushed Aluminum, Very Shallow Straight Walls, Wide', diameter:12.5, height:4 },
-  { id:'sl-b-7', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Aluminum, Shallow Flat Profile, Embossed Base', diameter:13.5, height:2.5 },
-  { id:'sl-b-8', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Stainless Steel, Straight Walls, Flat Bottom', diameter:12, height:5, qty:2 },
-  { id:'sl-b-9', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Stainless Steel, Flared Curved Walls, Medium', diameter:11.5 },
-  { id:'sl-b-10', color:'Silver', category:'Bowls', name:'Round Bowl, Polished Stainless Steel, Curved Walls, Medium', diameter:13, height:4.5 },
-  { id:'sl-b-11', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Stainless Steel, Curved Tapered Walls, Medium', diameter:14.5, height:4.5 },
-  { id:'sl-b-12', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Stainless Steel, Wide Flared Walls, Medium', diameter:15.5, height:6.5 },
-  { id:'sl-b-13', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Stainless Steel, Wide Flared Walls, Large', diameter:16.5, height:6.5, qty:2 },
-  { id:'sl-b-14', color:'Silver', category:'Bowls', name:'Round Bowl, Polished Stainless Steel, Scalloped Fluted Exterior, Decorative', diameter:14, height:6.5 },
-  { id:'sl-b-15', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Stainless Steel, Curved Walls, Small Deep', diameter:9, height:4.5 },
-  { id:'sl-b-16', color:'Silver', category:'Bowls', name:'Round Bowl, Brushed Stainless Steel, Double-Wall Construction, Wide Deep', diameter:23, height:7.5 },
-  { id:'sl-r-1', color:'Silver', category:'Ramekins', name:'Round Ramekin, Matte Aluminum, Shallow Curved Walls, Wide Opening', diameter:9.5, height:2 },
-  { id:'sl-r-2', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Shallow Curved Walls, Polished Interior', diameter:9.5, height:2 },
-  { id:'sl-r-3', color:'Silver', category:'Ramekins', name:'Round Ramekin, Matte Aluminum, Shallow Flat Base, Wide Opening', diameter:10.5, height:2 },
-  { id:'sl-r-4', color:'Silver', category:'Ramekins', name:'Round Ramekin, Pewter-Toned Vintage Metal, Very Shallow Saucer Form, Aged Patina', diameter:12, height:1.5 },
-  { id:'sl-r-5', color:'Silver', category:'Ramekins', name:'Round Ramekin, Antique Silver-Plate, Flat Shallow Dish, Engraved Crest, Aged Patina', diameter:13, qty:3 },
-  { id:'sl-r-6', color:'Silver', category:'Ramekins', name:'Round Ramekin, Antique Pewter, Flat Shallow Dish, Heavy Patina, Large', diameter:15 },
-  { id:'sl-r-7', color:'Silver', category:'Ramekins', name:'Round Ramekin, Aluminum, Low Straight Walls, Stepped Rim, Set of 2', diameter:6.5, height:3, qty:2 },
-  { id:'sl-r-8', color:'Silver', category:'Ramekins', name:'Round Ramekin, Aluminum, Low Straight Walls, Flat Bottom, Small', diameter:6.5, height:3.2 },
-  { id:'sl-r-9', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Low Straight Walls, Set of 2', diameter:6.5, height:3 },
-  { id:'sl-r-10', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Aluminum, Low Straight Walls, Single', diameter:3.5, height:3 },
-  { id:'sl-r-11', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Conical Tapered Form, Tab Handle', diameter:7.5, height:5.5 },
-  { id:'sl-r-12', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Curved Walls, Small Deep', diameter:7.5, height:3 },
-  { id:'sl-r-13', color:'Silver', category:'Ramekins', name:'Round Ramekin, Matte Aluminum, Flared Walls, Tiny, Set of 2', diameter:4.5, height:2, qty:2 },
-  { id:'sl-r-14', color:'Silver', category:'Ramekins', name:'Round Ramekin, Matte Aluminum, Straight Walls, Tiny, Set of 2', diameter:6, height:4.5 },
-  { id:'sl-r-15', color:'Silver', category:'Ramekins', name:'Round Ramekin, Matte Aluminum, Flared Walls, Small, Set of 2', diameter:6.5, height:2.5, qty:3 },
-  { id:'sl-r-16', color:'Silver', category:'Ramekins', name:'Round Ramekin, Matte Aluminum, Flared Walls, Small, Set of 2', diameter:7.5, height:3.5, qty:2 },
-  { id:'sl-r-17', color:'Silver', category:'Ramekins', name:'Round Ramekin, Matte Aluminum, Straight Walls, Small Deep, Set of 2', diameter:7.5, height:3.5, qty:2 },
-  { id:'sl-r-18', color:'Silver', category:'Ramekins', name:'Round Ramekin, Matte Aluminum, Straight Walls, Medium, Set of 2', diameter:8, height:3.3, qty:2 },
-  { id:'sl-r-19', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Flared Walls, Medium, Set of 3', diameter:6.5, height:4 },
-  { id:'sl-r-20', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Double-Wall Construction, Stepped Base', diameter:4, height:7 },
-  { id:'sl-r-21', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Double Jigger Form, Set of 2', diameter:3, height:3 },
-  { id:'sl-r-22', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Bowl Form, Pinched Spout, Measurement Markings, Extra Small', diameter:5.5, height:2.5 },
-  { id:'sl-r-23', color:'Silver', category:'Ramekins', name:'Mini Creamer Cup, Brushed Stainless Steel, Cylindrical, Loop Handle, Pinched Spout', diameter:7.2, height:3 },
-  { id:'sl-r-24', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Bowl Form, Pinched Spout, Measurement Markings, Small', diameter:8.8, height:3.5 },
-  { id:'sl-r-25', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Curved Walls, Flat Base', diameter:8.9, height:6 },
-  { id:'sl-r-26', color:'Silver', category:'Ramekins', name:'Round Ramekin, Brushed Stainless Steel, Bowl Form, Pinched Spout, Measurement Markings, Large', length:5.6, width:8.8, height:3 },
-  { id:'sl-r-27', color:'Silver', category:'Ramekins', name:'Round Ramekin, Polished Stainless Steel, Teardrop Bowl Form, Pinched Spout, No Handle', diameter:10.5, height:4 },
-  { id:'sl-bt-1', color:'Silver', category:'Baskets & Trays', name:'Round Tray, Aluminum, Low Rim Ring, Large Flat', diameter:29, height:3 },
-  { id:'sl-bt-2', color:'Silver', category:'Baskets & Trays', name:'Oval Tray, Galvanized Metal, Aged Patina, Raised Rim', length:24, width:15, height:4 },
-  { id:'sl-bt-3', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Stainless Steel, Flat Rim, Classic Form', length:21, width:14.5, height:3 },
-  { id:'sl-bt-4', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Stainless Steel, Flat Rim, Wide Format', length:24, width:16, height:2 },
-  { id:'sl-bt-5', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Brushed Aluminum, Flat Rim, Medium', length:25.5, width:15.5 },
-  { id:'sl-bt-6', color:'Silver', category:'Baskets & Trays', name:'Square Tray, Stainless Steel, Flat Rim, Small', length:15, width:15 },
-  { id:'sl-bt-7', color:'Silver', category:'Baskets & Trays', name:'Oval Tray, Antique Silver, Decorative Handles, Ornate Rim', length:22.5, width:17 },
-  { id:'sl-bt-8', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Antique Silver, Ornate Embossed Rim, Vintage', length:26, width:13 },
-  { id:'sl-bt-9', color:'Silver', category:'Baskets & Trays', name:'Round Tray, Antique Silver, Pierced Lace Rim, Decorative Handles', diameter:21 },
-  { id:'sl-bt-10', color:'Silver', category:'Baskets & Trays', name:'Oval Basket, Black Wire, Woven Form, Shallow', length:22, width:14, height:5.8 },
-  { id:'sl-bt-11', color:'Silver', category:'Baskets & Trays', name:'Round Basket Ring, Silver Wire, Flat Coil Form, Open', diameter:15, height:3.5 },
-  { id:'sl-bt-12', color:'Silver', category:'Baskets & Trays', name:'Round Basket, Black Wire, Cylindrical Walls, Open Top', diameter:18, height:8.5 },
-  { id:'sl-bt-13', color:'Silver', category:'Baskets & Trays', name:'Round Basket, Silver Wire, Decorative Lattice, Flat Shallow', diameter:20, height:5.5 },
-  { id:'sl-bt-14', color:'Silver', category:'Baskets & Trays', name:'Round Basket, Silver Wire, Lattice Sides, Bowl Form', diameter:22.5, height:7 },
-  { id:'sl-bt-15', color:'Silver', category:'Baskets & Trays', name:'Square Tray, Silver Wire Grid, Fine Mesh, Flat', length:21, width:17 },
-  { id:'sl-bt-16', color:'Silver', category:'Baskets & Trays', name:'Round Trivet, Silver Wire, Circular Concentric Rings, Flat', diameter:18 },
-  { id:'sl-bt-17', color:'Silver', category:'Baskets & Trays', name:'Round Trivet, Silver Wire, Flower-Pattern Design, Flat', diameter:18 },
-  { id:'sl-bt-18', color:'Silver', category:'Baskets & Trays', name:'Round Trivet, Silver Wire, Spoke Design, Flat', diameter:17 },
-  { id:'sl-bt-19', color:'Silver', category:'Baskets & Trays', name:'Round Trivet, Silver Wire, Concentric Rings, Large Flat', diameter:25 },
-  { id:'sl-bt-20', color:'Silver', category:'Baskets & Trays', name:'Rectangular Cooling Rack, Silver Wire, Fine Grid, Small', length:25, width:18.5, height:1.5 },
-  { id:'sl-bt-21', color:'Silver', category:'Baskets & Trays', name:'Round Cooling Rack, Silver Wire, Concentric Grid, Large', diameter:25 },
-  { id:'sl-bt-22', color:'Silver', category:'Baskets & Trays', name:'Rectangular Cooling Rack, Silver Wire, Fine Grid, Medium-Large', length:29.5, width:22.5 },
-  { id:'sl-bt-23', color:'Silver', category:'Baskets & Trays', name:'Rectangular Cooling Rack, Silver Wire, Fine Grid, Medium-Large', length:25.5, width:25 },
-  { id:'sl-bt-24', color:'Silver', category:'Baskets & Trays', name:'Round Cooling Rack, Silver Wire, Concentric Grid, Large Diameter', diameter:29 },
-  { id:'sl-bt-25', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Silver Wire, Side Handles, Small', length:10, width:8.5, height:6.5 },
-  { id:'sl-bt-26', color:'Silver', category:'Baskets & Trays', name:'Round Basket, Silver Wire, Tall Cylindrical, Handle', diameter:9, height:9 },
-  { id:'sl-bt-27', color:'Silver', category:'Baskets & Trays', name:'Square Basket, Silver Wire, Open Grid Sides, Handle', length:10, width:10, height:7.5 },
-  { id:'sl-bt-28', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Silver Wire, Open Grid Sides, Handle', length:10, width:8, height:7 },
-  { id:'sl-bt-29', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Silver Wire, Open Grid Sides, Handle', length:13, width:11, height:7.5 },
-  { id:'sl-bt-30', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Stainless Steel, Solid Walls, Two Handles', length:15, width:15, height:8.5 },
-  { id:'sl-bt-31', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Silver Wire, Long Form, Two Handles', length:27, width:11, height:8.5 },
-  { id:'sl-bt-32', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Dark Wire, Large Deep Form, Two Handles', length:28, width:16.5, height:13 },
-  { id:'sl-bt-33', color:'Silver', category:'Baskets & Trays', name:'Round Basket, Rattan-Wrapped Metal, Low Cylindrical Band', length:14, width:10.5, height:6.5, qty:2 },
-  { id:'sl-bt-34', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Wicker-Wrapped Wire, Low Form, Two Handles', length:11, width:11, height:6.5 },
-  { id:'sl-bt-35', color:'Silver', category:'Baskets & Trays', name:'Square Basket, Wire, Wood Handle Wraps, Tall Sides', length:16, width:16, height:15 },
-  { id:'sl-bt-36', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Wire, Wood Handle, Shallow', length:19, width:12.5, height:5 },
-  { id:'sl-bt-37', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Wire, Open Grid, Medium', length:23, width:16, height:9 },
-  { id:'sl-bt-38', color:'Silver', category:'Baskets & Trays', name:'Oval Basket, Chicken-Wire, Aged Patina, Deep Form', length:33, width:20.3, height:9 },
-  { id:'sl-bt-39', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Wicker, Natural Tan, Long Low Form', length:35.5, width:12, height:7 },
-  { id:'sl-bt-40', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Aluminum, Wire Rack Insert, Wide', length:26, width:20.5 },
-  { id:'sl-bt-41', color:'Silver', category:'Baskets & Trays', name:'Rectangular Basket, Galvanized Metal, Grid Lid, Deep', length:31, width:22, height:5 },
-  { id:'sl-bt-42', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Stainless Steel, Flat Rim, Large', length:31.5, width:24.5 },
-  { id:'sl-bt-43', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Stainless Steel, Flat Rim, Medium-Large', length:31, width:20.9 },
-  { id:'sl-bt-44', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Stainless Steel, Flat Rim, Large Wide', length:37, width:26 },
-  { id:'sl-bt-45', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Black-Coated Metal, Aged Patina, Wide', length:39.5, width:26 },
-  { id:'sl-bt-46', color:'Silver', category:'Baskets & Trays', name:'Round Tray, Dark Metal, Flat Surface, Large Diameter', diameter:38.5 },
-  { id:'sl-bt-47', color:'Silver', category:'Baskets & Trays', name:'Rectangular Cooling Rack, Silver Wire, Square Grid, Extra Large', length:45, width:34 },
-  { id:'sl-bt-48', color:'Silver', category:'Baskets & Trays', name:'Rectangular Cooling Rack, Silver Wire, Square Grid, Large', length:41.5, width:26 },
-  { id:'sl-bt-49', color:'Silver', category:'Baskets & Trays', name:'Rectangular Cooling Rack, Silver Wire, Square Grid, Small', length:22.5, width:18.5 },
-  { id:'sl-bt-50', color:'Silver', category:'Baskets & Trays', name:'Rectangular Cooling Rack, Silver Wire, Square Grid, Extra Large', length:51, width:36.5 },
-  { id:'sl-bt-51', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Antique Silver, Ornate Handles, Vintage', length:48, width:33 },
-  { id:'sl-bt-52', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Galvanized Metal, Flat Rim, Large', length:39.5, width:28 },
-  { id:'sl-bt-53', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Galvanized Metal, Flat Rim, Large', length:41, width:31 },
-  { id:'sl-bt-54', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Dark Metal, Non-Stick Coating, Large', length:47.5, width:32, qty:3 },
-  { id:'sl-bt-55', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Dark Metal, Non-Stick Coating, Medium', length:43.5, width:30, qty:3 },
-  { id:'sl-bt-56', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Aged Silver, Patina Surface, Large', length:45.5, width:33 },
-  { id:'sl-bt-57', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Aluminum, Flat Rim, Large', length:42, width:31 },
-  { id:'sl-bt-58', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Brushed Aluminum, Flat Rim, Large', length:41.5, width:31 },
-  { id:'sl-bt-59', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Brushed Aluminum, Flat Rim, Extra Wide', length:46, width:38 },
-  { id:'sl-bt-60', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Brushed Aluminum, Flat Rim, Extra Long', length:56.4, width:38 },
-  { id:'sl-bt-61', color:'Silver', category:'Baskets & Trays', name:'Square Basket, Wicker-Wrapped Wire, Short Walls, Handle', length:8.5, width:8.5, height:12.5 },
-  { id:'sl-bt-62', color:'Silver', category:'Baskets & Trays', name:'Round Hanging Basket, Antique Silver, Chain Handle, Small', diameter:11, height:8.5 },
-  { id:'sl-bt-63', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Gunmetal Aluminum, Flat Rim, Large', length:36, width:20 },
-  { id:'sl-bt-64', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Brushed Aluminum, Flat Rim, Small', length:22, width:14 },
-  { id:'sl-bt-65', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Brushed Aluminum, Flat Rim, Medium', length:33.5, width:23.5 },
-  { id:'sl-bt-66', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Stainless Steel, Ribbed Surface, Handled', length:25, width:16 },
-  { id:'sl-bt-67', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Aluminum, Flat Bottom, Large Wide', length:37.5, width:25.5, height:2 },
-  { id:'sl-bt-68', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Brushed Aluminum, Flat Rim, Small Square', length:23.5, width:14.5, height:1.5 },
-  { id:'sl-bt-69', color:'Silver', category:'Baskets & Trays', name:'Rectangular Tray, Brushed Aluminum, Flat Rim, Small Oblong', length:23.5, width:21, height:1.5 },
-  { id:'sl-bs-1', color:'Silver', category:'Boards & Stands', name:'Cake Stand, Brushed Aluminum, Round Spinning Top, Tulip Pedestal Base', diameter:31, height:13 },
-  { id:'sl-bs-2', color:'Silver', category:'Boards & Stands', name:'Cake Stand, Galvanized Metal Top, Turned Wood Pedestal Base, Wide Flat', diameter:21.5, height:9.5 },
-  { id:'sl-pp-1', color:'Silver', category:'Pots & Pans', name:'Tamagoyaki Pan, Dark Metal, Rectangular, Wood Handle', length:15.3, width:15.3, height:3 },
-  { id:'sl-pp-2', color:'Silver', category:'Pots & Pans', name:'Colander, Stainless Steel, Deep Bowl, Two Handles', diameter:21.5, height:21.5 },
-  { id:'sl-pp-3', color:'Silver', category:'Pots & Pans', name:'Colander, Stainless Steel, Wide Bowl, Two Handles', diameter:24, height:8 },
-  { id:'sl-pp-4', color:'Silver', category:'Pots & Pans', name:'Paella Pan, Stainless Steel, Two Handles, Shallow', diameter:21, height:5.5 },
-  { id:'sl-pp-5', color:'Silver', category:'Pots & Pans', name:'Paella Pan, Black Enamel, Two Handles, Shallow', diameter:20.5, height:3.5 },
-  { id:'sl-pp-6', color:'Silver', category:'Pots & Pans', name:'Paella Pan, Stainless Steel, Red Handles, Wide Shallow', diameter:22.5, height:3 },
-  { id:'sl-pp-7', color:'Silver', category:'Pots & Pans', name:'Frying Pan, Stainless Steel, Long Handle, Flat Base', length:25.5, width:25.5, height:5 },
-  { id:'sl-pp-8', color:'Silver', category:'Pots & Pans', name:'Strainer Pan, Stainless Steel, Perforated Base, Two Handles', diameter:24.5, height:5.5 },
-  { id:'sl-pp-9', color:'Silver', category:'Pots & Pans', name:'Wok-Pan, Dark Metal, Wood Handle, Wide Shallow', length:28, width:27.5, height:6.5 },
-  { id:'sl-pp-10', color:'Silver', category:'Pots & Pans', name:'Saucepan, Aluminum, Wood Handle, Small Round', length:16, width:16, height:7.5 },
-  { id:'sl-pp-11', color:'Silver', category:'Pots & Pans', name:'Loaf Pan, Aluminum, Rectangular, No Handles', length:23.5, width:13, height:4.5, qty:2 },
-  { id:'sl-pp-12', color:'Silver', category:'Pots & Pans', name:'Square Baking Pan, Dark Non-Stick, Four Walls', length:20, width:20, height:3, qty:2 },
-  { id:'sl-pp-13', color:'Silver', category:'Pots & Pans', name:'Square Baking Pan, Aluminum, Ribbed Texture, USA Pan Brand', length:24, width:24, height:6 },
-  { id:'sl-pp-14', color:'Silver', category:'Pots & Pans', name:'Rectangular Grill Pan, Dark Non-Stick, Ridged Base, Two Metal Handles', length:29, width:29 },
-  { id:'sl-pp-15', color:'Silver', category:'Pots & Pans', name:'Round Pan, Dark Non-Stick, Smooth Base, Two Loop Handles', diameter:30.5, height:3 },
-  { id:'sl-pp-16', color:'Silver', category:'Pots & Pans', name:'Tart Pan, Dark Non-Stick, Round, Removable Base', diameter:23, height:3.5 },
-  { id:'sl-pp-17', color:'Silver', category:'Pots & Pans', name:'Tart Pan, Dark Non-Stick, Round, Fluted Rim', diameter:26, height:3.5 },
-  { id:'sl-pp-18', color:'Silver', category:'Pots & Pans', name:'Tart Pan, Dark Non-Stick, Round, Fluted Rim, Large', diameter:27.5, height:3 },
-  { id:'sl-pp-19', color:'Silver', category:'Pots & Pans', name:'Round Pan, Dark Non-Stick, Flat Base, No Rim', diameter:26, height:1.5 },
-  { id:'sl-pp-20', color:'Silver', category:'Pots & Pans', name:'Round Pan, Dark Non-Stick, Flat Base, No Rim, Large', diameter:28, height:3 },
-  { id:'sl-pp-21', color:'Silver', category:'Pots & Pans', name:'Paella Pan, Black Enamel, Two Handles, Wide', diameter:28, height:4 },
-  { id:'sl-pp-22', color:'Silver', category:'Pots & Pans', name:'Round Pan, Dark Non-Stick, Flat Base, Extra Large', diameter:30.5 },
-  { id:'sl-pp-23', color:'Silver', category:'Pots & Pans', name:'Round Pan, Aged Silver, Flat Hammered Surface, Wide', diameter:30 },
-  { id:'sl-pp-24', color:'Silver', category:'Pots & Pans', name:'Pizza Pan, Dark Non-Stick, Perforated Base, Wide', diameter:32.5, qty:2 },
-  { id:'sl-pp-25', color:'Silver', category:'Pots & Pans', name:'Rectangular Baking Tray, Stainless Steel, Flat Rim, Large', length:32.5, width:26.5 },
-  { id:'sl-pp-26', color:'Silver', category:'Pots & Pans', name:'Rectangular Baking Tray, Dark Non-Stick, Raised Rim, Large', length:33.5, width:24.4 },
-  { id:'sl-pp-27', color:'Silver', category:'Pots & Pans', name:'Rectangular Baking Tray, Dark Non-Stick, Raised Rim, Extra Large', length:39.5, width:28.5 },
-  { id:'sl-pp-28', color:'Silver', category:'Pots & Pans', name:'Oval Griddle, Dark Non-Stick, Flat Surface, Two Cutout Handles', length:36.8, width:21.5 },
-  { id:'sl-pp-29', color:'Silver', category:'Pots & Pans', name:'Saucepan, Hammered Aluminum, Wood Handle, Small Round', length:16.5, width:16, height:6 },
-  { id:'sl-pp-30', color:'Silver', category:'Pots & Pans', name:'Strainer Pan, Hammered Aluminum, Wood Handle, Perforated Base', length:18.5, width:19.5, height:6.5 },
-  { id:'sl-pp-31', color:'Silver', category:'Pots & Pans', name:'Saucepan, Aluminum, Flat Metal Handle, Small Round', length:13.5, height:6.5 },
-  { id:'sl-pp-32', color:'Silver', category:'Pots & Pans', name:'Dutch Oven, Aluminum, Domed Lid, Two Tab Handles, Small', diameter:19.5, height:21.5 },
-  { id:'sl-pp-33', color:'Silver', category:'Pots & Pans', name:'Dutch Oven, Aluminum, Domed Lid, Bail Wire Handle, Medium', diameter:24, height:9 },
-  { id:'sl-pp-34', color:'Silver', category:'Pots & Pans', name:'Stock Pot, Stainless Steel, Flat Lid, Black Side Handles', diameter:20.5, height:10 },
-  { id:'sl-pp-35', color:'Silver', category:'Pots & Pans', name:'Hot Pot Pan, Stainless Steel, Glass Lid, Two Black Handles, Wide Shallow', diameter:27.5, height:8 },
-  { id:'sl-pp-36', color:'Silver', category:'Pots & Pans', name:'Dutch Oven, Aluminum, Domed Lid, Two Ring Handles, Small', diameter:18.5, height:10 },
-  { id:'sl-pp-37', color:'Silver', category:'Pots & Pans', name:'Dutch Oven, Aluminum, Domed Lid, Two Tab Handles, Medium', diameter:21.5, height:11.5 },
-  { id:'sl-pp-38', color:'Silver', category:'Pots & Pans', name:'Dutch Oven, Aluminum, Domed Lid, Two Tab Handles, Large', diameter:22, height:12.8 },
-  { id:'sl-pp-39', color:'Silver', category:'Pots & Pans', name:'Wok Pan, Aluminum, Wide Shallow, Two Cast Handles', diameter:26.5, height:6.5 },
-  { id:'sl-pp-40', color:'Silver', category:'Pots & Pans', name:'Frying Pan, Aluminum, Shallow, Stub Spout Handle', diameter:24.3, height:4.5 },
-  { id:'sl-pp-41', color:'Silver', category:'Pots & Pans', name:'Saucepan, Stainless Steel, Glass Lid, Long Black Handle', diameter:25.5, height:4.5 },
-  { id:'sl-pp-42', color:'Silver', category:'Pots & Pans', name:'Saucepan, Aluminum, Glass Lid, Long Black Handle', diameter:15.5, height:7.5 },
-  { id:'sl-pp-43', color:'Silver', category:'Pots & Pans', name:'Saucepan, Stainless Steel, Wire Handle, Measurement Markings', diameter:18.4, height:9 },
-  { id:'sl-pp-44', color:'Silver', category:'Pots & Pans', name:'Frying Pan, Stainless Steel, Long Metal Handle, Shallow', diameter:18.5, height:7.5 },
-  { id:'sl-pp-45', color:'Silver', category:'Pots & Pans', name:'Frying Pan, Stainless Steel, Long Flat Metal Handle, Deep Walls', diameter:27, height:4.5 },
-  { id:'sl-pp-46', color:'Silver', category:'Pots & Pans', name:'Stock Pot, Stainless Steel, Glass Lid, Two Metal Handles', length:22, height:6 },
-  { id:'sl-pp-47', color:'Silver', category:'Pots & Pans', name:'Stock Pot, Stainless Steel, Glass Lid, Two Metal Handles, Large', diameter:25.5, height:14 },
-  { id:'sl-pp-48', color:'Silver', category:'Pots & Pans', name:'Frying Pan, Aluminum, Long Black Handle, Wide Shallow', diameter:26.5, height:15.8 },
-  { id:'sl-pp-49', color:'Silver', category:'Pots & Pans', name:'Wok, Stainless Steel, Glass Lid, Two Ring Handles', diameter:32, length:6 },
-  { id:'sl-pp-50', color:'Silver', category:'Pots & Pans', name:'Steamer Pot Set, Aluminum, Three-Tier Stack, Black Handles', diameter:29, height:9 },
-  { id:'sl-pp-51', color:'Silver', category:'Pots & Pans', name:'Rectangular Baking Tray, Aluminum, Shallow Walls, No Handles', diameter:30, width:29 },
-  { id:'sl-pp-52', color:'Silver', category:'Pots & Pans', name:'Rectangular Baking Tray, Aluminum, Shallow Walls, Large', length:27.5, width:21, height:3.5 },
-  { id:'sl-pp-53', color:'Silver', category:'Pots & Pans', name:'Rectangular Baking Tray, Aluminum, Shallow Walls, Medium', length:24, width:18, height:3 },
-  { id:'sl-pp-54', color:'Silver', category:'Pots & Pans', name:'Saucepan, Stainless Steel, Long Metal Handle, Small', diameter:15, height:7.5 },
-  { id:'sl-pp-55', color:'Silver', category:'Pots & Pans', name:'Rectangular Baking Pan, Stainless Steel, Deep Straight Walls', length:26, width:20, height:5.5 },
-  { id:'sl-pp-56', color:'Silver', category:'Pots & Pans', name:'Strainer Pan, Dark Carbon Steel, Honeycomb Interior, Gold Loop Handles', diameter:25.5, height:4.5 },
-  { id:'sl-pv-1', color:'Silver', category:'Pitchers & Vases', name:'Square Planter, Galvanized Metal, Straight Walls, Small', length:9.5, width:9.5, height:10 },
-  { id:'sl-pv-2', color:'Silver', category:'Pitchers & Vases', name:'Square Planter, Galvanized Metal, Straight Walls, Medium', length:11.5, width:12, height:12 },
-  { id:'sl-pv-3', color:'Silver', category:'Pitchers & Vases', name:'Square Planters, Galvanized Metal, Slightly Tapered, Set of 3', length:8, width:8, height:8.5, qty:3 },
-  { id:'sl-pv-4', color:'Silver', category:'Pitchers & Vases', name:'Pitcher, Pewter-Toned Metal, Ornate Handle, Antique', length:13.5, width:8, height:14 },
-  { id:'sl-pv-5', color:'Silver', category:'Pitchers & Vases', name:'Moka Pot, Stainless Steel, Octagonal Body, Classic Form', length:11.5, width:9.5, height:15.5 },
-  { id:'sl-pv-6', color:'Silver', category:'Pitchers & Vases', name:'Mini Jug, Pewter-Toned Metal, Round Body, Small Handle', diameter:1.3, height:11 },
-  { id:'sl-pv-7', color:'Silver', category:'Pitchers & Vases', name:'Mini Vase, Pewter-Toned Metal, Narrow Stem, Tiny', diameter:1.5, height:10 },
-  { id:'sl-pv-8', color:'Silver', category:'Pitchers & Vases', name:'Thermos, Stainless Steel, Tall Cylinder, Pump Dispenser', diameter:10.5, height:24 },
-  { id:'sl-pv-9', color:'Silver', category:'Pitchers & Vases', name:'Bucket Vase, Galvanized Metal, Straight Walls, Small', diameter:10.5, height:9.5 },
-  { id:'sl-p-22', color:'Silver', category:'Plates', name:'Round Charger Plate, Pewter-Toned Metal, Wide Flat Rim, Aged Verdigris Patina', diameter:35.5 },
-  { id:'sl-p-23', color:'Silver', category:'Plates', name:'Round Serving Plate, Antique Silver-Plate, Engraved Acanthus Scroll, Rope-Twist Rim', diameter:37.5 },
-  { id:'sl-cm-1', color:'Silver', category:'Cups & Mugs', name:'Cup, Polished Stainless Steel, Straight Cylindrical Walls, No Handle, Set of 2', diameter:7, height:7, qty:2 },
-  { id:'sl-cm-2', color:'Silver', category:'Cups & Mugs', name:'Cup, Brushed Stainless Steel, Tapered Cylindrical Walls, No Handle, Set of 2', diameter:6.5, height:10, qty:2 },
-  { id:'sl-cm-3', color:'Silver', category:'Cups & Mugs', name:'Mug, Matte Aluminum, Cylindrical Body, Square Loop Handle', diameter:7, height:7 },
-  { id:'sl-cm-4', color:'Silver', category:'Cups & Mugs', name:'Mug, Matte Aluminum, Cylindrical Body, Flat Tab Handle, With Lid', diameter:8, height:8 },
-  { id:'sl-cm-5', color:'Silver', category:'Cups & Mugs', name:'Mug, Aged Aluminum, Cylindrical Body, Flat Tab Handle, Ribbed Sides', diameter:9.5, height:7.5 },
-  { id:'sl-cm-6', color:'Silver', category:'Cups & Mugs', name:'Mug, Brushed Stainless Steel, Cylindrical Body, Loop Handle', diameter:10, height:9 },
-  { id:'sl-cm-7', color:'Silver', category:'Cups & Mugs', name:'Cup, Matte Aluminum, Tapered Walls, No Handle, Set of 2', diameter:7.5, height:7.5, qty:2 },
-  { id:'sl-cm-8', color:'Silver', category:'Cups & Mugs', name:'Mug, Brushed Stainless Steel, Cylindrical Body, Loop Handle, Measurement Markings', diameter:8.5, height:7.5 },
-  { id:'sl-cm-9', color:'Silver', category:'Cups & Mugs', name:'Cup, Brushed Stainless Steel, Barrel Body, No Handle, Stepped Base', diameter:7.5, height:7 },
-  { id:'sl-gl-1', color:'Silver', category:'Glasses', name:'Goblet, Pewter-Toned Metal, Tulip Cup, Tapered Stem, Set of 2', diameter:5, height:17, qty:2 },
-  { id:'sl-pv-10', color:'Silver', category:'Pitchers & Vases', name:'Gravy Boat, Polished Stainless Steel, Elongated Oval Basin, Pedestal Base, Loop Handle', length:17, width:9, height:6.5 },
-  { id:'sl-pv-11', color:'Silver', category:'Pitchers & Vases', name:'Milk Pitcher, Brushed Stainless Steel, Tapered Body, Angular Handle, Measurement Markings', diameter:8, height:11 },
-  { id:'sl-pv-12', color:'Silver', category:'Pitchers & Vases', name:'Milk Jug, Galvanized Metal, Cylindrical Body, Swing Handle', diameter:9, height:17.5 },
-  { id:'sl-cn-1', color:'Silver', category:'Containers', name:'Lunchbox, Stainless Steel, Rectangular Lidded, Compact', length:17.5, width:14, height:5.5 },
-  { id:'sl-cn-2', color:'Silver', category:'Containers', name:'Lunchbox, Stainless Steel, Round Lidded, Single Tier', diameter:10.5, height:5 },
-  { id:'sl-cn-3', color:'Silver', category:'Containers', name:'Lunchbox, Stainless Steel, Round Lidded, With Fork', diameter:13.5, height:8 },
-  { id:'sl-cn-4', color:'Silver', category:'Containers', name:'Round Container, Stainless Steel, Clear Plastic Lid, Compact', diameter:8, height:4 },
-  { id:'sl-cn-5', color:'Silver', category:'Containers', name:'Square Container, Stainless Steel, Clear Plastic Lid, Compact', length:10, width:10, height:3 },
-  { id:'sl-cn-6', color:'Silver', category:'Containers', name:'Rectangular Container, Stainless Steel, Clear Plastic Lid, Medium', length:15, width:12, height:4.5 },
-  { id:'sl-cn-7', color:'Silver', category:'Containers', name:'Lunchbox, Polished Stainless Steel, Oval Lidded, Clamp Latch', length:16, width:12, height:4.5 },
-  { id:'sl-cn-8', color:'Silver', category:'Containers', name:'Canister, Galvanized Metal, Round Lidded, Two Ring Handles', diameter:13, height:10.5 },
-  { id:'sl-cn-9', color:'Silver', category:'Containers', name:'Bucket, Aluminum, Straight Walls, Bail Handle, Large', diameter:12.5, height:12.5 },
-  { id:'sl-cn-10', color:'Silver', category:'Containers', name:'Bucket, Galvanized Metal, Rustic Patina, Wood Handle Grip', diameter:12.5, height:9.5 },
-  { id:'sl-cn-11', color:'Silver', category:'Containers', name:'Bucket, Stainless Steel, Straight Walls, Bail Handle', diameter:13, height:11 },
-  { id:'sl-ta-1', color:'Silver', category:'Tools & Accessories', name:'Cylinder Strainer, Aluminum, Perforated Walls, Tall', diameter:12.5, height:13 },
-  { id:'sl-ta-2', color:'Silver', category:'Tools & Accessories', name:'Cylinder Strainer, Aluminum, Perforated Walls, Tall Large', diameter:12, height:18 },
-  { id:'sl-ta-3', color:'Silver', category:'Tools & Accessories', name:'Shaker, Aluminum, Cylindrical Body, Perforated Lid', diameter:7, height:9 },
-  { id:'sl-ta-4', color:'Silver', category:'Tools & Accessories', name:'Mini Grater, Stainless Steel, Box Form, Four Sides', length:3.5, width:2.5, height:7.5 },
-  { id:'sl-ta-5', color:'Silver', category:'Tools & Accessories', name:'Flour Sifter, Polished Stainless Steel, Cylindrical, Squeeze Handle', diameter:10, height:13.5 },
-  { id:'sl-ta-6', color:'Silver', category:'Tools & Accessories', name:'Camping Stove, Aluminum, Foldable Burner Frame, Flat', length:35, width:26.5, height:4 },
-  { id:'sl-ta-7', color:'Silver', category:'Tools & Accessories', name:'Round Steamer Insert, Stainless Steel, Perforated Plate, Large', diameter:17.5, height:12.5 },
-  { id:'sl-ta-8', color:'Silver', category:'Tools & Accessories', name:'Round Steamer Basket, Stainless Steel, Collapsible, Wide', diameter:16, height:6.5 }
+  {
+    "id": "sl-p-1",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Matte Aluminum, Shallow Concave Well, Wide Flat Rim",
+    "diameter": 15.5,
+    "height": 2.5
+  },
+  {
+    "id": "sl-p-2",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Matte Aluminum, Shallow Concave Well, Smooth Wide Rim, Medium",
+    "diameter": 18,
+    "height": 2.5
+  },
+  {
+    "id": "sl-p-3",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Aluminum, Shallow Well, Flared Rim, Medium",
+    "diameter": 19,
+    "height": 2.5
+  },
+  {
+    "id": "sl-p-4",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Polished Stainless Steel, Shallow Concave Well, Raised Center Ring, Embossed Pattern",
+    "diameter": 21.5,
+    "height": 3.5
+  },
+  {
+    "id": "sl-p-5",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Matte Aluminum, Crimped Fluted Rim, Shallow Well, Aged Patina",
+    "diameter": 22.5,
+    "height": 3
+  },
+  {
+    "id": "sl-p-6",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Matte Aluminum, Scalloped Crimped Rim, Shallow Well, Aged Patina",
+    "diameter": 24.5,
+    "height": 4
+  },
+  {
+    "id": "sl-p-7",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Aluminum, Low Straight Rim Ring, Flat Base",
+    "diameter": 19,
+    "height": 2.5
+  },
+  {
+    "id": "sl-p-8",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Aluminum, Low Straight Rim Ring, Flat Base, Medium",
+    "diameter": 22,
+    "height": 2.5
+  },
+  {
+    "id": "sl-p-9",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Aluminum, Shallow Well, Curved Rim, Aged Surface",
+    "diameter": 24,
+    "height": 3
+  },
+  {
+    "id": "sl-p-10",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Aluminum, Very Shallow Profile, Flat Wide Base",
+    "diameter": 23.5,
+    "height": 1.5
+  },
+  {
+    "id": "sl-p-11",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Octagonal Plate, Polished Stainless Steel, Recessed Center, Geometric Rim",
+    "diameter": 26.5
+  },
+  {
+    "id": "sl-p-12",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Aluminum, Shallow Well, Worn Patina, Large",
+    "length": 22,
+    "width": 14.5
+  },
+  {
+    "id": "sl-p-13",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Oval Plate, Polished Stainless Steel, Shallow Recessed Well, Smooth Flat Rim",
+    "length": 28,
+    "width": 19
+  },
+  {
+    "id": "sl-p-14",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Oval Plate, Polished Stainless Steel, Shallow Recessed Well, Smooth Rim, Large",
+    "diameter": 9.5
+  },
+  {
+    "id": "sl-p-15",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Aluminum, Raised Dot-Grid Surface, Flat Profile, Manhole-Style",
+    "length": 9.5,
+    "width": 9.5
+  },
+  {
+    "id": "sl-p-16",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Square Plate, Brushed Aluminum, Raised Grid Surface, Flat Profile, Water-Meter Style",
+    "diameter": 15.5
+  },
+  {
+    "id": "sl-p-17",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Stainless Steel, Wide Shallow Bowl Form, Spinning-Disc Finish",
+    "diameter": 18,
+    "height": 3
+  },
+  {
+    "id": "sl-p-18",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Stainless Steel, Wide Flat Rim, Shallow Recessed Well, Spinning-Disc Finish",
+    "diameter": 15
+  },
+  {
+    "id": "sl-p-19",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Stainless Steel, Stamped Bakers Square Logo, Pie-Dish Form",
+    "diameter": 22.5,
+    "height": 3
+  },
+  {
+    "id": "sl-p-20",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Stainless Steel, Shallow Well, Spinning-Disc Finish, Large",
+    "diameter": 26
+  },
+  {
+    "id": "sl-p-21",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Plate, Brushed Stainless Steel, Shallow Well, Spinning-Disc Finish, Small",
+    "diameter": 14
+  },
+  {
+    "id": "sl-b-1",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Polished Stainless Steel, Two Loop Handles, Shallow Curved",
+    "diameter": 15,
+    "height": 4
+  },
+  {
+    "id": "sl-b-2",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Stainless Steel, Domed Lid with Tab Handle, Deep",
+    "diameter": 20.5,
+    "height": 5.5
+  },
+  {
+    "id": "sl-b-3",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Cup-Bowl, Brushed Stainless Steel, Straight Tall Walls, No Handles",
+    "diameter": 11,
+    "height": 7.5
+  },
+  {
+    "id": "sl-b-4",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Polished Stainless Steel, Wide Curved Walls, Low Profile",
+    "diameter": 11.3,
+    "height": 5
+  },
+  {
+    "id": "sl-b-5",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Aluminum, Low Straight Walls, Wide Opening",
+    "diameter": 11.5,
+    "height": 3
+  },
+  {
+    "id": "sl-b-6",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Tray-Bowl, Brushed Aluminum, Very Shallow Straight Walls, Wide",
+    "diameter": 12.5,
+    "height": 4
+  },
+  {
+    "id": "sl-b-7",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Aluminum, Shallow Flat Profile, Embossed Base",
+    "diameter": 13.5,
+    "height": 2.5
+  },
+  {
+    "id": "sl-b-8",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Stainless Steel, Straight Walls, Flat Bottom",
+    "diameter": 12,
+    "height": 5,
+    "qty": 2
+  },
+  {
+    "id": "sl-b-9",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Stainless Steel, Flared Curved Walls, Medium",
+    "diameter": 11.5
+  },
+  {
+    "id": "sl-b-10",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Polished Stainless Steel, Curved Walls, Medium",
+    "diameter": 13,
+    "height": 4.5
+  },
+  {
+    "id": "sl-b-11",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Stainless Steel, Curved Tapered Walls, Medium",
+    "diameter": 14.5,
+    "height": 4.5
+  },
+  {
+    "id": "sl-b-12",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Stainless Steel, Wide Flared Walls, Medium",
+    "diameter": 15.5,
+    "height": 6.5
+  },
+  {
+    "id": "sl-b-13",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Stainless Steel, Wide Flared Walls, Large",
+    "diameter": 16.5,
+    "height": 6.5,
+    "qty": 2
+  },
+  {
+    "id": "sl-b-14",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Polished Stainless Steel, Scalloped Fluted Exterior, Decorative",
+    "diameter": 14,
+    "height": 6.5
+  },
+  {
+    "id": "sl-b-15",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Stainless Steel, Curved Walls, Small Deep",
+    "diameter": 9,
+    "height": 4.5
+  },
+  {
+    "id": "sl-b-16",
+    "color": "Silver",
+    "category": "Bowls",
+    "name": "Round Bowl, Brushed Stainless Steel, Double-Wall Construction, Wide Deep",
+    "diameter": 23,
+    "height": 7.5
+  },
+  {
+    "id": "sl-r-1",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Matte Aluminum, Shallow Curved Walls, Wide Opening",
+    "diameter": 9.5,
+    "height": 2
+  },
+  {
+    "id": "sl-r-2",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Shallow Curved Walls, Polished Interior",
+    "diameter": 9.5,
+    "height": 2
+  },
+  {
+    "id": "sl-r-3",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Matte Aluminum, Shallow Flat Base, Wide Opening",
+    "diameter": 10.5,
+    "height": 2
+  },
+  {
+    "id": "sl-r-4",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Pewter-Toned Vintage Metal, Very Shallow Saucer Form, Aged Patina",
+    "diameter": 12,
+    "height": 1.5
+  },
+  {
+    "id": "sl-r-5",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Antique Silver-Plate, Flat Shallow Dish, Engraved Crest, Aged Patina",
+    "diameter": 13,
+    "qty": 3
+  },
+  {
+    "id": "sl-r-6",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Antique Pewter, Flat Shallow Dish, Heavy Patina, Large",
+    "diameter": 15
+  },
+  {
+    "id": "sl-r-7",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Aluminum, Low Straight Walls, Stepped Rim, Set of 2",
+    "diameter": 6.5,
+    "height": 3,
+    "qty": 2
+  },
+  {
+    "id": "sl-r-8",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Aluminum, Low Straight Walls, Flat Bottom, Small",
+    "diameter": 6.5,
+    "height": 3.2
+  },
+  {
+    "id": "sl-r-9",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Low Straight Walls, Set of 2",
+    "diameter": 6.5,
+    "height": 3
+  },
+  {
+    "id": "sl-r-10",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Aluminum, Low Straight Walls, Single",
+    "diameter": 3.5,
+    "height": 3
+  },
+  {
+    "id": "sl-r-11",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Conical Tapered Form, Tab Handle",
+    "diameter": 7.5,
+    "height": 5.5
+  },
+  {
+    "id": "sl-r-12",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Curved Walls, Small Deep",
+    "diameter": 7.5,
+    "height": 3
+  },
+  {
+    "id": "sl-r-13",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Matte Aluminum, Flared Walls, Tiny, Set of 2",
+    "diameter": 4.5,
+    "height": 2,
+    "qty": 2
+  },
+  {
+    "id": "sl-r-14",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Matte Aluminum, Straight Walls, Tiny, Set of 2",
+    "diameter": 6,
+    "height": 4.5
+  },
+  {
+    "id": "sl-r-15",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Matte Aluminum, Flared Walls, Small, Set of 2",
+    "diameter": 6.5,
+    "height": 2.5,
+    "qty": 3
+  },
+  {
+    "id": "sl-r-16",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Matte Aluminum, Flared Walls, Small, Set of 2",
+    "diameter": 7.5,
+    "height": 3.5,
+    "qty": 2
+  },
+  {
+    "id": "sl-r-17",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Matte Aluminum, Straight Walls, Small Deep, Set of 2",
+    "diameter": 7.5,
+    "height": 3.5,
+    "qty": 2
+  },
+  {
+    "id": "sl-r-18",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Matte Aluminum, Straight Walls, Medium, Set of 2",
+    "diameter": 8,
+    "height": 3.3,
+    "qty": 2
+  },
+  {
+    "id": "sl-r-19",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Flared Walls, Medium, Set of 3",
+    "diameter": 6.5,
+    "height": 4
+  },
+  {
+    "id": "sl-r-20",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Double-Wall Construction, Stepped Base",
+    "diameter": 4,
+    "height": 7
+  },
+  {
+    "id": "sl-r-21",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Double Jigger Form, Set of 2",
+    "diameter": 3,
+    "height": 3
+  },
+  {
+    "id": "sl-r-22",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Bowl Form, Pinched Spout, Measurement Markings, Extra Small",
+    "diameter": 5.5,
+    "height": 2.5
+  },
+  {
+    "id": "sl-r-23",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Mini Creamer Cup, Brushed Stainless Steel, Cylindrical, Loop Handle, Pinched Spout",
+    "diameter": 7.2,
+    "height": 3
+  },
+  {
+    "id": "sl-r-24",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Bowl Form, Pinched Spout, Measurement Markings, Small",
+    "diameter": 8.8,
+    "height": 3.5
+  },
+  {
+    "id": "sl-r-25",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Curved Walls, Flat Base",
+    "diameter": 8.9,
+    "height": 6
+  },
+  {
+    "id": "sl-r-26",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Brushed Stainless Steel, Bowl Form, Pinched Spout, Measurement Markings, Large",
+    "length": 5.6,
+    "width": 8.8,
+    "height": 3
+  },
+  {
+    "id": "sl-r-27",
+    "color": "Silver",
+    "category": "Ramekins",
+    "name": "Round Ramekin, Polished Stainless Steel, Teardrop Bowl Form, Pinched Spout, No Handle",
+    "diameter": 10.5,
+    "height": 4
+  },
+  {
+    "id": "sl-bt-1",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Tray, Aluminum, Low Rim Ring, Large Flat",
+    "diameter": 29,
+    "height": 3
+  },
+  {
+    "id": "sl-bt-2",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Oval Tray, Galvanized Metal, Aged Patina, Raised Rim",
+    "length": 24,
+    "width": 15,
+    "height": 4
+  },
+  {
+    "id": "sl-bt-3",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Stainless Steel, Flat Rim, Classic Form",
+    "length": 21,
+    "width": 14.5,
+    "height": 3
+  },
+  {
+    "id": "sl-bt-4",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Stainless Steel, Flat Rim, Wide Format",
+    "length": 24,
+    "width": 16,
+    "height": 2
+  },
+  {
+    "id": "sl-bt-5",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Brushed Aluminum, Flat Rim, Medium",
+    "length": 25.5,
+    "width": 15.5
+  },
+  {
+    "id": "sl-bt-6",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Square Tray, Stainless Steel, Flat Rim, Small",
+    "length": 15,
+    "width": 15
+  },
+  {
+    "id": "sl-bt-7",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Oval Tray, Antique Silver, Decorative Handles, Ornate Rim",
+    "length": 22.5,
+    "width": 17
+  },
+  {
+    "id": "sl-bt-8",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Antique Silver, Ornate Embossed Rim, Vintage",
+    "length": 26,
+    "width": 13
+  },
+  {
+    "id": "sl-bt-9",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Tray, Antique Silver, Pierced Lace Rim, Decorative Handles",
+    "diameter": 21
+  },
+  {
+    "id": "sl-bt-10",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Oval Basket, Black Wire, Woven Form, Shallow",
+    "length": 22,
+    "width": 14,
+    "height": 5.8
+  },
+  {
+    "id": "sl-bt-11",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Basket Ring, Silver Wire, Flat Coil Form, Open",
+    "diameter": 15,
+    "height": 3.5
+  },
+  {
+    "id": "sl-bt-12",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Basket, Black Wire, Cylindrical Walls, Open Top",
+    "diameter": 18,
+    "height": 8.5
+  },
+  {
+    "id": "sl-bt-13",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Basket, Silver Wire, Decorative Lattice, Flat Shallow",
+    "diameter": 20,
+    "height": 5.5
+  },
+  {
+    "id": "sl-bt-14",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Basket, Silver Wire, Lattice Sides, Bowl Form",
+    "diameter": 22.5,
+    "height": 7
+  },
+  {
+    "id": "sl-bt-15",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Square Tray, Silver Wire Grid, Fine Mesh, Flat",
+    "length": 21,
+    "width": 17
+  },
+  {
+    "id": "sl-bt-16",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Trivet, Silver Wire, Circular Concentric Rings, Flat",
+    "diameter": 18
+  },
+  {
+    "id": "sl-bt-17",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Trivet, Silver Wire, Flower-Pattern Design, Flat",
+    "diameter": 18
+  },
+  {
+    "id": "sl-bt-18",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Trivet, Silver Wire, Spoke Design, Flat",
+    "diameter": 17
+  },
+  {
+    "id": "sl-bt-19",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Trivet, Silver Wire, Concentric Rings, Large Flat",
+    "diameter": 25
+  },
+  {
+    "id": "sl-bt-20",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Cooling Rack, Silver Wire, Fine Grid, Small",
+    "length": 25,
+    "width": 18.5,
+    "height": 1.5
+  },
+  {
+    "id": "sl-bt-21",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Cooling Rack, Silver Wire, Concentric Grid, Large",
+    "diameter": 25
+  },
+  {
+    "id": "sl-bt-22",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Cooling Rack, Silver Wire, Fine Grid, Medium-Large",
+    "length": 29.5,
+    "width": 22.5
+  },
+  {
+    "id": "sl-bt-23",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Cooling Rack, Silver Wire, Fine Grid, Medium-Large",
+    "length": 25.5,
+    "width": 25
+  },
+  {
+    "id": "sl-bt-24",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Cooling Rack, Silver Wire, Concentric Grid, Large Diameter",
+    "diameter": 29
+  },
+  {
+    "id": "sl-bt-25",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Silver Wire, Side Handles, Small",
+    "length": 10,
+    "width": 8.5,
+    "height": 6.5
+  },
+  {
+    "id": "sl-bt-26",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Basket, Silver Wire, Tall Cylindrical, Handle",
+    "diameter": 9,
+    "height": 9
+  },
+  {
+    "id": "sl-bt-27",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Square Basket, Silver Wire, Open Grid Sides, Handle",
+    "length": 10,
+    "width": 10,
+    "height": 7.5
+  },
+  {
+    "id": "sl-bt-28",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Silver Wire, Open Grid Sides, Handle",
+    "length": 10,
+    "width": 8,
+    "height": 7
+  },
+  {
+    "id": "sl-bt-29",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Silver Wire, Open Grid Sides, Handle",
+    "length": 13,
+    "width": 11,
+    "height": 7.5
+  },
+  {
+    "id": "sl-bt-30",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Stainless Steel, Solid Walls, Two Handles",
+    "length": 15,
+    "width": 15,
+    "height": 8.5
+  },
+  {
+    "id": "sl-bt-31",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Silver Wire, Long Form, Two Handles",
+    "length": 27,
+    "width": 11,
+    "height": 8.5
+  },
+  {
+    "id": "sl-bt-32",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Dark Wire, Large Deep Form, Two Handles",
+    "length": 28,
+    "width": 16.5,
+    "height": 13
+  },
+  {
+    "id": "sl-bt-33",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Basket, Rattan-Wrapped Metal, Low Cylindrical Band",
+    "length": 14,
+    "width": 10.5,
+    "height": 6.5,
+    "qty": 2
+  },
+  {
+    "id": "sl-bt-34",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Wicker-Wrapped Wire, Low Form, Two Handles",
+    "length": 11,
+    "width": 11,
+    "height": 6.5
+  },
+  {
+    "id": "sl-bt-35",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Square Basket, Wire, Wood Handle Wraps, Tall Sides",
+    "length": 16,
+    "width": 16,
+    "height": 15
+  },
+  {
+    "id": "sl-bt-36",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Wire, Wood Handle, Shallow",
+    "length": 19,
+    "width": 12.5,
+    "height": 5
+  },
+  {
+    "id": "sl-bt-37",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Wire, Open Grid, Medium",
+    "length": 23,
+    "width": 16,
+    "height": 9
+  },
+  {
+    "id": "sl-bt-38",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Oval Basket, Chicken-Wire, Aged Patina, Deep Form",
+    "length": 33,
+    "width": 20.3,
+    "height": 9
+  },
+  {
+    "id": "sl-bt-39",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Wicker, Natural Tan, Long Low Form",
+    "length": 35.5,
+    "width": 12,
+    "height": 7
+  },
+  {
+    "id": "sl-bt-40",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Aluminum, Wire Rack Insert, Wide",
+    "length": 26,
+    "width": 20.5
+  },
+  {
+    "id": "sl-bt-41",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Basket, Galvanized Metal, Grid Lid, Deep",
+    "length": 31,
+    "width": 22,
+    "height": 5
+  },
+  {
+    "id": "sl-bt-42",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Stainless Steel, Flat Rim, Large",
+    "length": 31.5,
+    "width": 24.5
+  },
+  {
+    "id": "sl-bt-43",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Stainless Steel, Flat Rim, Medium-Large",
+    "length": 31,
+    "width": 20.9
+  },
+  {
+    "id": "sl-bt-44",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Stainless Steel, Flat Rim, Large Wide",
+    "length": 37,
+    "width": 26
+  },
+  {
+    "id": "sl-bt-45",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Black-Coated Metal, Aged Patina, Wide",
+    "length": 39.5,
+    "width": 26
+  },
+  {
+    "id": "sl-bt-46",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Tray, Dark Metal, Flat Surface, Large Diameter",
+    "diameter": 38.5
+  },
+  {
+    "id": "sl-bt-47",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Cooling Rack, Silver Wire, Square Grid, Extra Large",
+    "length": 45,
+    "width": 34
+  },
+  {
+    "id": "sl-bt-48",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Cooling Rack, Silver Wire, Square Grid, Large",
+    "length": 41.5,
+    "width": 26
+  },
+  {
+    "id": "sl-bt-49",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Cooling Rack, Silver Wire, Square Grid, Small",
+    "length": 22.5,
+    "width": 18.5
+  },
+  {
+    "id": "sl-bt-50",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Cooling Rack, Silver Wire, Square Grid, Extra Large",
+    "length": 51,
+    "width": 36.5
+  },
+  {
+    "id": "sl-bt-51",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Antique Silver, Ornate Handles, Vintage",
+    "length": 48,
+    "width": 33
+  },
+  {
+    "id": "sl-bt-52",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Galvanized Metal, Flat Rim, Large",
+    "length": 39.5,
+    "width": 28
+  },
+  {
+    "id": "sl-bt-53",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Galvanized Metal, Flat Rim, Large",
+    "length": 41,
+    "width": 31
+  },
+  {
+    "id": "sl-bt-54",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Dark Metal, Non-Stick Coating, Large",
+    "length": 47.5,
+    "width": 32,
+    "qty": 3
+  },
+  {
+    "id": "sl-bt-55",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Dark Metal, Non-Stick Coating, Medium",
+    "length": 43.5,
+    "width": 30,
+    "qty": 3
+  },
+  {
+    "id": "sl-bt-56",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Aged Silver, Patina Surface, Large",
+    "length": 45.5,
+    "width": 33
+  },
+  {
+    "id": "sl-bt-57",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Aluminum, Flat Rim, Large",
+    "length": 42,
+    "width": 31
+  },
+  {
+    "id": "sl-bt-58",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Brushed Aluminum, Flat Rim, Large",
+    "length": 41.5,
+    "width": 31
+  },
+  {
+    "id": "sl-bt-59",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Brushed Aluminum, Flat Rim, Extra Wide",
+    "length": 46,
+    "width": 38
+  },
+  {
+    "id": "sl-bt-60",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Brushed Aluminum, Flat Rim, Extra Long",
+    "length": 56.4,
+    "width": 38
+  },
+  {
+    "id": "sl-bt-61",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Square Basket, Wicker-Wrapped Wire, Short Walls, Handle",
+    "length": 8.5,
+    "width": 8.5,
+    "height": 12.5
+  },
+  {
+    "id": "sl-bt-62",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Round Hanging Basket, Antique Silver, Chain Handle, Small",
+    "diameter": 11,
+    "height": 8.5
+  },
+  {
+    "id": "sl-bt-63",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Gunmetal Aluminum, Flat Rim, Large",
+    "length": 36,
+    "width": 20
+  },
+  {
+    "id": "sl-bt-64",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Brushed Aluminum, Flat Rim, Small",
+    "length": 22,
+    "width": 14
+  },
+  {
+    "id": "sl-bt-65",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Brushed Aluminum, Flat Rim, Medium",
+    "length": 33.5,
+    "width": 23.5
+  },
+  {
+    "id": "sl-bt-66",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Stainless Steel, Ribbed Surface, Handled",
+    "length": 25,
+    "width": 16
+  },
+  {
+    "id": "sl-bt-67",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Aluminum, Flat Bottom, Large Wide",
+    "length": 37.5,
+    "width": 25.5,
+    "height": 2
+  },
+  {
+    "id": "sl-bt-68",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Brushed Aluminum, Flat Rim, Small Square",
+    "length": 23.5,
+    "width": 14.5,
+    "height": 1.5
+  },
+  {
+    "id": "sl-bt-69",
+    "color": "Silver",
+    "category": "Baskets & Trays",
+    "name": "Rectangular Tray, Brushed Aluminum, Flat Rim, Small Oblong",
+    "length": 23.5,
+    "width": 21,
+    "height": 1.5
+  },
+  {
+    "id": "sl-bs-1",
+    "color": "Silver",
+    "category": "Boards & Stands",
+    "name": "Cake Stand, Brushed Aluminum, Round Spinning Top, Tulip Pedestal Base",
+    "diameter": 31,
+    "height": 13
+  },
+  {
+    "id": "sl-bs-2",
+    "color": "Silver",
+    "category": "Boards & Stands",
+    "name": "Cake Stand, Galvanized Metal Top, Turned Wood Pedestal Base, Wide Flat",
+    "diameter": 21.5,
+    "height": 9.5
+  },
+  {
+    "id": "sl-pp-1",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Tamagoyaki Pan, Dark Metal, Rectangular, Wood Handle",
+    "length": 15.3,
+    "width": 15.3,
+    "height": 3
+  },
+  {
+    "id": "sl-pp-2",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Colander, Stainless Steel, Deep Bowl, Two Handles",
+    "diameter": 21.5,
+    "height": 21.5
+  },
+  {
+    "id": "sl-pp-3",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Colander, Stainless Steel, Wide Bowl, Two Handles",
+    "diameter": 24,
+    "height": 8
+  },
+  {
+    "id": "sl-pp-4",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Paella Pan, Stainless Steel, Two Handles, Shallow",
+    "diameter": 21,
+    "height": 5.5
+  },
+  {
+    "id": "sl-pp-5",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Paella Pan, Black Enamel, Two Handles, Shallow",
+    "diameter": 20.5,
+    "height": 3.5
+  },
+  {
+    "id": "sl-pp-6",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Paella Pan, Stainless Steel, Red Handles, Wide Shallow",
+    "diameter": 22.5,
+    "height": 3
+  },
+  {
+    "id": "sl-pp-7",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Frying Pan, Stainless Steel, Long Handle, Flat Base",
+    "length": 25.5,
+    "width": 25.5,
+    "height": 5
+  },
+  {
+    "id": "sl-pp-8",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Strainer Pan, Stainless Steel, Perforated Base, Two Handles",
+    "diameter": 24.5,
+    "height": 5.5
+  },
+  {
+    "id": "sl-pp-9",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Wok-Pan, Dark Metal, Wood Handle, Wide Shallow",
+    "length": 28,
+    "width": 27.5,
+    "height": 6.5
+  },
+  {
+    "id": "sl-pp-10",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Saucepan, Aluminum, Wood Handle, Small Round",
+    "length": 16,
+    "width": 16,
+    "height": 7.5
+  },
+  {
+    "id": "sl-pp-11",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Loaf Pan, Aluminum, Rectangular, No Handles",
+    "length": 23.5,
+    "width": 13,
+    "height": 4.5,
+    "qty": 2
+  },
+  {
+    "id": "sl-pp-12",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Square Baking Pan, Dark Non-Stick, Four Walls",
+    "length": 20,
+    "width": 20,
+    "height": 3,
+    "qty": 2
+  },
+  {
+    "id": "sl-pp-13",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Square Baking Pan, Aluminum, Ribbed Texture, USA Pan Brand",
+    "length": 24,
+    "width": 24,
+    "height": 6
+  },
+  {
+    "id": "sl-pp-14",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Rectangular Grill Pan, Dark Non-Stick, Ridged Base, Two Metal Handles",
+    "length": 29,
+    "width": 29
+  },
+  {
+    "id": "sl-pp-15",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Round Pan, Dark Non-Stick, Smooth Base, Two Loop Handles",
+    "diameter": 30.5,
+    "height": 3
+  },
+  {
+    "id": "sl-pp-16",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Tart Pan, Dark Non-Stick, Round, Removable Base",
+    "diameter": 23,
+    "height": 3.5
+  },
+  {
+    "id": "sl-pp-17",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Tart Pan, Dark Non-Stick, Round, Fluted Rim",
+    "diameter": 26,
+    "height": 3.5
+  },
+  {
+    "id": "sl-pp-18",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Tart Pan, Dark Non-Stick, Round, Fluted Rim, Large",
+    "diameter": 27.5,
+    "height": 3
+  },
+  {
+    "id": "sl-pp-19",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Round Pan, Dark Non-Stick, Flat Base, No Rim",
+    "diameter": 26,
+    "height": 1.5
+  },
+  {
+    "id": "sl-pp-20",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Round Pan, Dark Non-Stick, Flat Base, No Rim, Large",
+    "diameter": 28,
+    "height": 3
+  },
+  {
+    "id": "sl-pp-21",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Paella Pan, Black Enamel, Two Handles, Wide",
+    "diameter": 28,
+    "height": 4
+  },
+  {
+    "id": "sl-pp-22",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Round Pan, Dark Non-Stick, Flat Base, Extra Large",
+    "diameter": 30.5
+  },
+  {
+    "id": "sl-pp-23",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Round Pan, Aged Silver, Flat Hammered Surface, Wide",
+    "diameter": 30
+  },
+  {
+    "id": "sl-pp-24",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Pizza Pan, Dark Non-Stick, Perforated Base, Wide",
+    "diameter": 32.5,
+    "qty": 2
+  },
+  {
+    "id": "sl-pp-25",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Rectangular Baking Tray, Stainless Steel, Flat Rim, Large",
+    "length": 32.5,
+    "width": 26.5
+  },
+  {
+    "id": "sl-pp-26",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Rectangular Baking Tray, Dark Non-Stick, Raised Rim, Large",
+    "length": 33.5,
+    "width": 24.4
+  },
+  {
+    "id": "sl-pp-27",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Rectangular Baking Tray, Dark Non-Stick, Raised Rim, Extra Large",
+    "length": 39.5,
+    "width": 28.5
+  },
+  {
+    "id": "sl-pp-28",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Oval Griddle, Dark Non-Stick, Flat Surface, Two Cutout Handles",
+    "length": 36.8,
+    "width": 21.5
+  },
+  {
+    "id": "sl-pp-29",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Saucepan, Hammered Aluminum, Wood Handle, Small Round",
+    "length": 16.5,
+    "width": 16,
+    "height": 6
+  },
+  {
+    "id": "sl-pp-30",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Strainer Pan, Hammered Aluminum, Wood Handle, Perforated Base",
+    "length": 18.5,
+    "width": 19.5,
+    "height": 6.5
+  },
+  {
+    "id": "sl-pp-31",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Saucepan, Aluminum, Flat Metal Handle, Small Round",
+    "length": 13.5,
+    "height": 6.5
+  },
+  {
+    "id": "sl-pp-32",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Dutch Oven, Aluminum, Domed Lid, Two Tab Handles, Small",
+    "diameter": 19.5,
+    "height": 21.5
+  },
+  {
+    "id": "sl-pp-33",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Dutch Oven, Aluminum, Domed Lid, Bail Wire Handle, Medium",
+    "diameter": 24,
+    "height": 9
+  },
+  {
+    "id": "sl-pp-34",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Stock Pot, Stainless Steel, Flat Lid, Black Side Handles",
+    "diameter": 20.5,
+    "height": 10
+  },
+  {
+    "id": "sl-pp-35",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Hot Pot Pan, Stainless Steel, Glass Lid, Two Black Handles, Wide Shallow",
+    "diameter": 27.5,
+    "height": 8
+  },
+  {
+    "id": "sl-pp-36",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Dutch Oven, Aluminum, Domed Lid, Two Ring Handles, Small",
+    "diameter": 18.5,
+    "height": 10
+  },
+  {
+    "id": "sl-pp-37",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Dutch Oven, Aluminum, Domed Lid, Two Tab Handles, Medium",
+    "diameter": 21.5,
+    "height": 11.5
+  },
+  {
+    "id": "sl-pp-38",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Dutch Oven, Aluminum, Domed Lid, Two Tab Handles, Large",
+    "diameter": 22,
+    "height": 12.8
+  },
+  {
+    "id": "sl-pp-39",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Wok Pan, Aluminum, Wide Shallow, Two Cast Handles",
+    "diameter": 26.5,
+    "height": 6.5
+  },
+  {
+    "id": "sl-pp-40",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Frying Pan, Aluminum, Shallow, Stub Spout Handle",
+    "diameter": 24.3,
+    "height": 4.5
+  },
+  {
+    "id": "sl-pp-41",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Saucepan, Stainless Steel, Glass Lid, Long Black Handle",
+    "diameter": 25.5,
+    "height": 4.5
+  },
+  {
+    "id": "sl-pp-42",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Saucepan, Aluminum, Glass Lid, Long Black Handle",
+    "diameter": 15.5,
+    "height": 7.5
+  },
+  {
+    "id": "sl-pp-43",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Saucepan, Stainless Steel, Wire Handle, Measurement Markings",
+    "diameter": 18.4,
+    "height": 9
+  },
+  {
+    "id": "sl-pp-44",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Frying Pan, Stainless Steel, Long Metal Handle, Shallow",
+    "diameter": 18.5,
+    "height": 7.5
+  },
+  {
+    "id": "sl-pp-45",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Frying Pan, Stainless Steel, Long Flat Metal Handle, Deep Walls",
+    "diameter": 27,
+    "height": 4.5
+  },
+  {
+    "id": "sl-pp-46",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Stock Pot, Stainless Steel, Glass Lid, Two Metal Handles",
+    "length": 22,
+    "height": 6
+  },
+  {
+    "id": "sl-pp-47",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Stock Pot, Stainless Steel, Glass Lid, Two Metal Handles, Large",
+    "diameter": 25.5,
+    "height": 14
+  },
+  {
+    "id": "sl-pp-48",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Frying Pan, Aluminum, Long Black Handle, Wide Shallow",
+    "diameter": 26.5,
+    "height": 15.8
+  },
+  {
+    "id": "sl-pp-49",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Wok, Stainless Steel, Glass Lid, Two Ring Handles",
+    "diameter": 32,
+    "length": 6
+  },
+  {
+    "id": "sl-pp-50",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Steamer Pot Set, Aluminum, Three-Tier Stack, Black Handles",
+    "diameter": 29,
+    "height": 9
+  },
+  {
+    "id": "sl-pp-51",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Rectangular Baking Tray, Aluminum, Shallow Walls, No Handles",
+    "diameter": 30,
+    "width": 29
+  },
+  {
+    "id": "sl-pp-52",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Rectangular Baking Tray, Aluminum, Shallow Walls, Large",
+    "length": 27.5,
+    "width": 21,
+    "height": 3.5
+  },
+  {
+    "id": "sl-pp-53",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Rectangular Baking Tray, Aluminum, Shallow Walls, Medium",
+    "length": 24,
+    "width": 18,
+    "height": 3
+  },
+  {
+    "id": "sl-pp-54",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Saucepan, Stainless Steel, Long Metal Handle, Small",
+    "diameter": 15,
+    "height": 7.5
+  },
+  {
+    "id": "sl-pp-55",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Rectangular Baking Pan, Stainless Steel, Deep Straight Walls",
+    "length": 26,
+    "width": 20,
+    "height": 5.5
+  },
+  {
+    "id": "sl-pp-56",
+    "color": "Silver",
+    "category": "Pots & Pans",
+    "name": "Strainer Pan, Dark Carbon Steel, Honeycomb Interior, Gold Loop Handles",
+    "diameter": 25.5,
+    "height": 4.5
+  },
+  {
+    "id": "sl-pv-1",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Square Planter, Galvanized Metal, Straight Walls, Small",
+    "length": 9.5,
+    "width": 9.5,
+    "height": 10
+  },
+  {
+    "id": "sl-pv-2",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Square Planter, Galvanized Metal, Straight Walls, Medium",
+    "length": 11.5,
+    "width": 12,
+    "height": 12
+  },
+  {
+    "id": "sl-pv-3",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Square Planters, Galvanized Metal, Slightly Tapered, Set of 3",
+    "length": 8,
+    "width": 8,
+    "height": 8.5,
+    "qty": 3
+  },
+  {
+    "id": "sl-pv-4",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Pitcher, Pewter-Toned Metal, Ornate Handle, Antique",
+    "length": 13.5,
+    "width": 8,
+    "height": 14
+  },
+  {
+    "id": "sl-pv-5",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Moka Pot, Stainless Steel, Octagonal Body, Classic Form",
+    "length": 11.5,
+    "width": 9.5,
+    "height": 15.5
+  },
+  {
+    "id": "sl-pv-6",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Mini Jug, Pewter-Toned Metal, Round Body, Small Handle",
+    "diameter": 1.3,
+    "height": 11
+  },
+  {
+    "id": "sl-pv-7",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Mini Vase, Pewter-Toned Metal, Narrow Stem, Tiny",
+    "diameter": 1.5,
+    "height": 10
+  },
+  {
+    "id": "sl-pv-8",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Thermos, Stainless Steel, Tall Cylinder, Pump Dispenser",
+    "diameter": 10.5,
+    "height": 24
+  },
+  {
+    "id": "sl-pv-9",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Bucket Vase, Galvanized Metal, Straight Walls, Small",
+    "diameter": 10.5,
+    "height": 9.5
+  },
+  {
+    "id": "sl-p-22",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Charger Plate, Pewter-Toned Metal, Wide Flat Rim, Aged Verdigris Patina",
+    "diameter": 35.5
+  },
+  {
+    "id": "sl-p-23",
+    "color": "Silver",
+    "category": "Plates",
+    "name": "Round Serving Plate, Antique Silver-Plate, Engraved Acanthus Scroll, Rope-Twist Rim",
+    "diameter": 37.5
+  },
+  {
+    "id": "sl-cm-1",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Cup, Polished Stainless Steel, Straight Cylindrical Walls, No Handle, Set of 2",
+    "diameter": 7,
+    "height": 7,
+    "qty": 2
+  },
+  {
+    "id": "sl-cm-2",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Cup, Brushed Stainless Steel, Tapered Cylindrical Walls, No Handle, Set of 2",
+    "diameter": 6.5,
+    "height": 10,
+    "qty": 2
+  },
+  {
+    "id": "sl-cm-3",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Mug, Matte Aluminum, Cylindrical Body, Square Loop Handle",
+    "diameter": 7,
+    "height": 7
+  },
+  {
+    "id": "sl-cm-4",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Mug, Matte Aluminum, Cylindrical Body, Flat Tab Handle, With Lid",
+    "diameter": 8,
+    "height": 8
+  },
+  {
+    "id": "sl-cm-5",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Mug, Aged Aluminum, Cylindrical Body, Flat Tab Handle, Ribbed Sides",
+    "diameter": 9.5,
+    "height": 7.5
+  },
+  {
+    "id": "sl-cm-6",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Mug, Brushed Stainless Steel, Cylindrical Body, Loop Handle",
+    "diameter": 10,
+    "height": 9
+  },
+  {
+    "id": "sl-cm-7",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Cup, Matte Aluminum, Tapered Walls, No Handle, Set of 2",
+    "diameter": 7.5,
+    "height": 7.5,
+    "qty": 2
+  },
+  {
+    "id": "sl-cm-8",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Mug, Brushed Stainless Steel, Cylindrical Body, Loop Handle, Measurement Markings",
+    "diameter": 8.5,
+    "height": 7.5
+  },
+  {
+    "id": "sl-cm-9",
+    "color": "Silver",
+    "category": "Cups & Mugs",
+    "name": "Cup, Brushed Stainless Steel, Barrel Body, No Handle, Stepped Base",
+    "diameter": 7.5,
+    "height": 7
+  },
+  {
+    "id": "sl-gl-1",
+    "color": "Silver",
+    "category": "Glasses",
+    "name": "Goblet, Pewter-Toned Metal, Tulip Cup, Tapered Stem, Set of 2",
+    "diameter": 5,
+    "height": 17,
+    "qty": 2
+  },
+  {
+    "id": "sl-pv-10",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Gravy Boat, Polished Stainless Steel, Elongated Oval Basin, Pedestal Base, Loop Handle",
+    "length": 17,
+    "width": 9,
+    "height": 6.5
+  },
+  {
+    "id": "sl-pv-11",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Milk Pitcher, Brushed Stainless Steel, Tapered Body, Angular Handle, Measurement Markings",
+    "diameter": 8,
+    "height": 11
+  },
+  {
+    "id": "sl-pv-12",
+    "color": "Silver",
+    "category": "Pitchers & Vases",
+    "name": "Milk Jug, Galvanized Metal, Cylindrical Body, Swing Handle",
+    "diameter": 9,
+    "height": 17.5
+  },
+  {
+    "id": "sl-cn-1",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Lunchbox, Stainless Steel, Rectangular Lidded, Compact",
+    "length": 17.5,
+    "width": 14,
+    "height": 5.5
+  },
+  {
+    "id": "sl-cn-2",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Lunchbox, Stainless Steel, Round Lidded, Single Tier",
+    "diameter": 10.5,
+    "height": 5
+  },
+  {
+    "id": "sl-cn-3",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Lunchbox, Stainless Steel, Round Lidded, With Fork",
+    "diameter": 13.5,
+    "height": 8
+  },
+  {
+    "id": "sl-cn-4",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Round Container, Stainless Steel, Clear Plastic Lid, Compact",
+    "diameter": 8,
+    "height": 4
+  },
+  {
+    "id": "sl-cn-5",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Square Container, Stainless Steel, Clear Plastic Lid, Compact",
+    "length": 10,
+    "width": 10,
+    "height": 3
+  },
+  {
+    "id": "sl-cn-6",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Rectangular Container, Stainless Steel, Clear Plastic Lid, Medium",
+    "length": 15,
+    "width": 12,
+    "height": 4.5
+  },
+  {
+    "id": "sl-cn-7",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Lunchbox, Polished Stainless Steel, Oval Lidded, Clamp Latch",
+    "length": 16,
+    "width": 12,
+    "height": 4.5
+  },
+  {
+    "id": "sl-cn-8",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Canister, Galvanized Metal, Round Lidded, Two Ring Handles",
+    "diameter": 13,
+    "height": 10.5
+  },
+  {
+    "id": "sl-cn-9",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Bucket, Aluminum, Straight Walls, Bail Handle, Large",
+    "diameter": 12.5,
+    "height": 12.5
+  },
+  {
+    "id": "sl-cn-10",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Bucket, Galvanized Metal, Rustic Patina, Wood Handle Grip",
+    "diameter": 12.5,
+    "height": 9.5
+  },
+  {
+    "id": "sl-cn-11",
+    "color": "Silver",
+    "category": "Containers",
+    "name": "Bucket, Stainless Steel, Straight Walls, Bail Handle",
+    "diameter": 13,
+    "height": 11
+  },
+  {
+    "id": "sl-ta-1",
+    "color": "Silver",
+    "category": "Tools & Accessories",
+    "name": "Cylinder Strainer, Aluminum, Perforated Walls, Tall",
+    "diameter": 12.5,
+    "height": 13
+  },
+  {
+    "id": "sl-ta-2",
+    "color": "Silver",
+    "category": "Tools & Accessories",
+    "name": "Cylinder Strainer, Aluminum, Perforated Walls, Tall Large",
+    "diameter": 12,
+    "height": 18
+  },
+  {
+    "id": "sl-ta-3",
+    "color": "Silver",
+    "category": "Tools & Accessories",
+    "name": "Shaker, Aluminum, Cylindrical Body, Perforated Lid",
+    "diameter": 7,
+    "height": 9
+  },
+  {
+    "id": "sl-ta-4",
+    "color": "Silver",
+    "category": "Tools & Accessories",
+    "name": "Mini Grater, Stainless Steel, Box Form, Four Sides",
+    "length": 3.5,
+    "width": 2.5,
+    "height": 7.5
+  },
+  {
+    "id": "sl-ta-5",
+    "color": "Silver",
+    "category": "Tools & Accessories",
+    "name": "Flour Sifter, Polished Stainless Steel, Cylindrical, Squeeze Handle",
+    "diameter": 10,
+    "height": 13.5
+  },
+  {
+    "id": "sl-ta-6",
+    "color": "Silver",
+    "category": "Tools & Accessories",
+    "name": "Camping Stove, Aluminum, Foldable Burner Frame, Flat",
+    "length": 35,
+    "width": 26.5,
+    "height": 4
+  },
+  {
+    "id": "sl-ta-7",
+    "color": "Silver",
+    "category": "Tools & Accessories",
+    "name": "Round Steamer Insert, Stainless Steel, Perforated Plate, Large",
+    "diameter": 17.5,
+    "height": 12.5
+  },
+  {
+    "id": "sl-ta-8",
+    "color": "Silver",
+    "category": "Tools & Accessories",
+    "name": "Round Steamer Basket, Stainless Steel, Collapsible, Wide",
+    "diameter": 16,
+    "height": 6.5
+  }
 ];
 
 IMAGES = {
