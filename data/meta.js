@@ -4,6 +4,27 @@ const CATALOG_META = {
     "beige-brown": {
       "count": 283
     },
+    "black": {
+      "count": 187
+    },
+    "blue": {
+      "count": 255
+    },
+    "clear": {
+      "count": 449
+    },
+    "gold": {
+      "count": 40
+    },
+    "gray": {
+      "count": 128
+    },
+    "green": {
+      "count": 192
+    },
+    "pink-purple": {
+      "count": 99
+    },
     "red": {
       "count": 131
     },
@@ -13,32 +34,11 @@ const CATALOG_META = {
     "white": {
       "count": 410
     },
-    "black": {
-      "count": 187
-    },
-    "green": {
-      "count": 192
-    },
-    "pink-purple": {
-      "count": 99
-    },
     "wood": {
       "count": 260
     },
-    "clear": {
-      "count": 449
-    },
-    "gray": {
-      "count": 128
-    },
-    "blue": {
-      "count": 255
-    },
     "yellow-orange": {
       "count": 130
-    },
-    "gold": {
-      "count": 40
     }
   }
 };
