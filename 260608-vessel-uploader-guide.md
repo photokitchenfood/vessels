@@ -2,9 +2,9 @@
 
 ## What It Is
 
-A standalone Claude artifact (React) for adding new vessels to the PK Props Vessels Catalog. It uses Claude Vision to auto-generate a vessel description and suggest a category from a photo, then outputs a **snippet JS file** containing the new vessel data and photos — ready to be merged into the color JS file via the main catalog chat.
+A standalone Claude artifact (React) for adding new vessels to the PK Props Vessels Catalog. It uses Claude Vision to auto-generate a vessel description and suggest a category from a photo, then merges the new vessel data and photos directly into the color JS file — ready to push via GitHub Desktop.
 
-**Repo:** `github.com/photokitchenfood/vessels`
+**Repo:** `github.com/photokitchenfood/pk-vessels-catalog`
 
 ---
 
@@ -31,32 +31,20 @@ The artifact will confirm how many vessels are loaded and show the filename. The
 
 Repeat for as many vessels as you're adding in this batch. Each vessel is listed in the queue as you go.
 
-### Step 3 — Download the snippet and merge
+### Step 3 — Download the updated JS file and push
 
 1. Review the queue — use **edit** or **✕** to adjust or remove any item
-2. Click **↓ Download Snippet** — this saves a file named `YYMMDD-[color]-snippet.js`
-3. Take the snippet file **and** the original color JS file (the one you loaded in Step 1) to the **main catalog chat**
-4. Upload both files and say: *"Merge this snippet into the color JS file and give me the updated file."*
-5. Claude will append the new vessels to the correct category and merge the photos into the `IMAGES` object
-6. Download the updated JS file and push via GitHub Desktop
+2. Click **↓ Download Updated JS** — this saves the fully merged `[color].js` file with your new vessels and photos already included
+3. Drag the downloaded file into GitHub Desktop and push
 
----
-
-## What the Snippet Contains
-
-The snippet file has two sections that get merged into the color JS file:
-
-- **`NEW_VESSELS`** — array of vessel objects (id, color, category, name, dimensions) to append into the `vessels` array
-- **`NEW_IMAGES`** — object of base64 photo strings keyed by vessel ID, to merge into the `IMAGES` object
-
-Vessels without a photo are included in `NEW_VESSELS` but omitted from `NEW_IMAGES`.
+No separate merge step or catalog chat session needed.
 
 ---
 
 ## Raw URL Pattern (for reference)
 
 ```
-https://raw.githubusercontent.com/photokitchenfood/vessels/refs/heads/main/data/[color].js
+https://raw.githubusercontent.com/photokitchenfood/pk-vessels-catalog/refs/heads/main/data/[color].js
 ```
 
 ---
@@ -94,8 +82,8 @@ The artifact auto-calculates the next available ID based on the loaded JS file. 
 
 ## Notes
 
-- Always complete Step 1 before adding vessels — the artifact needs a loaded JS file to calculate correct IDs
+- Always complete Step 1 before adding vessels — the artifact needs a loaded JS file to calculate correct IDs and perform the merge
 - Photos are compressed and converted to JPEG automatically before being sent to Claude Vision
 - If auto-describe fails (e.g. API timeout), you can type the description manually and proceed normally
-- You can add multiple vessels in one session before downloading — all will be included in a single snippet file
-- The snippet file does not replace the color JS file — it must always be merged via the catalog chat
+- You can add multiple vessels in one session before downloading — all will be included in the single output file
+- The downloaded file is the complete updated color JS file — it replaces the existing one in the repo when you push
