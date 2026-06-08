@@ -826,18 +826,6 @@
     display: block;
   }
   .landing-wrap { padding: 0 0 40px; }
-  .landing-meta-row {
-    display: flex;
-    align-items: center;
-    margin: 16px 0 24px;
-  }
-  .landing-updated {
-    font-family: 'Syne', sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--ink);
-  }
-  .landing-updated span { color: var(--ink); }
   .landing-section-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -2011,10 +1999,7 @@ function render() {
       </div>`).join('');
 
     document.getElementById('landing-content').innerHTML = `<div class="landing-wrap">
-      <div class="landing-meta-row">
-        <div class="landing-updated">LAST UPDATED: <span>${updatedStr}</span></div>
-      </div>
-      <div class="landing-section-label">Colors</div>
+      <div class="landing-section-label" style="margin-top:24px;">Colors</div>
       <div class="landing-colors-grid">${colorCardsHtml}</div>
       <div class="landing-two-col">
         <div>
@@ -2032,7 +2017,7 @@ function render() {
     grid.style.display = 'none';
     count.innerHTML = '<span>—</span> vessels';
     colorHeaderText.style.color = 'var(--ink)';
-    colorHeaderText.innerHTML = 'Vessels Catalog 2.0';
+    colorHeaderText.innerHTML = 'Vessels Catalog 2.0' + (updatedStr ? `<span style="font-family:\'Syne\',sans-serif;font-size:18px;font-weight:500;color:#999;margin-left:12px;"> / Last Updated: ${updatedStr}</span>` : '');
     empty.classList.remove('show');
     return;
   }
