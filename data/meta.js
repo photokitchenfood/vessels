@@ -1,5 +1,5 @@
 const CATALOG_META = {
-  "lastUpdated": "2026-06-08",
+  "lastUpdated": "2026-06-24",
   "colors": {
     "beige-brown": {
       "count": 283
