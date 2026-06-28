@@ -35,7 +35,7 @@ const CATALOG_META = {
       "count": 415
     },
     "wood": {
-      "count": 260
+      "count": 261
     },
     "yellow-orange": {
       "count": 130
