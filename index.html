@@ -2496,6 +2496,7 @@ render();
 //  EDIT DIMS MODAL
 // ─────────────────────────────────────────────
 let editTargetId = null;
+let editPendingImageB64 = null;
 
   // ── UNSAVED CHANGES TRACKING (per-color) ──
   const dirtyColors = new Set();
@@ -3011,7 +3012,6 @@ function autoGrow(el) {
 
 (function() {
   let pendingImageB64 = null;
-  let editPendingImageB64 = null;
 
   document.getElementById('edit-name').addEventListener('input', function() { autoGrow(this); });
 
