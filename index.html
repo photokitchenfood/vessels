@@ -230,7 +230,7 @@
     border-radius: var(--radius);
     font-family: 'DM Mono', monospace;
     font-size: 12px;
-    background: var(--bg);
+    background: #fff;
     color: var(--ink);
     outline: none;
     transition: border-color 0.15s;
@@ -1562,6 +1562,388 @@
     50% { opacity: 0.4; }
   }
 
+  /* ═══════════════════════════════════════════════
+     LAYOUT BOARD (additive — v1)
+     ═══════════════════════════════════════════════ */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .board-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1.5px solid rgba(255,255,255,0.25);
+    color: #fff;
+    border-radius: var(--radius);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 7px 12px;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .board-toggle-btn:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+  .board-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 100px;
+    /* Fixed dark gray rather than var(--accent) — --accent tracks the
+       selected catalog color and can go light (White/Yellow/Gold/Silver),
+       which killed contrast against the white number. */
+    background: var(--ink-soft);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+  }
+  .board-badge.show { display: inline-flex; }
+
+  .board-panel {
+    position: fixed;
+    top: 64px;
+    right: 0;
+    bottom: 0;
+    width: 340px;
+    max-width: 92vw;
+    background: var(--bg);
+    border-left: 1px solid var(--tag-border);
+    box-shadow: -4px 0 24px rgba(0,0,0,0.10);
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.2s ease;
+  }
+  .board-panel.open { transform: translateX(0); }
+
+  /* Push the catalog's layout aside (instead of overlaying it) while the
+     board panel is open, so cards reflow into the remaining width. The
+     transition lives on the base `.shell` selector (additive rule — the
+     original `.shell` block is untouched) so it animates smoothly in both
+     directions. On narrow viewports the panel just overlays as before. */
+  .shell { transition: margin-right 0.2s ease; }
+  @media (min-width: 900px) {
+    body.board-open .shell { margin-right: 340px; }
+  }
+
+  .board-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--tag-border);
+    flex-shrink: 0;
+  }
+  .board-panel-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--ink); }
+  .board-panel-close { background: none; border: none; cursor: pointer; color: var(--ink-soft); padding: 4px; display: flex; }
+  .board-panel-close:hover { color: var(--ink); }
+
+  .board-panel-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 14px 18px 0;
+    flex-shrink: 0;
+  }
+  .board-tab {
+    display: flex;
+    align-items: center;
+    border-radius: 100px;
+    border: 1.5px solid var(--tag-border);
+    background: var(--surface);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .board-tab-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 4px 5px 10px;
+    color: inherit;
+    cursor: pointer;
+  }
+  .board-tab .board-tab-code { font-weight: 500; color: var(--ink); text-transform: uppercase; }
+  .board-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .board-tab.active .board-tab-code { color: #fff; }
+  .board-tab-delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 5px 8px 5px 3px;
+    color: inherit;
+    opacity: 0.5;
+    cursor: pointer;
+  }
+  .board-tab-delete:hover { opacity: 1; color: var(--accent); }
+
+  .board-new-layout-btn {
+    margin: 10px 18px 0;
+    padding: 7px 10px;
+    background: none;
+    border: 1.5px dashed var(--tag-border);
+    border-radius: var(--radius);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-soft);
+    cursor: pointer;
+    text-align: center;
+    flex-shrink: 0;
+  }
+  .board-new-layout-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+  .board-active-layout-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px 0;
+    flex-shrink: 0;
+  }
+  .board-code-input {
+    width: 46px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 6px 4px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+  }
+  .board-name-input {
+    flex: 1;
+    min-width: 0;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 6px 8px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--ink);
+    outline: none;
+  }
+  .board-code-input:focus, .board-name-input:focus { border-color: var(--ink); }
+
+  .board-items-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .board-item-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--tag-border);
+    border-radius: 8px;
+    padding: 8px;
+  }
+  .board-item-thumb {
+    width: 56px;
+    height: 42px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--tag-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-faint);
+  }
+  .board-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .board-item-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .board-item-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 12px; color: var(--ink); line-height: 1.3; }
+  .board-item-id { font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-soft); }
+  .board-item-dims { font-size: 10px; color: var(--ink-soft); }
+  .board-item-label-input {
+    margin-top: 2px;
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 5px 7px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: var(--bg);
+    color: var(--ink);
+    outline: none;
+  }
+  .board-item-label-input:focus { border-color: var(--ink); }
+  .board-item-remove {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ink-faint);
+    padding: 2px;
+    flex-shrink: 0;
+    display: flex;
+  }
+  .board-item-remove:hover { color: var(--accent); }
+
+  .board-empty-hint {
+    color: var(--ink-faint);
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.6;
+    padding: 30px 10px;
+  }
+
+  .board-export-note {
+    display: none;
+    margin: 0 18px 10px;
+    padding: 8px 10px;
+    border-radius: var(--radius);
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    color: var(--ink-soft);
+    font-size: 10px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+  .board-export-note.show { display: block; }
+
+  .board-panel-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 14px 18px;
+    border-top: 1px solid var(--tag-border);
+    flex-shrink: 0;
+  }
+  .board-panel-footer button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 1.5px solid var(--tag-border);
+    border-radius: var(--radius);
+    background: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: all 0.15s;
+    margin: 0;
+  }
+  .board-panel-footer button:hover { border-color: var(--ink); color: var(--ink); }
+
+  /* "+" add-to-board icon on catalog cards */
+  .btn-add-to-board {
+    position: absolute;
+    bottom: 8px;
+    right: 34px;
+    background: none;
+    border: none;
+    padding: 2px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    color: var(--ink-soft);
+  }
+  .card-img:hover .btn-add-to-board { opacity: 1; }
+  .btn-add-to-board:hover { color: var(--ink); }
+  .btn-add-to-board.added { opacity: 1; color: var(--accent); }
+  .btn-add-to-board.board-shake { animation: board-shake 0.3s ease; }
+  @keyframes board-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+  }
+
+  /* Off-screen render stage used for PNG export via html2canvas */
+  .board-export-stage {
+    position: fixed;
+    left: -9999px;
+    top: 0;
+  }
+  .board-export-wrap {
+    width: 900px;
+    padding: 32px;
+    background: #fff;
+    font-family: 'DM Mono', monospace;
+  }
+  .board-export-layout-block { margin-bottom: 0; }
+  .board-export-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+  .board-export-code-badge {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+    background: #1A1A18;
+    padding: 5px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .board-export-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: #1A1A18; }
+  .board-export-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .board-export-card {
+    background: #fff;
+    border: 1px solid #DEDAD4;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .board-export-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #EFEFEB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #C4C0B8;
+  }
+  .board-export-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .board-export-photo-placeholder { color: #C4C0B8; font-size: 9px; text-transform: uppercase; letter-spacing: 0.08em; text-align: center; padding: 10px; }
+  .board-export-card-body { padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 3px; }
+  .board-export-card-name { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 11px; color: #1A1A18; line-height: 1.3; }
+  .board-export-card-id { font-size: 9px; color: #6B6860; letter-spacing: 0.06em; text-transform: uppercase; }
+  .board-export-card-dims { font-size: 9px; color: #6B6860; }
+  .board-export-label-pill {
+    align-self: flex-start;
+    margin-top: 4px;
+    padding: 2px 7px;
+    border-radius: 100px;
+    background: #EFEFEB;
+    border: 1px solid #DEDAD4;
+    font-size: 9px;
+    color: #1A1A18;
+  }
+  .board-export-empty { color: #A8A49C; font-size: 11px; padding: 24px 4px; text-align: center; }
+  .board-export-divider-space { height: 20px; }
+  .board-export-divider { border: none; border-top: 1px solid #DEDAD4; margin: 0 0 24px; }
+
   </style>
 <script src="data/meta.js"></script>
 </head>
@@ -1588,7 +1970,14 @@
 <header>
   <div class="logo">PhotoKitchen
   </div>
-  <span class="header-meta">Props Catalog 2.0 — Vessels</span>
+  <div class="header-right">
+    <span class="header-meta">Props Catalog 2.0 — Vessels</span>
+    <button id="board-toggle-btn" class="board-toggle-btn" type="button" onclick="toggleBoardPanel()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Board
+      <span id="board-badge" class="board-badge">0</span>
+    </button>
+  </div>
 </header>
 
 <div class="shell">
@@ -3081,6 +3470,580 @@ function autoGrow(el) {
     input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
   })();
 
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     LAYOUT BOARD PANEL (additive — v1)
+     ═══════════════════════════════════════════════ -->
+<div id="board-panel" class="board-panel">
+  <div class="board-panel-header">
+    <span class="board-panel-title">Layout Board</span>
+    <button type="button" class="board-panel-close" aria-label="Close" onclick="toggleBoardPanel()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="board-panel-tabs" id="board-panel-tabs"></div>
+
+  <button type="button" class="board-new-layout-btn" onclick="boardCreateNewLayout()">+ New Layout</button>
+
+  <div class="board-active-layout-meta" id="board-active-layout-meta"></div>
+
+  <div class="board-items-list" id="board-items-list"></div>
+
+  <div class="board-export-note" id="board-export-note"></div>
+
+  <div class="board-panel-footer">
+    <button type="button" onclick="exportLayoutAsPNG()">Export Layout</button>
+    <button type="button" onclick="exportAllLayoutsAsPNG()">Export All</button>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   LAYOUT BOARD — additive feature, v1.
+   Reads (does not modify) the catalog's `vessels`,
+   `render`, `getImage`, `formatDims`, `COLOR_SWATCHES`
+   globals defined in the main script above.
+   ═══════════════════════════════════════════════ */
+
+// Session-only, in-memory state — the board is a working tool for the
+// current session, not something that gets saved/reloaded across visits.
+let boardState = { layouts: [], activeLayoutId: null };
+let boardOpen = false;
+let html2canvasPromise = null;
+
+function boardUid() {
+  return 'b_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+}
+
+function boardEscape(str) {
+  return String(str == null ? '' : str).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function boardGetActiveLayout() {
+  return boardState.layouts.find(l => l.id === boardState.activeLayoutId) || null;
+}
+
+// Default code for a newly created layout: highest existing numeric code
+// + 1 (not a running counter of layouts ever created), so deleting a
+// layout never leaves a gap that causes the next default to collide with
+// one still on the board. Non-numeric codes (e.g. a user-typed "V1") are
+// ignored when computing the max — they just don't push the default
+// number higher.
+function boardNextLayoutCode() {
+  let maxNum = 0;
+  boardState.layouts.forEach(l => {
+    if (/^\d+$/.test(l.code)) {
+      const n = parseInt(l.code, 10);
+      if (n > maxNum) maxNum = n;
+    }
+  });
+  return String(maxNum + 1);
+}
+
+function boardEnsureActiveLayout() {
+  if (!boardState.layouts.length) {
+    const layout = { id: boardUid(), name: 'Layout 1', code: boardNextLayoutCode(), items: [] };
+    boardState.layouts.push(layout);
+    boardState.activeLayoutId = layout.id;
+    return layout;
+  }
+  if (!boardGetActiveLayout()) {
+    boardState.activeLayoutId = boardState.layouts[0].id;
+  }
+  return boardGetActiveLayout();
+}
+
+// ── Panel open/close ──
+function toggleBoardPanel() {
+  boardOpen = !boardOpen;
+  document.getElementById('board-panel').classList.toggle('open', boardOpen);
+  document.body.classList.toggle('board-open', boardOpen);
+  if (boardOpen) boardRenderPanel();
+}
+
+// ── Layout CRUD ──
+function boardCreateNewLayout() {
+  const layout = { id: boardUid(), name: 'Untitled layout', code: boardNextLayoutCode(), items: [] };
+  boardState.layouts.push(layout);
+  boardState.activeLayoutId = layout.id;
+  boardRenderBadge();
+  boardRenderPanel();
+  boardUpdateCardButtons();
+  boardFocusNameInput();
+}
+
+// Puts focus straight into the new layout's name field so the user can
+// rename it inline instead of a blocking prompt() dialog.
+function boardFocusNameInput() {
+  requestAnimationFrame(() => {
+    const input = document.querySelector('.board-name-input');
+    if (input) { input.focus(); input.select(); }
+  });
+}
+
+function boardDeleteLayout(layoutId, event) {
+  if (event) event.stopPropagation();
+  const layout = boardState.layouts.find(l => l.id === layoutId);
+  if (!layout) return;
+  const itemNote = layout.items.length ? ` and its ${layout.items.length} vessel${layout.items.length === 1 ? '' : 's'}` : '';
+  if (!confirm(`Delete layout "${layout.name}"${itemNote}? This can't be undone.`)) return;
+  boardState.layouts = boardState.layouts.filter(l => l.id !== layoutId);
+  if (boardState.activeLayoutId === layoutId) {
+    boardState.activeLayoutId = boardState.layouts[0] ? boardState.layouts[0].id : null;
+  }
+  boardRenderBadge();
+  boardRenderPanel();
+  boardUpdateCardButtons();
+}
+
+function boardSwitchLayout(layoutId) {
+  boardState.activeLayoutId = layoutId;
+  boardRenderPanel();
+  boardUpdateCardButtons();
+}
+
+function boardUpdateLayoutName(layoutId, value) {
+  const layout = boardState.layouts.find(l => l.id === layoutId);
+  if (!layout) return;
+  layout.name = value;
+  boardRenderTabs();
+}
+
+function boardUpdateLayoutCode(layoutId, value) {
+  const layout = boardState.layouts.find(l => l.id === layoutId);
+  if (!layout) return;
+  // Store uppercase so the code matches exactly everywhere it's rendered
+  // (tabs, export PNG) without depending solely on CSS text-transform.
+  layout.code = value.toUpperCase().slice(0, 3);
+  boardRenderTabs();
+}
+
+// ── Items ──
+function addVesselToBoard(vesselId, event) {
+  if (event) event.stopPropagation();
+  const v = vessels.find(x => x.id === vesselId);
+  if (!v) return;
+  const layout = boardEnsureActiveLayout();
+  if (!layout) return;
+
+  if (layout.items.some(it => it.vesselId === vesselId)) {
+    boardFlashAddButton(vesselId);
+    return;
+  }
+
+  const item = {
+    id: boardUid(),
+    vesselId: v.id,
+    color: v.color,
+    name: v.name,
+    dims: formatDims(v),
+    thumb: null,
+    label: ''
+  };
+  layout.items.push(item);
+  boardRenderBadge();
+  boardRenderPanel();
+  boardUpdateCardButtons();
+
+  const src = getImage(v.id);
+  if (src) {
+    boardResizeImage(src, 240, resized => {
+      item.thumb = resized;
+      boardRenderPanel();
+    });
+  }
+}
+
+function boardFlashAddButton(vesselId) {
+  const btn = document.querySelector('.btn-add-to-board[data-vessel-id="' + vesselId + '"]');
+  if (!btn) return;
+  btn.classList.remove('board-shake');
+  void btn.offsetWidth; // restart animation
+  btn.classList.add('board-shake');
+}
+
+function boardRemoveItem(layoutId, itemId) {
+  const layout = boardState.layouts.find(l => l.id === layoutId);
+  if (!layout) return;
+  layout.items = layout.items.filter(it => it.id !== itemId);
+  boardRenderBadge();
+  boardRenderPanel();
+  boardUpdateCardButtons();
+}
+
+function boardUpdateItemLabel(layoutId, itemId, value) {
+  const layout = boardState.layouts.find(l => l.id === layoutId);
+  if (!layout) return;
+  const item = layout.items.find(it => it.id === itemId);
+  if (!item) return;
+  item.label = value;
+}
+
+function boardResizeImage(dataUri, maxDim, cb) {
+  try {
+    const img = new Image();
+    img.onload = () => {
+      let width = img.naturalWidth, height = img.naturalHeight;
+      if (width > height) {
+        if (width > maxDim) { height = Math.round(height * maxDim / width); width = maxDim; }
+      } else {
+        if (height > maxDim) { width = Math.round(width * maxDim / height); height = maxDim; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width || 1;
+      canvas.height = height || 1;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      try {
+        cb(canvas.toDataURL('image/jpeg', 0.72));
+      } catch (e) {
+        cb(null);
+      }
+    };
+    img.onerror = () => cb(null);
+    img.src = dataUri;
+  } catch (e) {
+    cb(null);
+  }
+}
+
+// ── Rendering ──
+function boardPlaceholderSvg(size) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>`;
+}
+
+function boardRenderBadge() {
+  const total = boardState.layouts.length;
+  const badge = document.getElementById('board-badge');
+  if (!badge) return;
+  badge.textContent = total;
+  badge.classList.toggle('show', total > 0);
+}
+
+function boardRenderTabs() {
+  const wrap = document.getElementById('board-panel-tabs');
+  if (!wrap) return;
+  if (!boardState.layouts.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = boardState.layouts.map(l => `
+    <div class="board-tab${l.id === boardState.activeLayoutId ? ' active' : ''}">
+      <button type="button" class="board-tab-btn" onclick="boardSwitchLayout('${l.id}')">
+        <span class="board-tab-code">${boardEscape(l.code || '')}</span><span>${boardEscape(l.name)} · ${l.items.length}</span>
+      </button>
+      <button type="button" class="board-tab-delete" title="Delete layout" onclick="boardDeleteLayout('${l.id}', event)">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function boardRenderPanel() {
+  boardRenderTabs();
+  const metaWrap = document.getElementById('board-active-layout-meta');
+  const listWrap = document.getElementById('board-items-list');
+  if (!metaWrap || !listWrap) return;
+
+  const layout = boardGetActiveLayout();
+  if (!layout) {
+    metaWrap.style.display = 'none';
+    listWrap.innerHTML = '<div class="board-empty-hint">No layouts yet.<br>Click the “+” icon on any vessel card, or “+ New Layout” above, to get started.</div>';
+    return;
+  }
+
+  metaWrap.style.display = '';
+  metaWrap.innerHTML = `
+    <input class="board-code-input" maxlength="3" value="${boardEscape(layout.code)}" placeholder="COD" oninput="boardUpdateLayoutCode('${layout.id}', this.value)">
+    <input class="board-name-input" value="${boardEscape(layout.name)}" placeholder="Layout name" oninput="boardUpdateLayoutName('${layout.id}', this.value)">
+  `;
+
+  if (!layout.items.length) {
+    listWrap.innerHTML = '<div class="board-empty-hint">No vessels in this layout yet.<br>Click the “+” icon on any vessel card to add it here.</div>';
+    return;
+  }
+
+  listWrap.innerHTML = layout.items.map(item => `
+    <div class="board-item-row" data-item-id="${item.id}">
+      <div class="board-item-thumb">${item.thumb ? `<img src="${item.thumb}" alt="">` : boardPlaceholderSvg(18)}</div>
+      <div class="board-item-info">
+        <div class="board-item-name">${boardEscape(item.name)}</div>
+        <div class="board-item-id">${boardEscape((item.vesselId || '').toUpperCase())} · ${boardEscape(item.color)}</div>
+        ${item.dims ? `<div class="board-item-dims">${boardEscape(item.dims)}</div>` : ''}
+        <input class="board-item-label-input" placeholder="Add a label…" value="${boardEscape(item.label)}" oninput="boardUpdateItemLabel('${layout.id}','${item.id}', this.value)">
+      </div>
+      <button type="button" class="board-item-remove" title="Remove from layout" onclick="boardRemoveItem('${layout.id}','${item.id}')">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function boardUpdateCardButtons() {
+  const layout = boardGetActiveLayout();
+  const ids = layout ? new Set(layout.items.map(it => it.vesselId)) : new Set();
+  document.querySelectorAll('.btn-add-to-board').forEach(btn => {
+    btn.classList.toggle('added', ids.has(btn.dataset.vesselId));
+  });
+}
+
+function boardInjectAddButtons() {
+  document.querySelectorAll('.card').forEach(card => {
+    const imgWrap = card.querySelector('.card-img');
+    if (!imgWrap || imgWrap.querySelector('.btn-add-to-board')) return;
+    const vesselId = card.dataset.id;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn-add-to-board';
+    btn.title = 'Add to board';
+    btn.dataset.vesselId = vesselId;
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+    btn.addEventListener('click', e => addVesselToBoard(vesselId, e));
+    imgWrap.appendChild(btn);
+  });
+  boardUpdateCardButtons();
+}
+
+// Wrap the catalog's render() so board "+" buttons re-appear after every
+// re-render (search, filter, color switch) without touching render() itself.
+const _boardOrigRender = render;
+render = function () {
+  _boardOrigRender.apply(this, arguments);
+  boardInjectAddButtons();
+};
+
+// Used for PNG export filenames (see boardExportFilename below).
+function boardDatePrefix() {
+  const now = new Date();
+  const yy = String(now.getFullYear()).slice(2);
+  const mm = String(now.getMonth() + 1).padStart(2, '0');
+  const dd = String(now.getDate()).padStart(2, '0');
+  return `${yy}${mm}${dd}`;
+}
+
+// ── Export to PNG (html2canvas) ──
+function boardEnsureHtml2Canvas() {
+  if (window.html2canvas) return Promise.resolve();
+  if (html2canvasPromise) return html2canvasPromise;
+  html2canvasPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+    script.onload = () => resolve();
+    script.onerror = () => {
+      html2canvasPromise = null;
+      reject(new Error('html2canvas failed to load — check your network connection or content-security-policy settings.'));
+    };
+    document.head.appendChild(script);
+  });
+  return html2canvasPromise;
+}
+
+// The board only ever keeps a small, compressed thumbnail per item (see
+// boardResizeImage) so cross-color layouts stay light in memory. But if
+// the item's color happens to be the color currently loaded into the
+// catalog, the full-resolution image is already sitting in the
+// `IMAGES`/`PDF_PAGES` globals for free — prefer that for export so the
+// PNG isn't limited by the panel thumbnail's resolution. Falls back to
+// the stored thumbnail otherwise.
+function boardResolveExportImageSrc(item) {
+  if (item.color === _loadedColor) {
+    const full = getImage(item.vesselId);
+    if (full) return full;
+  }
+  return item.thumb || null;
+}
+
+function boardRenderExportCard(item) {
+  const imgSrc = boardResolveExportImageSrc(item);
+  return `
+    <div class="board-export-card">
+      <div class="board-export-photo">
+        ${imgSrc ? `<img src="${imgSrc}" alt="">` : `<div class="board-export-photo-placeholder">${boardPlaceholderSvg(28)}<div>Image coming</div></div>`}
+      </div>
+      <div class="board-export-card-body">
+        <div class="board-export-card-name">${boardEscape(item.name)}</div>
+        <div class="board-export-card-id">${boardEscape((item.vesselId || '').toUpperCase())}</div>
+        <div class="board-export-card-dims">${boardEscape(item.dims || '')}</div>
+        ${item.label ? `<span class="board-export-label-pill">${boardEscape(item.label)}</span>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function boardRenderExportLayoutBlock(layout) {
+  return `
+    <div class="board-export-layout-block">
+      <div class="board-export-header-row">
+        <span class="board-export-code-badge">${boardEscape(layout.code || '—')}</span>
+        <span class="board-export-name">${boardEscape(layout.name)}</span>
+      </div>
+      ${layout.items.length
+        ? `<div class="board-export-grid">${layout.items.map(boardRenderExportCard).join('')}</div>`
+        : `<div class="board-export-empty">No vessels in this layout.</div>`}
+    </div>
+  `;
+}
+
+function boardBuildExportStage(layouts, isAll) {
+  const stage = document.createElement('div');
+  stage.className = 'board-export-stage';
+  const inner = document.createElement('div');
+  inner.className = 'board-export-wrap';
+  const blocks = layouts.map(boardRenderExportLayoutBlock);
+  inner.innerHTML = isAll
+    ? blocks.join('<div class="board-export-divider-space"></div><hr class="board-export-divider">')
+    : blocks.join('');
+  stage.appendChild(inner);
+  return stage;
+}
+
+function boardExportFilename(layout, isAll) {
+  const prefix = boardDatePrefix();
+  if (isAll) return `${prefix}-layout-board-all.png`;
+  const slug = (layout && (layout.code || layout.name) || 'layout').toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'layout';
+  return `${prefix}-layout-${slug}.png`;
+}
+
+// html2canvas clones the DOM and waits on each image's `load` event, but
+// `load` can fire before the browser has finished the actual decode/raster
+// work — especially with several large data-URI images decoding at once.
+// That race is what produced pixelated/blurry thumbnails once a layout had
+// 4+ vessels: some images just weren't fully decoded yet when html2canvas
+// rasterized them. `img.decode()` is the one API that promises full decode
+// completion, so we wait on every image in the export container ourselves
+// before ever calling html2canvas.
+//
+// `decode()` itself isn't bulletproof though — testing this surfaced that
+// it can hang indefinitely in some browser/automation environments even
+// once an image is fully loaded (`complete: true`, real `naturalWidth`).
+// Known WebKit/Safari versions have similar `decode()` bugs. So each image
+// gets a short bounded timeout: if decode hasn't settled by then but the
+// image is already `complete`, treat it as ready rather than block the
+// export forever.
+function boardWaitForOneImage(img) {
+  const looksReady = () => img.complete && img.naturalWidth > 0;
+  const waitForLoadEvent = () => new Promise(resolve => {
+    img.addEventListener('load', resolve, { once: true });
+    img.addEventListener('error', resolve, { once: true });
+  });
+  const decodeOrLoad = img.decode
+    ? img.decode().catch(() => looksReady() ? undefined : waitForLoadEvent())
+    : (looksReady() ? Promise.resolve() : waitForLoadEvent());
+  return Promise.race([
+    decodeOrLoad,
+    new Promise(resolve => setTimeout(resolve, 2000))
+  ]);
+}
+
+function boardWaitForImages(container) {
+  const imgs = Array.from(container.querySelectorAll('img'));
+  return Promise.all(imgs.map(boardWaitForOneImage));
+}
+
+// Canvas pixel-size safety net. Desktop Chrome/Firefox tolerate very large
+// canvases, but Safari (and mobile browsers generally) cap both a single
+// dimension and total pixel area well below that. These caps are chosen to
+// sit safely under the tightest known limits so an export never silently
+// produces a blank/truncated canvas. If a layout is so large that even 1x
+// scale would exceed the area cap, we don't attempt to shrink further —
+// that needs actual tiling/pagination, which isn't implemented — we just
+// flag it clearly instead of guessing.
+const BOARD_CANVAS_MAX_DIM = 8192;
+const BOARD_CANVAS_MAX_AREA = 16777216; // 2^24px — safe even for Safari/mobile
+
+function boardComputeExportScale(stageEl, desiredScale) {
+  const rect = stageEl.getBoundingClientRect();
+  const w = rect.width, h = rect.height;
+  const info = { unscaledW: w, unscaledH: h, desiredScale, appliedScale: desiredScale, oversized: false };
+  if (w > 0 && h > 0) {
+    // The largest scale that still keeps both the per-dimension cap and the
+    // total-area cap satisfied. Note: this can come out below 1x for a very
+    // large layout (e.g. many rows stacked in "Export All") — that's
+    // intentional and safe. Flooring this to 1 (an earlier version of this
+    // function did) would silently push a dimension back over the cap for
+    // very tall/wide stages, which is the exact failure this is meant to
+    // prevent, so the computed value is used as-is.
+    const safeScale = Math.min(desiredScale, BOARD_CANVAS_MAX_DIM / w, BOARD_CANVAS_MAX_DIM / h, Math.sqrt(BOARD_CANVAS_MAX_AREA / (w * h)));
+    info.appliedScale = safeScale;
+    info.oversized = safeScale < 1;
+  }
+  return info;
+}
+
+// 'image/png' is always lossless (no quality param applies), same as
+// canvas.toDataURL('image/png') — toBlob is used instead just because
+// it avoids building a giant base64 string for large exports.
+function boardTriggerCanvasDownload(canvas, filename) {
+  canvas.toBlob(blob => {
+    if (!blob) { alert('Export failed: could not generate image.'); return; }
+    const kb = (blob.size / 1024).toFixed(0);
+    const mp = (canvas.width * canvas.height / 1e6).toFixed(1);
+    console.log(`[Layout Board export] "${filename}" — ${canvas.width}×${canvas.height}px (${mp}MP), ${kb}KB`);
+    boardShowExportNote(`Exported ${canvas.width}×${canvas.height}px · ${kb}KB`);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }, 'image/png');
+}
+
+let boardExportNoteTimer = null;
+function boardShowExportNote(text) {
+  const el = document.getElementById('board-export-note');
+  if (!el) return;
+  el.textContent = text;
+  el.classList.add('show');
+  clearTimeout(boardExportNoteTimer);
+  boardExportNoteTimer = setTimeout(() => el.classList.remove('show'), 6000);
+}
+
+function boardRunExport(layouts, isAll, filename) {
+  boardEnsureHtml2Canvas().then(() => {
+    const stage = boardBuildExportStage(layouts, isAll);
+    document.body.appendChild(stage);
+    // Force a synchronous layout pass so the size read below reflects the
+    // fully laid-out off-screen stage, not a stale/zero box.
+    void stage.offsetHeight;
+
+    boardWaitForImages(stage).then(() => {
+      const scaleInfo = boardComputeExportScale(stage, window.devicePixelRatio || 2);
+      const dims = `${Math.round(scaleInfo.unscaledW)}×${Math.round(scaleInfo.unscaledH)}px`;
+      if (scaleInfo.oversized) {
+        console.warn(`[Layout Board export] "${filename}" is ${dims} — too large to render at full (1x+) scale in a single canvas, so it's being rendered down to ${scaleInfo.appliedScale.toFixed(2)}x to stay within safe browser canvas limits. Detail will suffer at this size; consider exporting layouts individually or splitting this one up. Tiling/pagination for very large boards isn't implemented yet.`);
+      } else if (scaleInfo.appliedScale < scaleInfo.desiredScale - 0.01) {
+        console.warn(`[Layout Board export] "${filename}" (${dims}) — reduced render scale from ${scaleInfo.desiredScale}x to ${scaleInfo.appliedScale.toFixed(2)}x to stay under safe canvas size limits.`);
+      }
+
+      html2canvas(stage.firstChild, { backgroundColor: '#ffffff', scale: scaleInfo.appliedScale }).then(canvas => {
+        boardTriggerCanvasDownload(canvas, filename);
+        stage.remove();
+      }).catch(err => {
+        stage.remove();
+        alert('Export failed: ' + err.message);
+      });
+    }).catch(err => {
+      stage.remove();
+      alert('Export failed while preparing images: ' + err.message);
+    });
+  }).catch(err => {
+    alert(err.message);
+  });
+}
+
+function exportLayoutAsPNG(layoutId) {
+  const layout = layoutId ? boardState.layouts.find(l => l.id === layoutId) : boardGetActiveLayout();
+  if (!layout) { alert('No layout selected to export yet — add a layout and some vessels first.'); return; }
+  boardRunExport([layout], false, boardExportFilename(layout, false));
+}
+
+function exportAllLayoutsAsPNG() {
+  if (!boardState.layouts.length) { alert('No layouts to export yet.'); return; }
+  boardRunExport(boardState.layouts, true, boardExportFilename(null, true));
+}
+
+// ── Init ──
+boardInjectAddButtons();
+boardRenderBadge();
 </script>
 
 </body>
