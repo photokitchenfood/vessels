@@ -3633,27 +3633,28 @@ function addVesselToBoard(vesselId, event) {
     return;
   }
 
+  // Capture the vessel's image data directly onto the item at add-time.
+  // `IMAGES`/`PDF_PAGES` (via getImage()) only ever hold the currently
+  // -loaded color's data, so a live lookup by vesselId later — e.g. after
+  // the user switches colors, or exports — would silently return nothing
+  // and fall back to a placeholder. Storing the actual base64 here means
+  // board rendering and export never depend on which color is loaded.
+  // If there's no real photo yet, this stores null (same as "no photo"
+  // shows today) — it does NOT get re-resolved later; re-add the vessel
+  // once it has a real photo in the catalog.
   const item = {
     id: boardUid(),
     vesselId: v.id,
     color: v.color,
     name: v.name,
     dims: formatDims(v),
-    thumb: null,
+    _photo: getImage(v.id) || null,
     label: ''
   };
   layout.items.push(item);
   boardRenderBadge();
   boardRenderPanel();
   boardUpdateCardButtons();
-
-  const src = getImage(v.id);
-  if (src) {
-    boardResizeImage(src, 240, resized => {
-      item.thumb = resized;
-      boardRenderPanel();
-    });
-  }
 }
 
 function boardFlashAddButton(vesselId) {
@@ -3679,34 +3680,6 @@ function boardUpdateItemLabel(layoutId, itemId, value) {
   const item = layout.items.find(it => it.id === itemId);
   if (!item) return;
   item.label = value;
-}
-
-function boardResizeImage(dataUri, maxDim, cb) {
-  try {
-    const img = new Image();
-    img.onload = () => {
-      let width = img.naturalWidth, height = img.naturalHeight;
-      if (width > height) {
-        if (width > maxDim) { height = Math.round(height * maxDim / width); width = maxDim; }
-      } else {
-        if (height > maxDim) { width = Math.round(width * maxDim / height); height = maxDim; }
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = width || 1;
-      canvas.height = height || 1;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      try {
-        cb(canvas.toDataURL('image/jpeg', 0.72));
-      } catch (e) {
-        cb(null);
-      }
-    };
-    img.onerror = () => cb(null);
-    img.src = dataUri;
-  } catch (e) {
-    cb(null);
-  }
 }
 
 // ── Rendering ──
@@ -3764,7 +3737,7 @@ function boardRenderPanel() {
 
   listWrap.innerHTML = layout.items.map(item => `
     <div class="board-item-row" data-item-id="${item.id}">
-      <div class="board-item-thumb">${item.thumb ? `<img src="${item.thumb}" alt="">` : boardPlaceholderSvg(18)}</div>
+      <div class="board-item-thumb">${item._photo ? `<img src="${item._photo}" alt="">` : boardPlaceholderSvg(18)}</div>
       <div class="board-item-info">
         <div class="board-item-name">${boardEscape(item.name)}</div>
         <div class="board-item-id">${boardEscape((item.vesselId || '').toUpperCase())} · ${boardEscape(item.color)}</div>
@@ -3837,23 +3810,15 @@ function boardEnsureHtml2Canvas() {
   return html2canvasPromise;
 }
 
-// The board only ever keeps a small, compressed thumbnail per item (see
-// boardResizeImage) so cross-color layouts stay light in memory. But if
-// the item's color happens to be the color currently loaded into the
-// catalog, the full-resolution image is already sitting in the
-// `IMAGES`/`PDF_PAGES` globals for free — prefer that for export so the
-// PNG isn't limited by the panel thumbnail's resolution. Falls back to
-// the stored thumbnail otherwise.
-function boardResolveExportImageSrc(item) {
-  if (item.color === _loadedColor) {
-    const full = getImage(item.vesselId);
-    if (full) return full;
-  }
-  return item.thumb || null;
-}
-
 function boardRenderExportCard(item) {
-  const imgSrc = boardResolveExportImageSrc(item);
+  // Always read the image captured on the item at add-time (see
+  // addVesselToBoard) — never fall back to a live IMAGES/getImage()
+  // lookup here. That lookup only ever reflects whichever color happens
+  // to be loaded in the main catalog at export time, which silently
+  // breaks (or, if two colors' vessel IDs ever collided, would show the
+  // wrong photo) as soon as the user has switched colors since adding
+  // the vessel.
+  const imgSrc = item._photo || null;
   return `
     <div class="board-export-card">
       <div class="board-export-photo">
