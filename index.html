@@ -1675,6 +1675,7 @@
     cursor: pointer;
   }
   .board-tab .board-tab-code { font-weight: 500; color: var(--ink); text-transform: uppercase; }
+  .board-tab .board-tab-name { font-weight: 500; }
   .board-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
   .board-tab.active .board-tab-code { color: #fff; }
   .board-tab-delete {
@@ -1730,7 +1731,7 @@
     flex: 1;
     min-width: 0;
     font-family: 'Syne', sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 13px;
     padding: 6px 8px;
     border: 1.5px solid var(--tag-border);
@@ -1890,8 +1891,8 @@
   .board-export-layout-block { margin-bottom: 0; }
   .board-export-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
   .board-export-code-badge {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
     font-size: 13px;
     color: #fff;
     background: #1A1A18;
@@ -1900,7 +1901,7 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
-  .board-export-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: #1A1A18; }
+  .board-export-name { font-family: 'Syne', sans-serif; font-weight: 500; font-size: 18px; color: #1A1A18; }
   .board-export-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1931,9 +1932,12 @@
   .board-export-card-id { font-size: 9px; color: #6B6860; letter-spacing: 0.06em; text-transform: uppercase; }
   .board-export-card-dims { font-size: 9px; color: #6B6860; }
   .board-export-label-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     align-self: flex-start;
     margin-top: 4px;
-    padding: 2px 7px;
+    padding: 4px 8px;
     border-radius: 100px;
     background: #EFEFEB;
     border: 1px solid #DEDAD4;
@@ -3702,7 +3706,7 @@ function boardRenderTabs() {
   wrap.innerHTML = boardState.layouts.map(l => `
     <div class="board-tab${l.id === boardState.activeLayoutId ? ' active' : ''}">
       <button type="button" class="board-tab-btn" onclick="boardSwitchLayout('${l.id}')">
-        <span class="board-tab-code">${boardEscape(l.code || '')}</span><span>${boardEscape(l.name)} · ${l.items.length}</span>
+        <span class="board-tab-code">${boardEscape(l.code || '')}</span><span class="board-tab-name">${boardEscape(l.name)} · ${l.items.length}</span>
       </button>
       <button type="button" class="board-tab-delete" title="Delete layout" onclick="boardDeleteLayout('${l.id}', event)">
         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
