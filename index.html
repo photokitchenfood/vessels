@@ -3788,15 +3788,6 @@ render = function () {
   boardInjectAddButtons();
 };
 
-// Used for PNG export filenames (see boardExportFilename below).
-function boardDatePrefix() {
-  const now = new Date();
-  const yy = String(now.getFullYear()).slice(2);
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  return `${yy}${mm}${dd}`;
-}
-
 // ── Export to PNG (html2canvas) ──
 function boardEnsureHtml2Canvas() {
   if (window.html2canvas) return Promise.resolve();
@@ -3865,11 +3856,17 @@ function boardBuildExportStage(layouts, isAll) {
   return stage;
 }
 
+// Strips characters that aren't safe across filesystems (/ \ : * ? " < > |)
+// but leaves spaces and everything else in the name as typed.
+function boardSanitizeFilenamePart(str) {
+  return String(str == null ? '' : str).replace(/[\/\\:*?"<>|]/g, '').trim();
+}
+
 function boardExportFilename(layout, isAll) {
-  const prefix = boardDatePrefix();
-  if (isAll) return `${prefix}-layout-board-all.png`;
-  const slug = (layout && (layout.code || layout.name) || 'layout').toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'layout';
-  return `${prefix}-layout-${slug}.png`;
+  if (isAll) return 'ALL_Layouts.png';
+  const code = boardSanitizeFilenamePart(layout && layout.code).toUpperCase();
+  const name = boardSanitizeFilenamePart(layout && layout.name) || 'Layout';
+  return `${code ? code + '_' : ''}${name}.png`;
 }
 
 // html2canvas clones the DOM and waits on each image's `load` event, but
