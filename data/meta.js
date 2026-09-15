@@ -1,5 +1,5 @@
 const CATALOG_META = {
-  "lastUpdated": "2026-08-17",
+  "lastUpdated": "2026-09-15",
   "colors": {
     "beige-brown": {
       "count": 283
@@ -8,10 +8,10 @@ const CATALOG_META = {
       "count": 195
     },
     "blue": {
-      "count": 255
+      "count": 256
     },
     "clear": {
-      "count": 456
+      "count": 458
     },
     "gold": {
       "count": 40
@@ -26,16 +26,16 @@ const CATALOG_META = {
       "count": 99
     },
     "red": {
-      "count": 131
+      "count": 132
     },
     "silver": {
-      "count": 236
+      "count": 237
     },
     "white": {
       "count": 417
     },
     "wood": {
-      "count": 261
+      "count": 262
     },
     "yellow-orange": {
       "count": 130
