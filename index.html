@@ -8,6 +8,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 
+  /* ── LOGO FONT ── */
+  @font-face {
+    font-family: 'Engineer Heavy';
+    src: url('assets/fonts/engineer-heavy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   /* ── PASSWORD GATE ── */
   #pw-gate {
     position: fixed;
@@ -27,7 +36,7 @@
     width: 320px;
   }
   .pw-logo {
-    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-family: 'Engineer Heavy', 'Barlow Semi Condensed', sans-serif;
     font-size: 26px;
     color: #fff;
     letter-spacing: 0;
@@ -133,14 +142,16 @@
   }
 
   .logo {
-    font-family: 'Barlow Semi Condensed', sans-serif;
+    font-family: 'Engineer Heavy', 'Barlow Semi Condensed', sans-serif;
     font-weight: 400;
     font-size: 23px;
     letter-spacing: 0;
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
   }
+  .logo:hover { opacity: 0.82; }
 
 
 
@@ -818,12 +829,22 @@
   }
   #landing-banner.show { display: block; }
   #landing-banner-img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    object-position: center 40%;
-    border-radius: 10px;
     display: block;
+    width: 100%;
+    aspect-ratio: 1200 / 548;
+    object-fit: contain;
+    border-radius: 10px;
+    background: var(--tag-bg);
+  }
+  /* At medium screens and up, fill the full container width at a fixed
+     height instead — cropping via object-fit: cover, no pillarboxing. */
+  @media (min-width: 1440px) {
+    #landing-banner-img {
+      height: 450px;
+      aspect-ratio: unset;
+      object-fit: cover;
+      object-position: center 40%;
+    }
   }
   .landing-wrap { padding: 0 0 40px; }
   .landing-section-label {
@@ -2635,7 +2656,7 @@ document.getElementById('max-size').addEventListener('input', e => {
   render();
 });
 
-document.getElementById('reset').addEventListener('click', () => {
+function resetToLanding() {
   state = { search:'', category:'all', color:'', size:'all', qty:'all', minSize:null, maxSize:null, sort:'default', dimField:'diameter' };
   document.getElementById('search').value = '';
   document.getElementById('min-size').value = '';
@@ -2663,7 +2684,10 @@ document.getElementById('reset').addEventListener('click', () => {
     c.style.color = '';
   });
   render();
-});
+}
+
+document.getElementById('reset').addEventListener('click', resetToLanding);
+document.querySelector('.logo').addEventListener('click', resetToLanding);
 
 // ─────────────────────────────────────────────
 //  INIT
