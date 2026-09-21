@@ -1007,11 +1007,12 @@ vessels = [
   {
     "id": "r-cn-16",
     "color": "Red",
-    "category": "Containers",
+    "category": "Bowls",
     "name": "Oval Baking Dish, Matte Cream Interior/Burgundy Exterior, Ribbed Sides, Loop Handles",
     "length": 15.5,
     "width": 10,
-    "height": 3.5
+    "height": 3.5,
+    "qty": 1
   },
   {
     "id": "r-bs-1",
