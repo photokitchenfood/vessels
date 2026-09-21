@@ -11,7 +11,7 @@ const CATALOG_META = {
       "count": 256
     },
     "clear": {
-      "count": 459
+      "count": 460
     },
     "gold": {
       "count": 40
