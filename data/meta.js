@@ -1,5 +1,5 @@
 const CATALOG_META = {
-  "lastUpdated": "2026-09-15",
+  "lastUpdated": "2026-09-21",
   "colors": {
     "beige-brown": {
       "count": 283
@@ -11,7 +11,7 @@ const CATALOG_META = {
       "count": 256
     },
     "clear": {
-      "count": 458
+      "count": 459
     },
     "gold": {
       "count": 40
