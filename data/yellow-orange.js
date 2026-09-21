@@ -718,18 +718,20 @@ vessels = [
   {
     "id": "yo-cm-20",
     "color": "Yellow/Orange",
-    "category": "Cups & Mugs",
+    "category": "Containers",
     "name": "Popcorn Cup, White Paper, Yellow-Red Popcorn Print, Tall Cylinder",
     "diameter": 8.8,
-    "height": 12.7
+    "height": 12.7,
+    "qty": 1
   },
   {
     "id": "yo-cm-21",
     "color": "Yellow/Orange",
-    "category": "Cups & Mugs",
+    "category": "Jars & Bottles",
     "name": "Cup with Straw, Glossy Yellow Plastic, Lid with Straw, Tall Cylinder",
     "diameter": 5.5,
-    "height": 11
+    "height": 11,
+    "qty": 1
   },
   {
     "id": "yo-gl-1",
