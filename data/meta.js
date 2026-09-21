@@ -20,7 +20,7 @@ const CATALOG_META = {
       "count": 128
     },
     "green": {
-      "count": 192
+      "count": 193
     },
     "pink-purple": {
       "count": 99
