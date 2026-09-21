@@ -1554,6 +1554,18 @@
     transition: opacity 0.15s;
   }
   .add-confirm-btn:hover { opacity: 0.82; }
+  .add-danger-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 8px 16px;
+    border: 1.5px solid #c0392b;
+    border-radius: var(--radius);
+    background: none;
+    color: #c0392b;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .add-danger-btn:hover { background: #c0392b; color: #fff; }
   .add-generated-id {
     font-size: 10px;
     color: var(--ink-soft);
@@ -2798,9 +2810,12 @@ render();
       </div>
     </div>
 
-    <div class="add-modal-footer">
-      <button class="add-cancel-btn" onclick="closeEditModal()">Cancel</button>
-      <button class="add-confirm-btn" onclick="saveAndExport()">Save Changes</button>
+    <div class="add-modal-footer" style="justify-content:space-between;">
+      <button class="add-danger-btn" onclick="deleteVessel()">Delete Vessel</button>
+      <div style="display:flex;gap:10px;">
+        <button class="add-cancel-btn" onclick="closeEditModal()">Cancel</button>
+        <button class="add-confirm-btn" onclick="saveAndExport()">Save Changes</button>
+      </div>
     </div>
   </div>
 </div>
@@ -3201,6 +3216,24 @@ function replacePhoto(vesselId, event) {
 function closeEditModal() {
   editTargetId = null;
   document.getElementById('edit-modal-overlay').classList.remove('open');
+}
+
+function deleteVessel() {
+  if (!editTargetId) return;
+  const v = vessels.find(x => x.id === editTargetId);
+  if (!v) return;
+
+  if (!confirm(`Delete ${v.name || v.id}? This can't be undone once you save.`)) return;
+
+  const id = v.id;
+  vessels = vessels.filter(x => x.id !== id);
+  delete IMAGES[id];
+  delete PDF_PAGES[id];
+  delete VESSEL_PAGE[id];
+
+  markDirty();
+  closeEditModal();
+  render();
 }
 
 function saveAndExport() {
