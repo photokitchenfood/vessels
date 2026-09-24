@@ -1856,17 +1856,23 @@
   .board-export-note.show { display: block; }
 
   .board-panel-footer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
     padding: 14px 18px;
     border-top: 1px solid var(--tag-border);
     flex-shrink: 0;
   }
+  .board-panel-footer-row {
+    display: flex;
+    gap: 8px;
+  }
+  .board-panel-footer-row button { flex: 1 1 0; min-width: 0; }
   .board-panel-footer button {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     padding: 8px;
     border: 1.5px solid var(--tag-border);
     border-radius: var(--radius);
@@ -1880,6 +1886,7 @@
     transition: all 0.15s;
     margin: 0;
   }
+  .board-panel-footer button svg { flex-shrink: 0; }
   .board-panel-footer button:hover { border-color: var(--ink); color: var(--ink); }
 
   /* "+" add-to-board icon on catalog cards */
@@ -3555,8 +3562,20 @@ function autoGrow(el) {
   <div class="board-export-note" id="board-export-note"></div>
 
   <div class="board-panel-footer">
-    <button type="button" onclick="exportLayoutAsPNG()">Export Layout</button>
-    <button type="button" onclick="exportAllLayoutsAsPNG()">Export All</button>
+    <button type="button" onclick="exportLayoutAsPNG()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      Export This Layout
+    </button>
+    <div class="board-panel-footer-row">
+      <button type="button" onclick="exportEachLayoutAsPNG()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="13" height="13" rx="2"/><path d="M7 7V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-3"/></svg>
+        Export Each
+      </button>
+      <button type="button" onclick="exportAllLayoutsAsPNG()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Export All
+      </button>
+    </div>
   </div>
 </div>
 
@@ -3996,18 +4015,25 @@ function boardComputeExportScale(stageEl, desiredScale) {
 // canvas.toDataURL('image/png') — toBlob is used instead just because
 // it avoids building a giant base64 string for large exports.
 function boardTriggerCanvasDownload(canvas, filename) {
-  canvas.toBlob(blob => {
-    if (!blob) { alert('Export failed: could not generate image.'); return; }
-    const kb = (blob.size / 1024).toFixed(0);
-    const mp = (canvas.width * canvas.height / 1e6).toFixed(1);
-    console.log(`[Layout Board export] "${filename}" — ${canvas.width}×${canvas.height}px (${mp}MP), ${kb}KB`);
-    boardShowExportNote(`Exported ${canvas.width}×${canvas.height}px · ${kb}KB`);
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }, 'image/png');
+  return new Promise(resolve => {
+    canvas.toBlob(blob => {
+      if (!blob) { alert('Export failed: could not generate image.'); resolve(); return; }
+      const kb = (blob.size / 1024).toFixed(0);
+      const mp = (canvas.width * canvas.height / 1e6).toFixed(1);
+      console.log(`[Layout Board export] "${filename}" — ${canvas.width}×${canvas.height}px (${mp}MP), ${kb}KB`);
+      boardShowExportNote(`Exported ${canvas.width}×${canvas.height}px · ${kb}KB`);
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      a.click();
+      // Revoking on the next tick (rather than immediately) gives the browser
+      // a moment to actually pick up the blob URL before it's invalidated —
+      // revoking synchronously has been observed to silently drop a download
+      // when several are triggered in a short span (see exportEachLayoutAsPNG).
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      resolve();
+    }, 'image/png');
+  });
 }
 
 let boardExportNoteTimer = null;
@@ -4021,14 +4047,14 @@ function boardShowExportNote(text) {
 }
 
 function boardRunExport(layouts, isAll, filename) {
-  boardEnsureHtml2Canvas().then(() => {
+  return boardEnsureHtml2Canvas().then(() => {
     const stage = boardBuildExportStage(layouts, isAll);
     document.body.appendChild(stage);
     // Force a synchronous layout pass so the size read below reflects the
     // fully laid-out off-screen stage, not a stale/zero box.
     void stage.offsetHeight;
 
-    boardWaitForImages(stage).then(() => {
+    return boardWaitForImages(stage).then(() => {
       const scaleInfo = boardComputeExportScale(stage, window.devicePixelRatio || 2);
       const dims = `${Math.round(scaleInfo.unscaledW)}×${Math.round(scaleInfo.unscaledH)}px`;
       if (scaleInfo.oversized) {
@@ -4037,9 +4063,8 @@ function boardRunExport(layouts, isAll, filename) {
         console.warn(`[Layout Board export] "${filename}" (${dims}) — reduced render scale from ${scaleInfo.desiredScale}x to ${scaleInfo.appliedScale.toFixed(2)}x to stay under safe canvas size limits.`);
       }
 
-      html2canvas(stage.firstChild, { backgroundColor: '#ffffff', scale: scaleInfo.appliedScale }).then(canvas => {
-        boardTriggerCanvasDownload(canvas, filename);
-        stage.remove();
+      return html2canvas(stage.firstChild, { backgroundColor: '#ffffff', scale: scaleInfo.appliedScale }).then(canvas => {
+        return boardTriggerCanvasDownload(canvas, filename).then(() => { stage.remove(); });
       }).catch(err => {
         stage.remove();
         alert('Export failed: ' + err.message);
@@ -4062,6 +4087,27 @@ function exportLayoutAsPNG(layoutId) {
 function exportAllLayoutsAsPNG() {
   if (!boardState.layouts.length) { alert('No layouts to export yet.'); return; }
   boardRunExport(boardState.layouts, true, boardExportFilename(null, true));
+}
+
+// Exports one PNG per layout, reusing the same per-layout render/export path
+// as exportLayoutAsPNG (just looped). Downloads are triggered one at a time
+// with a short delay between them — firing several downloads back-to-back
+// can get some of them silently dropped as popup/spam blocking.
+const BOARD_EXPORT_EACH_DELAY_MS = 300;
+
+function exportEachLayoutAsPNG() {
+  if (!boardState.layouts.length) { alert('No layouts to export yet.'); return; }
+  const layouts = boardState.layouts.slice();
+  const runNext = i => {
+    if (i >= layouts.length) return;
+    const layout = layouts[i];
+    boardRunExport([layout], false, boardExportFilename(layout, false)).then(() => {
+      if (i + 1 < layouts.length) {
+        setTimeout(() => runNext(i + 1), BOARD_EXPORT_EACH_DELAY_MS);
+      }
+    });
+  };
+  runNext(0);
 }
 
 // ── Init ──
