@@ -1708,7 +1708,7 @@
     color: inherit;
     cursor: pointer;
   }
-  .board-tab .board-tab-code { font-weight: 500; color: var(--ink); text-transform: uppercase; }
+  .board-tab .board-tab-code { white-space: nowrap; font-weight: 500; color: var(--ink); text-transform: uppercase; }
   .board-tab .board-tab-name { font-weight: 500; }
   .board-tab.active { background: var(--ink); border-color: var(--ink); color: #fff; }
   .board-tab.active .board-tab-code { color: #fff; }
@@ -1748,7 +1748,8 @@
     flex-shrink: 0;
   }
   .board-code-input {
-    width: 46px;
+    width: 54px;
+    flex-shrink: 0;
     text-align: center;
     text-transform: uppercase;
     font-family: 'DM Mono', monospace;
@@ -1941,6 +1942,8 @@
     border-radius: 4px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .board-export-name { font-family: 'Syne', sans-serif; font-weight: 500; font-size: 18px; color: #1A1A18; }
   .board-export-grid {
@@ -3697,7 +3700,7 @@ function boardUpdateLayoutCode(layoutId, value) {
   if (!layout) return;
   // Store uppercase so the code matches exactly everywhere it's rendered
   // (tabs, export PNG) without depending solely on CSS text-transform.
-  layout.code = value.toUpperCase().slice(0, 3);
+  layout.code = value.toUpperCase().slice(0, 4);
   boardRenderTabs();
 }
 
@@ -3807,7 +3810,7 @@ function boardRenderPanel() {
 
   metaWrap.style.display = '';
   metaWrap.innerHTML = `
-    <input class="board-code-input" maxlength="3" value="${boardEscape(layout.code)}" placeholder="COD" oninput="boardUpdateLayoutCode('${layout.id}', this.value)">
+    <input class="board-code-input" maxlength="4" value="${boardEscape(layout.code)}" placeholder="COD" oninput="boardUpdateLayoutCode('${layout.id}', this.value)">
     <input class="board-name-input" value="${boardEscape(layout.name)}" placeholder="Layout name" oninput="boardUpdateLayoutName('${layout.id}', this.value)">
   `;
 
